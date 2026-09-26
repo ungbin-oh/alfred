@@ -18,7 +18,7 @@ Claude Code 를 **개인 비서**로 쓰는 작업 방식을 담은 플러그인
 Claude Code 안에서:
 
 ```
-/plugin marketplace add <github-user>/alfred
+/plugin marketplace add rorungbam99/alfred
 /plugin install alfred@alfred
 ```
 
@@ -83,7 +83,7 @@ Claude Code 안에서:
 Alfred turns Claude Code into a personal assistant with a fixed workflow: a status briefing at session start,
 decision-first project logs, per-day work traces, and daily notes. The user makes every decision; Alfred organizes.
 
-Install: `/plugin marketplace add <github-user>/alfred` → `/plugin install alfred@alfred`.
+Install: `/plugin marketplace add rorungbam99/alfred` → `/plugin install alfred@alfred`.
 Then run `/alfred-init` in an empty folder and restart Claude Code there. Rules are in Korean in v0.1.
 
 ## License
