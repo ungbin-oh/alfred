@@ -99,6 +99,16 @@ Claude Code 안에서 이렇게 말씀해 주십시오.
 | `하루를 정리하자` | 오늘 trace 로 daily 의 Timeline 작성 |
 | `전체 히스토리 봐` | 해당 프로젝트 로그 통독 |
 
+## 새 버전을 받으시려면
+
+```
+/plugin marketplace update alfred
+/plugin uninstall alfred@alfred
+/plugin install alfred@alfred
+```
+
+그다음 Claude Code 를 한 번 다시 여십시오. 워크스페이스의 로그와 설정은 그대로입니다.
+
 ## 물러나게 하시려면
 
 ```
