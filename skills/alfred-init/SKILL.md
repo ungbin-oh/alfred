@@ -52,7 +52,7 @@ daily/YYYY/YYYY-MM/YYYY-MM-DD.md       ← 오늘자, _template 에서 date 만 
 - `.alfred/workspace` 내용:
   ```
   alfred-workspace
-  version: 0.1.1
+  version: 0.1.2
   created: YYYY-MM-DD
   ```
 - 템플릿은 복사만 하고 저작 헤더를 넣지 않는다 (사용자 파일이다)
