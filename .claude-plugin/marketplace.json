@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "alfred",
+  "description": "Alfred — a personal assistant workflow for Claude Code.",
+  "owner": {
+    "name": "Ungbin_Oh",
+    "url": "https://github.com/<github-user>"
+  },
+  "plugins": [
+    {
+      "name": "alfred",
+      "description": "Boot briefing, decision-first project logs, work traces and daily notes. The user decides; Alfred organizes.",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}

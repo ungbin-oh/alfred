@@ -1,0 +1,10 @@
+# 각 프로젝트의 코드는 자기 git 에서 관리한다
+project-workspace/
+
+# Alfred 상태 파일 (세션 모드 등)
+.alfred/manual-mode
+
+# 에디터·OS
+.claude/
+.obsidian/
+.DS_Store

@@ -1,0 +1,82 @@
+---
+name: alfred-init
+description: Alfred 워크스페이스를 현재 폴더에 만든다 — CLAUDE.md(개인 설정), project-logs/, daily/ 템플릿, .alfred/workspace 마커. 사용자가 /alfred-init 을 입력하거나 "Alfred 설치/초기화해줘" 라고 명시할 때만 쓴다.
+---
+
+# alfred-init
+
+written by Ungbin_Oh · created 2026-09-26 · updated 2026-09-26
+
+현재 작업 폴더를 Alfred 워크스페이스로 만든다. 만들어지는 파일은 전부 **사용자 소유**다.
+공통 규약은 플러그인 훅이 세션마다 넣어 주므로 여기서 복사하지 않는다.
+
+템플릿은 이 스킬 디렉토리의 `templates/` 에 있다 (이 SKILL.md 와 같은 위치).
+
+## 순서
+
+### 1. 현재 폴더 확인 (읽기만)
+- `pwd`, `ls -la` 로 현재 위치와 내용을 본다
+- 이미 `.alfred/workspace` 가 있으면 **이미 초기화된 워크스페이스**라고 알리고 멈춘다
+- `CLAUDE.md` 가 이미 있으면 덮어쓰지 않는다. 객관식 질문 창(AskUserQuestion)으로 묻는다:
+  기존 파일 끝에 Alfred 설정 절을 붙일지 / 중단할지
+- 홈 디렉토리(`~`) 바로 위라면 한 번 더 확인한다 (보통은 전용 폴더를 쓴다)
+
+### 2. 설정 묻기
+**객관식 질문 창(AskUserQuestion)으로 묻는다.** 텍스트로 묻지 않는다.
+창 하나에 질문은 4개까지라 두 번에 나눈다 (1~4 / 5). 선택지에는 괄호 안 기본값을 두고,
+자유 입력은 창이 붙여 주는 "직접 입력(Other)" 으로 받는다.
+사용자 이름은 `git config user.name` 이 있으면 그 값을 선택지로 둔다.
+1. 사용자 이름 (로그의 판단 주체 표기에 쓴다)
+2. 비서가 부를 호칭 (예: "OO님")
+3. 비서 이름 (Alfred)
+4. 카테고리 폴더 — 이름과 산출물 배치 방식(엄격/완화)
+   (기본: `Work` 엄격 · `Research` 엄격 · `Life` 완화)
+5. 저작 헤더를 켤지, 켠다면 헤더에 쓸 이름 (끔)
+
+### 3. 만들 것 보여 주고 확인받기
+아래 목록을 텍스트로 보여 준 뒤, **질문 창으로 확인받고** 만든다 (만들기 / 설정 다시 / 중단).
+```
+CLAUDE.md                              ← templates/CLAUDE.md 에 설정값을 채움
+.alfred/workspace                      ← 마커 (버전·생성일)
+.gitignore                             ← templates/gitignore
+project-logs/<카테고리>/.gitkeep        ← 카테고리마다
+project-workspace/<카테고리>/.gitkeep
+daily/_template.md
+daily/_timeline-example.md
+daily/YYYY/YYYY-MM/YYYY-MM-DD.md       ← 오늘자, _template 에서 date 만 치환
+```
+
+### 4. 만들기
+- 날짜는 `date '+%Y-%m-%d'` 로 확인한 값
+- `CLAUDE.md` 의 `{{...}}` 자리를 설정값으로 모두 채운다. 남은 `{{` 가 없는지 확인한다
+- `.alfred/workspace` 내용:
+  ```
+  alfred-workspace
+  version: 0.1.1
+  created: YYYY-MM-DD
+  ```
+- 템플릿은 복사만 하고 저작 헤더를 넣지 않는다 (사용자 파일이다)
+
+### 5. 상태줄 배지 (선택)
+Alfred 워크스페이스에서 상태줄에 하늘색 `[ALFRED]` 배지를 띄운다. **전역 설정(`~/.claude/settings.json`)을 고치는 일이라
+질문 창으로 먼저 묻는다.** 기존 `statusLine` 이 있는지 읽어 보고 선택지를 고른다:
+- 기존 `statusLine` 이 없으면: 켜기 / 건너뛰기
+- 있으면: 같이 띄우기(기존 것 옆에 붙임) / Alfred 로 바꾸기 / 건너뛰기
+
+켜는 경우:
+1. 이 스킬 기준 `../../hooks/statusline.sh` 를 `~/.claude/alfred-statusline.sh` 로 복사하고 실행 권한을 준다
+   (플러그인 캐시 경로는 업데이트마다 바뀌어 settings.json 에 직접 적을 수 없다)
+2. "같이 띄우기" 면 기존 `statusLine.command` 문자열을 `~/.claude/.alfred-statusline-chain` 에 저장한다
+3. `settings.json` 의 `statusLine` 을 `{"type": "command", "command": "bash ~/.claude/alfred-statusline.sh"}` 로 바꾼다.
+   **다른 키는 건드리지 않는다.** 고치기 전 내용을 보여 주고, 고친 뒤 diff 를 보여 준다
+- 색은 환경변수 `ALFRED_COLOR` 로 바꿀 수 있다 (256색 코드. 기본 117 하늘색, 114 초록)
+- 되돌리기: `~/.claude/.alfred-statusline-chain` 에 저장된 명령을 `statusLine.command` 로 되돌리거나 `statusLine` 을 지운다
+
+### 6. 마무리 안내
+- **Claude Code 를 이 폴더에서 다시 시작해야** 훅이 워크스페이스를 알아본다고 알린다
+- 첫 프로젝트는 "<카테고리> 에 <이름> 프로젝트 만들어줘" 로 시작하면 된다고 알린다
+- git 을 쓸지는 묻기만 한다. `git init` 은 사용자가 하겠다고 할 때만 실행한다
+
+## 새 프로젝트를 만들 때 (init 이후, 사용자가 요청하면)
+`project-logs/<카테고리>/<프로젝트>/log.md` 를 공통 규약 7절의 frontmatter 와 상단 구성(목표 · 전제 · 왜 지금 이 방식인가)으로 만든다.
+objective · code · status 는 사용자에게 받는다. 지어내지 않는다.
