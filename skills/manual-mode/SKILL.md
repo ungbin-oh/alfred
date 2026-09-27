@@ -1,49 +1,47 @@
 ---
 name: manual-mode
-description: 수동 모드 토글 (lite / medium / full / once / status / off). 사용자가 /manual-mode 를 입력할 때만 쓴다. 켜면 비서는 명령·코드를 출력만 하고 사용자가 직접 실행한다.
+description: Toggle manual mode (lite / medium / full / once / status / off). Use only when the user types /manual-mode. When on, the assistant only prints commands and code, and the user runs them.
 ---
 
 # manual-mode
 
-written by Ungbin_Oh · created 2026-09-26 · updated 2026-09-26
+A mode that ties the assistant's hands so the user types things themselves. The level is stored as one line in the workspace's
+`.alfred/manual-mode` file, and the plugin's UserPromptSubmit hook injects the rules every turn.
 
-사용자가 손으로 직접 치도록 비서의 손을 묶는 모드다. 레벨은 워크스페이스의
-`.alfred/manual-mode` 파일 한 줄로 저장되고, 플러그인의 UserPromptSubmit 훅이 매 턴 규칙을 넣는다.
+Workspace root = the working folder or its nearest parent that has `.alfred/workspace`.
+If there is none, say "this is not an Alfred workspace" and stop.
 
-워크스페이스 루트 = 작업 폴더 또는 그 상위 중 `.alfred/workspace` 가 있는 곳.
-없으면 "Alfred 워크스페이스가 아니다" 라고 말하고 멈춘다.
+## By argument
 
-## 인자별 동작
-
-| 인자 | 동작 |
+| Argument | Action |
 |---|---|
-| `lite` / `medium` / `full` | `.alfred/manual-mode` 에 그 단어 한 줄을 쓴다. 이 턴부터 해당 레벨 규칙을 적용한다고 알린다 |
-| `off` | `.alfred/manual-mode` 를 지운다. 해제됐다고 알린다 |
-| `status` | 파일이 있으면 레벨을, 없으면 "꺼져 있음" 을 알린다 |
-| `once` | 아래 "once" 절 |
-| (없음) | 사용법 한 줄: `/manual-mode lite\|medium\|full \| once \| status \| off` |
-| 그 밖 | 모르는 인자라고 알리고 위 사용법을 보여 준다 |
+| `lite` / `medium` / `full` | Write that word as one line to `.alfred/manual-mode`. Say the level's rules apply from this turn |
+| `off` | Delete `.alfred/manual-mode`. Say it's turned off |
+| `status` | If the file exists, report the level; otherwise "off" |
+| `once` | See "once" below |
+| (none) | One line of usage: `/manual-mode lite\|medium\|full \| once \| status \| off` |
+| anything else | Say the argument is unknown and show the usage above |
 
-상태 파일을 쓰고 지우는 것은 모드가 켜져 있어도 비서가 한다 (예외로 허용된 자리).
+Writing and deleting the state file is done by the assistant even while the mode is on (an allowed exception).
 
-## 레벨
+## Levels
 
-- **lite** — 셸 실행만 사용자가
-- **medium** — + 코드 파일 작성·수정도 사용자가. 비서는 코드 블록으로 출력
-- **full** — + 설계도 안 내놓음. 힌트 사다리 1칸(방향)에 고정
+- **lite** — only shell runs are the user's
+- **medium** — + writing and editing code files is the user's too. The assistant prints code blocks
+- **full** — + no design offered either. Hint ladder pinned to rung 1 (direction)
 
-세부 규칙은 훅이 매 턴 넣는다. 이 턴(토글 턴)에는 훅이 주입을 건너뛰므로,
-레벨을 켠 턴이라면 방금 켠 레벨 기준으로 행동한다.
+The hook injects the detailed rules every turn. On this turn (the toggle turn) the hook skips injection,
+so if you just turned a level on, act by the level just set.
 
 ## once
 
-이번 한 턴만 예외. **레벨은 그대로다** (파일을 바꾸지 않는다). 모드가 꺼져 있으면
-"once 는 모드가 켜져 있을 때만 쓴다" 라고 말하고 멈춘다.
+An exception for this one turn only. **The level stays** (the file isn't changed). If the mode is off,
+say "once only works while the mode is on" and stop.
 
-켜져 있으면 **직전 턴에 비서가 출력한 셸 블록을 비서가 직접 실행한다.**
-- 그 블록에 있던 명령만. 새 명령을 지어내거나 덧붙이지 않는다
-- 실행 전에 무엇을 돌리는지 한 줄로 먼저 적는다
-- 직전 턴에 블록이 둘 이상이면 실행하지 말고 어느 것인지 묻는다
-- 직전 턴에 블록이 없으면 실행할 것이 없다고 말한다
-- 실행 후 결과를 보고한다. 다음 턴부터는 원래 레벨로 돌아간다
-- 예외는 그 블록의 실행뿐이다. 이어지는 후속 실행·재시도는 다시 사용자 몫이다 (허가는 1회분)
+If it's on, **the assistant runs the shell block it printed in the previous turn itself.**
+- Only the commands in that block. Don't invent or add commands
+- Before running, write one line on what is being run
+- If the previous turn had more than one block, don't run — ask which one
+- If the previous turn had no block, say there's nothing to run
+- Report the result after running. From the next turn, back to the normal level
+- The exception covers only running that block. Follow-up runs and retries are the user's again (permission covers one run)

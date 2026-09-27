@@ -1,26 +1,27 @@
 #!/usr/bin/env bash
 # written by Ungbin_Oh
 # created : 2026-09-26
-# updated : 2026-09-26
+# updated : 2026-09-27
 #
 # Alfred — SessionStart hook
 #
-# 작업 폴더(또는 그 상위)에 .alfred/workspace 마커가 있을 때만 동작한다.
-# 마커가 없으면 아무것도 출력하지 않는다 — Alfred 와 상관없는 세션을 오염시키지 않기 위해서다.
+# Runs only when the working directory (or a parent) has the .alfred/workspace marker.
+# Without the marker it prints nothing — so it never pollutes sessions unrelated to Alfred.
 #
-# 마커가 있으면 stdout 으로 다음을 내보낸다 (Claude Code 가 세션 컨텍스트로 넣는다):
-#   1. 현재 날짜·시각·요일 (모델에게는 시계가 없다)
-#   2. 워크스페이스 루트 경로
-#   3. rules/core.md 본문 (공통 규약)
+# With the marker it prints the following to stdout (Claude Code adds it to the session context):
+#   1. Current date, time and weekday (the model has no clock)
+#   2. Workspace root path
+#   3. Workspace language (the `language:` line in the marker; en if missing)
+#   4. Body of rules/core.md (common rules)
 #
-# 가정: macOS / Linux, bash. Windows 는 검증하지 않았다.
+# Assumes macOS / Linux, bash. Not tested on Windows.
 
 set -u
 
 PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
 START_DIR="${CLAUDE_PROJECT_DIR:-$PWD}"
 
-# 상위로 올라가며 마커를 찾는다
+# Walk up looking for the marker
 find_root() {
   local d="$1"
   while [ -n "$d" ] && [ "$d" != "/" ]; do
@@ -36,13 +37,20 @@ find_root() {
 ROOT=$(find_root "$START_DIR") || exit 0
 
 RULES="$PLUGIN_ROOT/rules/core.md"
-[ -f "$RULES" ] || { echo "ALFRED — rules/core.md 를 찾지 못했다 ($RULES). 플러그인 설치를 확인할 것."; exit 0; }
+[ -f "$RULES" ] || { echo "ALFRED — could not find rules/core.md ($RULES). Check the plugin installation."; exit 0; }
+
+LANG_CODE=$(sed -n 's/^language:[[:space:]]*\([a-z][a-z]\).*/\1/p' "$ROOT/.alfred/workspace" | head -1)
+case "$LANG_CODE" in
+  ko) LANG_LINE="ko — speak to the user in Korean (합쇼체) and write logs, traces and notes in Korean" ;;
+  *)  LANG_LINE="en — speak to the user in English and write logs, traces and notes in English" ;;
+esac
 
 echo "ALFRED ACTIVE"
-echo "현재 시각: $(date '+%Y-%m-%d %H:%M (%a)')"
-echo "워크스페이스 루트: $ROOT"
+echo "Current time: $(date '+%Y-%m-%d %H:%M (%a)')"
+echo "Workspace root: $ROOT"
+echo "Language: $LANG_LINE"
 echo
-echo "아래는 Alfred 공통 규약이다. 워크스페이스 CLAUDE.md 와 부딪히면 CLAUDE.md 가 이긴다."
+echo "Below are the Alfred common rules. Where they conflict with the workspace CLAUDE.md, CLAUDE.md wins."
 echo
-# 저작 헤더 줄은 세션에 넣지 않는다
+# Leave the author header line out of the session
 grep -v '^written by ' "$RULES"

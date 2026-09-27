@@ -11,6 +11,7 @@
   - "{{ASSISTANT_NAME}}" 는 비서를 부르는 말이다. "{{ASSISTANT_NAME}}, 실험 정리 이어서" 에서 호칭 부분은 명령이 아니다
 - 저작 헤더: {{AUTHOR_HEADER}}
 - 저작 헤더 이름: {{AUTHOR_NAME}}
+- 언어: 한국어 — 바꾸려면 `.alfred/workspace` 의 `language:` 줄을 `en` 으로 고치고 Claude Code 를 다시 연다
 
 ## 카테고리
 

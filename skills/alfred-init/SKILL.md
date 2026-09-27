@@ -1,82 +1,91 @@
 ---
 name: alfred-init
-description: Alfred 워크스페이스를 현재 폴더에 만든다 — CLAUDE.md(개인 설정), project-logs/, daily/ 템플릿, .alfred/workspace 마커. 사용자가 /alfred-init 을 입력하거나 "Alfred 설치/초기화해줘" 라고 명시할 때만 쓴다.
+description: Set up an Alfred workspace in the current folder — CLAUDE.md (personal settings), project-logs/, daily/ templates, .alfred/workspace marker. Use only when the user types /alfred-init or explicitly says "install/initialize Alfred".
 ---
 
 # alfred-init
 
-written by Ungbin_Oh · created 2026-09-26 · updated 2026-09-26
+Turns the current working folder into an Alfred workspace. Every file created **belongs to the user**.
+The common rules are injected every session by the plugin hook, so they are not copied here.
 
-현재 작업 폴더를 Alfred 워크스페이스로 만든다. 만들어지는 파일은 전부 **사용자 소유**다.
-공통 규약은 플러그인 훅이 세션마다 넣어 주므로 여기서 복사하지 않는다.
+Templates are in this skill directory's `templates/` (next to this SKILL.md), one set per language:
+`templates/en/` and `templates/ko/`. `templates/gitignore` is shared.
 
-템플릿은 이 스킬 디렉토리의 `templates/` 에 있다 (이 SKILL.md 와 같은 위치).
+## Steps
 
-## 순서
+### 1. Check the current folder (read only)
+- Look at where you are and what's there with `pwd`, `ls -la`
+- If `.alfred/workspace` already exists, say it's **already an initialized workspace** and stop
+- If `CLAUDE.md` already exists, don't overwrite it. Ask via the multiple-choice question window (AskUserQuestion):
+  append an Alfred settings section to the end of the existing file / stop
+- If you're directly in the home directory (`~`), confirm once more (usually a dedicated folder is used)
 
-### 1. 현재 폴더 확인 (읽기만)
-- `pwd`, `ls -la` 로 현재 위치와 내용을 본다
-- 이미 `.alfred/workspace` 가 있으면 **이미 초기화된 워크스페이스**라고 알리고 멈춘다
-- `CLAUDE.md` 가 이미 있으면 덮어쓰지 않는다. 객관식 질문 창(AskUserQuestion)으로 묻는다:
-  기존 파일 끝에 Alfred 설정 절을 붙일지 / 중단할지
-- 홈 디렉토리(`~`) 바로 위라면 한 번 더 확인한다 (보통은 전용 폴더를 쓴다)
+### 2. Ask for settings
+**Ask via the multiple-choice question window (AskUserQuestion).** Never in text.
+Put the default in the options and take free input through the "Other" the window adds.
 
-### 2. 설정 묻기
-**객관식 질문 창(AskUserQuestion)으로 묻는다.** 텍스트로 묻지 않는다.
-창 하나에 질문은 4개까지라 두 번에 나눈다 (1~4 / 5). 선택지에는 괄호 안 기본값을 두고,
-자유 입력은 창이 붙여 주는 "직접 입력(Other)" 으로 받는다.
-사용자 이름은 `git config user.name` 이 있으면 그 값을 선택지로 둔다.
-1. 사용자 이름 (로그의 판단 주체 표기에 쓴다)
-2. 비서가 부를 호칭 (예: "OO님")
-3. 비서 이름 (Alfred)
-4. 카테고리 폴더 — 이름과 산출물 배치 방식(엄격/완화)
-   (기본: `Work` 엄격 · `Research` 엄격 · `Life` 완화)
-5. 저작 헤더를 켤지, 켠다면 헤더에 쓸 이름 (끔)
+**Window 1 — language, alone.** Everything after this is asked in the chosen language.
+- Language: `English` (default) / `한국어`
 
-### 3. 만들 것 보여 주고 확인받기
-아래 목록을 텍스트로 보여 준 뒤, **질문 창으로 확인받고** 만든다 (만들기 / 설정 다시 / 중단).
+**Window 2** (up to 4 questions per window)
+1. User name (used to mark who decided in logs). If `git config user.name` is set, offer it as an option
+2. How the assistant addresses the user (en e.g. "sir", the user's name / ko e.g. "OO님", "주인님")
+3. Assistant name (Alfred)
+4. Category folders — names and output placement (strict/relaxed)
+   (default: `Work` strict · `Research` strict · `Life` relaxed)
+
+**Window 3**
+5. Whether to turn on the author header, and if so, the name to put in it (off)
+
+### 3. Show what will be created and confirm
+Show the list below as text, then **confirm through the question window** before creating (create / redo settings / stop).
+`<lang>` is `en` or `ko` per step 2.
 ```
-CLAUDE.md                              ← templates/CLAUDE.md 에 설정값을 채움
-.alfred/workspace                      ← 마커 (버전·생성일)
+CLAUDE.md                              ← templates/<lang>/CLAUDE.md with settings filled in
+.alfred/workspace                      ← marker (version, created date, language)
 .gitignore                             ← templates/gitignore
-project-logs/<카테고리>/.gitkeep        ← 카테고리마다
-project-workspace/<카테고리>/.gitkeep
-daily/_template.md
-daily/_timeline-example.md
-daily/YYYY/YYYY-MM/YYYY-MM-DD.md       ← 오늘자, _template 에서 date 만 치환
+project-logs/<category>/.gitkeep       ← one per category
+project-workspace/<category>/.gitkeep
+daily/_template.md                     ← templates/<lang>/daily/
+daily/_timeline-example.md             ← templates/<lang>/daily/
+daily/YYYY/YYYY-MM/YYYY-MM-DD.md       ← today's, from _template with only the date replaced
 ```
 
-### 4. 만들기
-- 날짜는 `date '+%Y-%m-%d'` 로 확인한 값
-- `CLAUDE.md` 의 `{{...}}` 자리를 설정값으로 모두 채운다. 남은 `{{` 가 없는지 확인한다
-- `.alfred/workspace` 내용:
+### 4. Create
+- Dates are values checked with `date '+%Y-%m-%d'`
+- Fill every `{{...}}` in `CLAUDE.md` with the settings. Check that no `{{` remains
+  - `{{AUTHOR_HEADER}}`: en `on` / `off`, ko `켬` / `끔`
+  - `{{CATEGORY_ROWS}}`: one table row per category — `| <folder> | <what> | strict/relaxed |` (ko: `엄격` / `완화`)
+- `.alfred/workspace` contents:
   ```
   alfred-workspace
   version: 0.1.2
   created: YYYY-MM-DD
+  language: en
   ```
-- 템플릿은 복사만 하고 저작 헤더를 넣지 않는다 (사용자 파일이다)
+  (`language: ko` for Korean. The session-start hook reads this line)
+- Copy templates as-is; don't add author headers (they're the user's files)
 
-### 5. 상태줄 배지 (선택)
-Alfred 워크스페이스에서 상태줄에 하늘색 `[ALFRED]` 배지를 띄운다. **전역 설정(`~/.claude/settings.json`)을 고치는 일이라
-질문 창으로 먼저 묻는다.** 기존 `statusLine` 이 있는지 읽어 보고 선택지를 고른다:
-- 기존 `statusLine` 이 없으면: 켜기 / 건너뛰기
-- 있으면: 같이 띄우기(기존 것 옆에 붙임) / Alfred 로 바꾸기 / 건너뛰기
+### 5. Statusline badge (optional)
+Shows a sky-blue `[ALFRED]` badge in the statusline inside Alfred workspaces. **This edits global settings (`~/.claude/settings.json`),
+so ask through the question window first.** Read whether a `statusLine` already exists and pick the options:
+- No existing `statusLine`: turn on / skip
+- One exists: show both (appended next to the existing one) / replace with Alfred / skip
 
-켜는 경우:
-1. 이 스킬 기준 `../../hooks/statusline.sh` 를 `~/.claude/alfred-statusline.sh` 로 복사하고 실행 권한을 준다
-   (플러그인 캐시 경로는 업데이트마다 바뀌어 settings.json 에 직접 적을 수 없다)
-2. "같이 띄우기" 면 기존 `statusLine.command` 문자열을 `~/.claude/.alfred-statusline-chain` 에 저장한다
-3. `settings.json` 의 `statusLine` 을 `{"type": "command", "command": "bash ~/.claude/alfred-statusline.sh"}` 로 바꾼다.
-   **다른 키는 건드리지 않는다.** 고치기 전 내용을 보여 주고, 고친 뒤 diff 를 보여 준다
-- 색은 환경변수 `ALFRED_COLOR` 로 바꿀 수 있다 (256색 코드. 기본 117 하늘색, 114 초록)
-- 되돌리기: `~/.claude/.alfred-statusline-chain` 에 저장된 명령을 `statusLine.command` 로 되돌리거나 `statusLine` 을 지운다
+If turning on:
+1. Copy `../../hooks/statusline.sh` (relative to this skill) to `~/.claude/alfred-statusline.sh` and make it executable
+   (the plugin cache path changes with every update, so it can't be written into settings.json directly)
+2. For "show both", save the existing `statusLine.command` string to `~/.claude/.alfred-statusline-chain`
+3. Set `statusLine` in `settings.json` to `{"type": "command", "command": "bash ~/.claude/alfred-statusline.sh"}`.
+   **Touch no other keys.** Show the contents before editing and the diff after
+- The color can be changed with the `ALFRED_COLOR` env var (256-color code. Default 117 sky blue, 114 green)
+- To undo: restore `statusLine.command` from `~/.claude/.alfred-statusline-chain`, or delete `statusLine`
 
-### 6. 마무리 안내
-- **Claude Code 를 이 폴더에서 다시 시작해야** 훅이 워크스페이스를 알아본다고 알린다
-- 첫 프로젝트는 "<카테고리> 에 <이름> 프로젝트 만들어줘" 로 시작하면 된다고 알린다
-- git 을 쓸지는 묻기만 한다. `git init` 은 사용자가 하겠다고 할 때만 실행한다
+### 6. Wrap up
+- Tell the user they **must restart Claude Code in this folder** for the hook to recognize the workspace
+- Tell them the first project can start with "create a <name> project in <category>"
+- Only ask whether to use git. Run `git init` only if the user says to
 
-## 새 프로젝트를 만들 때 (init 이후, 사용자가 요청하면)
-`project-logs/<카테고리>/<프로젝트>/log.md` 를 공통 규약 7절의 frontmatter 와 상단 구성(목표 · 전제 · 왜 지금 이 방식인가)으로 만든다.
-objective · code · status 는 사용자에게 받는다. 지어내지 않는다.
+## Creating a new project (after init, when the user asks)
+Create `project-logs/<category>/<project>/log.md` with the frontmatter from section 7 of the common rules and the top section
+(goal · premises · why this approach now). Get objective · code · status from the user. Never make them up.

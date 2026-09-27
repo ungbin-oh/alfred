@@ -1,10 +1,10 @@
-# 각 프로젝트의 코드는 자기 git 에서 관리한다
+# Each project's code is managed in its own git
 project-workspace/
 
-# Alfred 상태 파일 (세션 모드 등)
+# Alfred state files (session modes, etc.)
 .alfred/manual-mode
 
-# 에디터·OS
+# Editor / OS
 .claude/
 .obsidian/
 .DS_Store

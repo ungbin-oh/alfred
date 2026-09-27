@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 # written by Ungbin_Oh
 # created : 2026-09-26
-# updated : 2026-09-26
+# updated : 2026-09-27
 #
 # Alfred — manual-mode UserPromptSubmit hook
 #
-# 워크스페이스의 .alfred/manual-mode 상태 파일에 적힌 레벨을 매 턴 컨텍스트에 다시 넣는다.
-# 파일이 없으면 아무것도 출력하지 않는다 (모드 꺼짐).
+# Re-injects the level written in the workspace's .alfred/manual-mode state file into the context every turn.
+# If the file doesn't exist, prints nothing (mode off).
 #
-# 토글은 이 훅이 아니라 manual-mode 스킬이 한다 (상태 파일을 쓰고 지운다).
-# 그래서 이 훅은 프롬프트 JSON 을 파싱하지 않는다 — python 같은 의존성이 필요 없다.
-# 단, 이번 프롬프트가 manual-mode 호출이면 주입을 건너뛴다. 토글 턴의 규칙은 스킬이 정한다.
+# Toggling is done by the manual-mode skill, not this hook (it writes and deletes the state file).
+# So this hook doesn't parse the prompt JSON — no dependency like python is needed.
+# If this prompt is a manual-mode call, though, injection is skipped. The skill sets the rules for the toggle turn.
 #
-# 가정: macOS / Linux, bash. Windows 는 검증하지 않았다.
+# Assumes macOS / Linux, bash. Not tested on Windows.
 
 set -u
 
@@ -37,7 +37,7 @@ STATE="$ROOT/.alfred/manual-mode"
 
 [ -f "$STATE" ] || exit 0
 
-# 이번 턴이 토글 호출이면 스킬에 맡긴다
+# A toggle call this turn is left to the skill
 case "$input" in
   *manual-mode*) exit 0 ;;
 esac
@@ -45,28 +45,35 @@ esac
 level=$(tr -d '[:space:]' < "$STATE")
 case "$level" in lite|medium|full) ;; *) exit 0 ;; esac
 
+# Boundary comments follow the workspace language (the user sees them)
+LANG_CODE=$(sed -n 's/^language:[[:space:]]*\([a-z][a-z]\).*/\1/p' "$ROOT/.alfred/workspace" | head -1)
+case "$LANG_CODE" in
+  ko) FROM="여기부터 직접 실행"; TO="여기까지" ;;
+  *)  FROM="run from here"; TO="end" ;;
+esac
+
 cat <<RULES
 MANUAL MODE ACTIVE — level: $level
 
-사용자가 직접 친다. 비서는 **출력만** 하고 실행하지 않는다.
-왜: 비서가 전부 대신 치면 사용자의 손이 굳는다. 직접 쳐 봐야 실력이 는다.
+The user types it themselves. The assistant **only prints** and never runs.
+Why: if the assistant types everything, the user's hands go stiff. Typing it yourself is how you get better.
 
-## 출력 형식 (전 레벨 공통)
-설명 문단과 코드 블록을 번갈아 쓴다. **사용자가 칠 것과 비서의 말이 눈으로 구분돼야 한다.**
-- 실행할 것은 전부 \`\`\`bash 코드 블록 안에만. 설명 문단에 인라인 백틱으로 명령을 섞지 않는다
-- 블록 첫 줄과 마지막 줄에 경계선 주석을 그대로 쓴다 (주석이라 통째로 붙여 넣어도 무해하다)
+## Output format (all levels)
+Alternate explanation paragraphs and code blocks. **What the user types and what the assistant says must be visually distinct.**
+- Everything to run goes only inside \`\`\`bash code blocks. Don't mix commands into explanation paragraphs as inline backticks
+- Put these boundary comments on the first and last line of the block, verbatim (they're comments, so pasting the whole block is harmless)
   ~~~
-  # ══════════ 여기부터 직접 실행 ══════════
-  # ══════════ 여기까지 ══════════
+  # ══════════ $FROM ══════════
+  # ══════════ $TO ══════════
   ~~~
-- 명령 하나에 주석 하나. 각 명령 바로 위 줄에 무엇을 위한 것인지 한 줄
-- 블록은 그대로 복사해 붙일 수 있어야 한다. 플레이스홀더를 남기지 말고 경로·파일명을 먼저 조사해 채운다
-- 한 블록에 한 덩어리. 결과가 필요하면 거기서 멈추고 기다린다
+- One comment per command. On the line right above each command, one line on what it's for
+- Blocks must be copy-paste ready. Leave no placeholders — look up paths and file names first and fill them in
+- One chunk per block. If a result is needed, stop there and wait
 
-## 비서가 계속 하는 것 (전 레벨)
-읽기 전용 조사만: cat, head, sed -n, ls, grep, find, git status/log/diff.
-**상태를 바꾸는 것은 전부 금지** — commit, push, mv, rm, cp, 리다이렉트(>), 설치, 빌드, 원격 실행.
-예외: project-logs/ · daily/ 아래 기록과 .alfred/ 상태 파일은 비서가 계속 쓴다.
+## What the assistant keeps doing (all levels)
+Read-only lookups only: cat, head, sed -n, ls, grep, find, git status/log/diff.
+**Anything that changes state is forbidden** — commit, push, mv, rm, cp, redirection (>), installs, builds, remote runs.
+Exception: records under project-logs/ · daily/ and the .alfred/ state files are still written by the assistant.
 RULES
 
 case "$level" in
@@ -74,28 +81,28 @@ case "$level" in
     cat <<'RULES'
 
 ## level: lite
-코드 파일 작성·수정과 설계는 비서가 계속 한다. 사용자가 치는 것은 **셸 실행뿐**이다.
+The assistant still writes and edits code files and does design. The user types **only shell commands**.
 RULES
     ;;
   medium)
     cat <<'RULES'
 
 ## level: medium
-셸 실행에 더해 **코드 파일 작성·수정도 사용자가 한다.**
-- 코드 파일에 Write/Edit 를 쓰지 않는다. 코드는 코드 블록으로 출력하고 사용자가 옮겨 쓴다
-- 블록 첫 줄 주석에 대상 파일 경로를 적는다
-- 설계·구조·의사코드는 비서가 계속 내놓는다 (힌트 사다리 그대로)
+On top of shell commands, **the user also writes and edits code files.**
+- Don't use Write/Edit on code files. Print code as code blocks and the user copies it over
+- Put the target file path in a comment on the block's first line
+- The assistant still offers design, structure and pseudocode (hint ladder as usual)
 RULES
     ;;
   full)
     cat <<'RULES'
 
 ## level: full
-medium 에 더해 **설계도 내놓지 않는다.**
-- 힌트 사다리를 1칸(방향)에 고정한다. 사용자가 "그냥 답 줘" 라고 해도 이 모드에서는 올라가지 않는다.
-  올리려면 medium 으로 내려야 한다
-- 하는 것: 어디를 봐야 하는지, 무엇이 문제인지, 사용자가 가져온 것에 대한 리뷰
-- 안 하는 것: 의사코드, 구조 제시, 코드, 셸 실행
+On top of medium, **no design is offered either.**
+- The hint ladder is pinned to rung 1 (direction). Even if the user says "just give me the answer", it doesn't climb in this mode.
+  To climb, drop to medium
+- Do: where to look, what the problem is, review of what the user brought
+- Don't: pseudocode, structure, code, shell runs
 RULES
     ;;
 esac
