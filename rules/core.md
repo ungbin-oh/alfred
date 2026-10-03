@@ -250,6 +250,9 @@ workspace_repo: ~/path         # optional. Only when code lives outside the mirr
 - The `## Timeline` section. Separate from `## Done`. **Never generated automatically.** Writing the previous day's the next day is fine
 - **The source is that day's trace headers.** Never from memory. Times and numbers exactly as in the trace
 - Group into chunks where the phase changed; each chunk gets a time range + a short title
+- **A summary table at the top, chunk details below.** Columns: `#` · time · project · one line.
+  One chunk = one row; number them (①②…) to match the detail titles
+  - Why: see the whole day at a glance, then read down only the chunks you need
 - One event per line. No narration. Bold only results that changed the direction of the day
 - **Keep dead ends and misdiagnoses** — but only those that changed, or nearly changed, the day's direction.
   The assistant's tool slips (typos in commands, wrong flags) don't go here — trace only
