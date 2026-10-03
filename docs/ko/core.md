@@ -69,6 +69,10 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-03
    - **카테고리마다 소제목 + 표 하나.** 열: 프로젝트 / 상태 / updated / 방치 일수 / next_action
    - 간격은 촘촘하게. 소제목 바로 다음 줄에 표
    - `status: done` 은 표에서 빼고 소제목 옆에 "· 완료: N건"
+   - **neglected 표시:** `status: active` 인데 `updated` 가 **14일 넘게** 지났으면 상태 칸을 `🔴 neglected` 로 보여 준다.
+     **표시만이다 — log.md 의 status 는 건드리지 않는다**
+     - 왜: status 는 사용자가 확정하는 필드다. 자동으로 바뀌면 사용자가 멈춘 건지 자동으로 멈춘 건지 구분이 안 된다
+     - 사용자가 보고 정한다: 이어서 하면 (`updated` 가 갱신되어) 사라지고, 쉬면 `paused`, 끝내면 `done`
    - 어제 daily 한 줄 요약
    - 특이사항 한두 줄 (오래 방치된 것, 미정 상태인 것)
    - 어제 `## Tomorrow` 에 미체크 항목이 있으면 그대로 옮겨 한 줄. 사용자가 적어 둔 것이라 제안이 아니라 상기다
@@ -169,7 +173,7 @@ workspace_repo: ~/경로          # 선택. 코드가 미러 경로 밖에 있�
 ```
 - updated, next_action: 저장 시 비서가 갱신. objective, status: 사용자가 확정할 때만
 - objective 에 항목을 추가하면 같은 날 로그 본문에 변경 사유를 결정으로 적는다
-- 브리핑에는 objective 마지막 항목만 쓴다. 방치 경고는 `status: active` 만 대상
+- 브리핑에는 objective 마지막 항목만 쓴다. 브리핑의 상태 표시(done 제외 · neglected)는 3절이 정본
 
 ### 항목 형식 (기본형)
 ```

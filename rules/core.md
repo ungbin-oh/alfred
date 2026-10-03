@@ -66,6 +66,10 @@ Higher wins. The common rules are the default; wherever the user changed somethi
    - **One subheading + one table per category.** Columns: project / status / updated / days idle / next_action
    - Keep it tight. Table directly under the subheading
    - Leave `status: done` out of the table; put "· done: N" next to the subheading
+   - **Neglected flag:** if a project is `status: active` but `updated` is more than **14 days** old, show its status cell as `🔴 neglected`.
+     **Display only — never change `status` in log.md**
+     - Why: status is a field the user confirms. If it changed on its own, you couldn't tell whether the user stopped or it was stopped automatically
+     - The user looks and decides: continuing clears it (`updated` refreshes), resting means `paused`, finishing means `done`
    - One-line summary of yesterday's daily note
    - One or two lines of notable items (long-idle projects, undecided states)
    - If yesterday's `## Tomorrow` has unchecked items, carry them over in one line. The user wrote them,
@@ -167,7 +171,7 @@ workspace_repo: ~/path         # optional. Only when code lives outside the mirr
 ```
 - updated, next_action: updated by the assistant on save. objective, status: only when the user confirms
 - When adding an objective item, record the reason for the change as a decision in that day's log entry
-- The briefing shows only the last objective item. Idle warnings apply only to `status: active`
+- The briefing shows only the last objective item. How the briefing displays status (done left out, neglected) is defined in section 3
 
 ### Entry format (default)
 ```
