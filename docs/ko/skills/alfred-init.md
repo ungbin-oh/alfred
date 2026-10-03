@@ -94,3 +94,5 @@ Alfred 워크스페이스에서 상태줄에 하늘색 `[ALFRED]` 배지를 띄�
 ## 새 프로젝트를 만들 때 (init 이후, 사용자가 요청하면)
 `project-logs/<카테고리>/<프로젝트>/log.md` 를 공통 규약 7절의 frontmatter 와 상단 구성(목표 · 전제 · 왜 지금 이 방식인가)으로 만든다.
 objective · code · status 는 사용자에게 받는다. 지어내지 않는다.
+옆에 `decision.md` 를 `## 출발점` 절만 두고 만든다 (영어는 `## Starting point`) — 최초 objective 와 날짜,
+그때 상황 · 왜 시작했나를 사용자 말로. 채팅으로 묻고 비서가 채우지 않는다 (공통 규약 14절).

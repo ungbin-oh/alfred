@@ -92,3 +92,5 @@ If turning on:
 ## Creating a new project (after init, when the user asks)
 Create `project-logs/<category>/<project>/log.md` with the frontmatter from section 7 of the common rules and the top section
 (goal · premises · why this approach now). Get objective · code · status from the user. Never make them up.
+Next to it, create `decision.md` with only a `## Starting point` section (`## 출발점` in Korean) — the first objective with its date,
+and the situation then and why it started, in the user's words. Ask for it in chat; don't fill it in yourself (section 14 of the common rules).

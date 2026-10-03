@@ -42,6 +42,7 @@ Higher wins. The common rules are the default; wherever the user changed somethi
 ├── project-logs/<category>/<project>/
 │   ├── log.md                decision summary (append-only)
 │   ├── open.md               open questions and options (decided items move to its Closed table)
+│   ├── decision.md           judgments that set the project's direction (section 14)
 │   └── trace/YYYY-MM-DD.md   work ledger (written by the assistant)
 ├── project-workspace/<category>/<project>/   actual code and outputs (same tree as project-logs)
 ├── daily/YYYY/YYYY-MM/YYYY-MM-DD.md           daily notes
@@ -53,7 +54,7 @@ Higher wins. The common rules are the default; wherever the user changed somethi
 
 - **A project = a directory with a log.md.** Category folders are not projects
 - The list of categories and each one's output placement (strict/relaxed) is in `CLAUDE.md`
-  - strict: outputs only under the project-workspace mirror path. project-logs holds only log.md · open.md · trace/
+  - strict: outputs only under the project-workspace mirror path. project-logs holds only log.md · open.md · decision.md · trace/
   - relaxed: plans and reference documents may sit next to log.md (itineraries, candidate lists and the like)
 - Projects under project-workspace may each have their own git. The workspace root git is for rules, logs and daily notes
   (and `Archive/` except `Archive/workspace-archive/`)
@@ -130,6 +131,7 @@ Higher wins. The common rules are the default; wherever the user changed somethi
 - **Boundary with no-suggestions:** options contain **only choices already on the table** (what the user said, what the rules set, what came up earlier).
   Don't use the window as a channel for new directions. Mark "(Recommended)" only if the user asked for a recommendation
 - Things that only inform (reports, briefings) stay as normal text
+- Exception: the decision.md interview (section 14) is asked in chat
 - Why: in text, it gets blurry which answer belongs to which question, and with several questions some get skipped.
   The window leaves one answer per question
 
@@ -296,3 +298,44 @@ workspace_repo: ~/path         # optional. Only when code lives outside the mirr
 - Update the README table whenever something goes in or comes out. Things taken out keep their row; write the date under "taken out"
 - **Boot and project search never look inside Archive.** If needed, the user points to it ("continue X in the archive" / "archive 에 있는 X 이어서")
 - Why: finished things left in project-logs make every boot heavier and the briefing noisier, but deleting them loses records and outputs you may need again
+
+## 14. decision.md — judgments that set direction
+
+- **Why:** a project starts with a purpose and moves forward on the user's judgments. Recording those judgments lets the user check
+  for themselves ① that the work hasn't wandered off on a tangent ② that what they're doing now still serves the original purpose
+  ③ whether the purpose itself needs revising. Of log · trace · decision, **this is the most important document**
+- **Relation to log and trace:** trace = the ledger, log = the work record (both unchanged), decision = only the judgments that set direction.
+  Under each judgment, link the log · trace · daily · outputs behind it. Judgments are few
+  - Why separate: when a log tries to carry judgments too, it drifts into a trace summary — one document ends up doing both
+    "read the trace for me" and "keep the judgment"
+- **Location:** one per project, next to log.md and open.md
+- **What counts as a judgment** — recognize it by its flow rather than its content: previous situation → trigger → thoughts → the direction decided.
+  If that direction changes **what the project pursues**, it's a judgment. If it only changes the shape of an output, it goes to the log
+- **Ideally, write fragments early** — before the line of thought is complete — and merge them into one flow later.
+  That is what keeps a project from straying into side research. Only when recording after the fact is it written all at once
+- **At the top of the file, `## Starting point`** (`## 출발점` in Korean workspaces): the first objective (with its date) +
+  the situation then and why it started. The first judgment's "previous situation" points here
+- Entry format (number `<code>-dec<N>`, header time from the shell):
+  ```
+  ## <code>-dec<N> : YYYY-MM-DD HH:MM — one line (the current thought or the direction decided)
+
+  **Status:** fragment / flow (merges dec<a> · dec<b>) / reversed (→ dec<M>)
+
+  **Previous situation:**   (may be omitted for a fragment)
+  **Trigger:**
+  **Thoughts:**             the user's own words
+  **So:**                   the direction decided ("not yet known" is fine for a fragment)
+  **Against the purpose:**  in light of the last objective item — on track / drifted / revising the purpose
+
+  **Links:** log · trace · daily · outputs
+  ```
+  Korean workspaces write the labels as `상태` (`조각` / `흐름` / `뒤집힘`) · `이전 상황` · `계기` · `든 생각` · `그래서` · `목적과 비교` · `링크`
+- **Append-only.** Fragments are never deleted; when they become a flow, a new entry points to them.
+  When a judgment changes, add only "→ dec<M>" to the old entry and write a new one
+- If the purpose changes, also append a new item to `objective` in the log.md frontmatter so the two match
+- **Written by interview.** Before writing an entry, ask the user: what did you decide · how did your thinking change after doing it ·
+  how does it look against the purpose · so what's next
+  - **In chat, one question at a time.** Not the multiple-choice window — if the assistant writes the options, the assistant sets the range of the answer
+  - Attach only the facts the question needs (what was done meanwhile, the current objective). Don't lead the answer
+  - "Thoughts" and "how the thinking changed" are in the user's head. If the assistant writes them, they're guesses — that's why it asks
+- Show the draft in chat and write it only after the user confirms (same as the log)

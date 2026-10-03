@@ -67,6 +67,7 @@ Then give me a room to stay in.
 | **Boot briefing** | When you open a session, a table of projects per category — status · last updated · days idle · next action. Active projects idle over 14 days are flagged 🔴 neglected (display only) |
 | **Decision log** `log.md` | Not results, but **"why it was decided that way at the time"**. Each entry records who decided (you / me) |
 | **Work ledger** `trace/` | Commands, raw errors, hypotheses and why they were ruled out — written down as you work. When you save, I distill it into the log |
+| **Decision record** `decision.md` | Only the judgments that set a project's direction — situation, trigger, your thoughts in your words, what you decided, and how it measures against the goal. I interview you to write it, so you can see whether you've strayed from where you started |
 | **Open questions** `open.md` | What you haven't decided yet — candidate options and their grounds. Once decided, recorded in the log and listed in the file's Closed table |
 | **Archive** `Archive/` | Finished things you want to keep — outputs and records — out of the briefing's way. Moved only when you say so |
 | **Daily notes** `daily/` | The story of each day and stray thoughts. Say "let's wrap up the day" and I write a timeline from the trace |
@@ -88,7 +89,7 @@ Then give me a room to stay in.
 ~/ALFRED/
 ├── CLAUDE.md              your settings and rules
 ├── .alfred/workspace      the marker that this is my room (also holds the language)
-├── project-logs/          per project: log.md · open.md · trace/
+├── project-logs/          per project: log.md · decision.md · open.md · trace/
 ├── project-workspace/     actual code and outputs
 ├── daily/                 daily notes
 └── Archive/               kept but not in use — the briefing doesn't look here

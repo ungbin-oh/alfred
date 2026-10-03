@@ -21,7 +21,7 @@ project-logs/ 바로 아래 폴더가 카테고리다. 부팅 브리핑은 카�
 |---|---|---|
 {{CATEGORY_ROWS}}
 
-- 엄격: 산출물은 project-workspace/ 미러 경로에만. project-logs 에는 log.md · open.md · trace/ 만
+- 엄격: 산출물은 project-workspace/ 미러 경로에만. project-logs 에는 log.md · open.md · decision.md · trace/ 만
 - 완화: log.md 옆에 계획·자료 문서를 함께 둬도 된다
 
 ## 내 규칙

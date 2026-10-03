@@ -21,7 +21,7 @@ Each folder directly under project-logs/ is a category. The boot briefing shows 
 |---|---|---|
 {{CATEGORY_ROWS}}
 
-- strict: outputs go only to the mirrored path under project-workspace/. project-logs holds only log.md · open.md · trace/
+- strict: outputs go only to the mirrored path under project-workspace/. project-logs holds only log.md · open.md · decision.md · trace/
 - relaxed: plans and reference documents may sit next to log.md
 
 ## My rules
