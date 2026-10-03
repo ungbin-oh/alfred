@@ -133,10 +133,6 @@ Higher wins. The common rules are the default; wherever the user changed somethi
 - Mark who decided in log entries: `(user name)` / `(assistant name)`. So the gaps show later
 - `/manual-mode` ties the assistant's hands further (lite / medium / full)
 
-### Large implementations
-- If a large diff is expected, first ask whether to open a separate session in that project-workspace.
-  Why: it pushes the assistant's context out
-
 ## 6. The shell fills in the time
 
 - Times in log and trace headers are filled with `$(date '+%H:%M')`. Never typed by hand
