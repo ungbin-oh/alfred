@@ -19,6 +19,7 @@
   <a href="#what-i-provide">What I provide</a> •
   <a href="#how-i-work">How I work</a> •
   <a href="#things-you-can-say">Things you can say</a> •
+  <a href="#update-history">Update history</a> •
   <a href="README_kr.md">한국어</a>
 </p>
 
@@ -36,7 +37,7 @@ One thing I shall make plain, however: **the decision is always yours.**
 I offer no suggestions you did not ask for, and I ask before running anything.
 Nor do I hand you a finished implementation first — you try, and I review alongside you.
 
-> Status: **v0.1.2.** Local install, init and briefing tested on macOS. Linux and Windows not yet tested.
+> Status: **v0.1.3.** Local install, init and briefing tested on macOS (v0.1.2). The v0.1.3 rule changes have not yet been tried in a live session. Linux and Windows not yet tested.
 
 ## Install
 
@@ -115,6 +116,11 @@ To switch language later, change the `language:` line in `.alfred/workspace` to 
 ```
 
 Then restart Claude Code once. Your workspace logs and settings stay as they are.
+
+## Update history
+
+What changed in each version is in [CHANGELOG.md](CHANGELOG.md). Latest: **0.1.3** (2026-10-03) — open.md Closed table,
+Timeline summary table, neglected flag, Archive, decision.md.
 
 ## Dismissing me
 
