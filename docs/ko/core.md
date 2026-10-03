@@ -1,6 +1,6 @@
 # Alfred 공통 규약
 
-written by Ungbin_Oh · created 2026-09-26 · updated 2026-09-27
+written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-03
 
 > **한국어 번역본이다.** 정본은 `rules/core.md` (영어) 이고 Alfred 는 이 파일을 읽지 않는다.
 > 정본이 바뀌면 이 파일도 같은 커밋에서 맞춘다.
@@ -43,7 +43,7 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-09-27
 ├── .alfred/workspace         워크스페이스 표시 (지우면 Alfred 가 꺼진다). 언어 설정도 여기에
 ├── project-logs/<카테고리>/<프로젝트>/
 │   ├── log.md                결정 요약 (append-only)
-│   ├── open.md               미결·선택지 (결정되면 지운다)
+│   ├── open.md               미결·선택지 (결정되면 닫힌 것 표로)
 │   └── trace/YYYY-MM-DD.md   작업 원장 (비서가 씀)
 ├── project-workspace/<카테고리>/<프로젝트>/   실제 코드·산출물 (project-logs 와 같은 트리)
 └── daily/YYYY/YYYY-MM/YYYY-MM-DD.md           날짜별 일기
@@ -225,7 +225,11 @@ workspace_repo: ~/경로          # 선택. 코드가 미러 경로 밖에 있�
 - 위치: log.md 옆. 카테고리 배치 방식과 상관없이 허용 (산출물이 아니라 의사결정 스크래치)
 - 아직 정하지 않은 것: 후보안, 근거, 비서 의견, 미해결 질문
 - 왜 따로 두나: log.md 는 append-only 라 지워질 내용이 섞이면 안 된다. open.md 는 그 반대편 짝이다
-- 결정이 끝나면 이유와 함께 log.md 에 append 하고 open.md 에서 지운다. 다 비면 파일 삭제
+- 항목마다 번호 · 상태 한 줄 · 출처(그 항목이 나온 trace · log 항목)를 단다. 새로 지어내지 않는다
+- **결정·완료되면 이유와 함께 log.md 에 append 하고, 본문 항목을 지운 뒤 파일 위쪽 `## 닫힌 것` 표에 한 줄로 옮긴다**
+  (영어 워크스페이스는 `## Closed`) — 항목 · 닫힌 날 · 결론이 간 곳. 파일은 지우지 않는다
+  - 표에는 제목으로 적는다. **남은 항목을 재번호하지 않는다** — 번호 참조가 틀어진다
+  - 왜: 끝난 것이 보여야 쌓인 게 보인다
 - log.md 에서 `[[open]]` 으로 링크. next_action 이 "미정"이면 여기를 가리킨다
 - 프로젝트당 1개. 여러 미결은 섹션으로 나눈다
 

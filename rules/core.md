@@ -1,6 +1,6 @@
 # Alfred common rules
 
-written by Ungbin_Oh · created 2026-09-26 · updated 2026-09-27
+written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-03
 
 These are the **common rules** the plugin injects every session. Personal settings — user name, assistant name,
 categories, language — and any rules the user added live in the workspace `CLAUDE.md`.
@@ -40,7 +40,7 @@ Higher wins. The common rules are the default; wherever the user changed somethi
 ├── .alfred/workspace         workspace marker (delete it and Alfred turns off). Holds the language setting
 ├── project-logs/<category>/<project>/
 │   ├── log.md                decision summary (append-only)
-│   ├── open.md               open questions and options (deleted once decided)
+│   ├── open.md               open questions and options (decided items move to its Closed table)
 │   └── trace/YYYY-MM-DD.md   work ledger (written by the assistant)
 ├── project-workspace/<category>/<project>/   actual code and outputs (same tree as project-logs)
 └── daily/YYYY/YYYY-MM/YYYY-MM-DD.md           daily notes
@@ -223,7 +223,12 @@ workspace_repo: ~/path         # optional. Only when code lives outside the mirr
 - Location: next to log.md. Allowed regardless of the category's placement mode (it's decision scratch, not an output)
 - What isn't decided yet: candidate options, their grounds, the assistant's view, unresolved questions
 - Why separate: log.md is append-only, so content that will be deleted must not mix in. open.md is its counterpart
-- Once decided, append it with the reason to log.md and remove it from open.md. Delete the file when empty
+- Each item gets a number, a one-line status and its source (the trace entry or log entry it came from). Don't make items up
+- **Once an item is decided or done, append it with the reason to log.md, remove its body, and move it to one line in the
+  `## Closed` table near the top of the file** (`## 닫힌 것` in Korean workspaces) — item · closed date · where the conclusion went.
+  Never delete the file
+  - Write the item's title in the table. **Don't renumber the remaining items** — references by number would break
+  - Why: when finished items stay visible, you can see what has piled up
 - Link from log.md with `[[open]]`. If next_action is undecided, point here
 - One per project. Split multiple open items into sections
 

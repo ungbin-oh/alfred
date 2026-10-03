@@ -22,7 +22,7 @@
   <a href="README_kr.md">한국어</a>
 </p>
 
-written by Ungbin_Oh · created 2026-09-27 · updated 2026-09-27
+written by Ungbin_Oh · created 2026-09-27 · updated 2026-10-03
 
 ---
 
@@ -67,7 +67,7 @@ Then give me a room to stay in.
 | **Boot briefing** | When you open a session, a table of projects per category — status · last updated · days idle · next action |
 | **Decision log** `log.md` | Not results, but **"why it was decided that way at the time"**. Each entry records who decided (you / me) |
 | **Work ledger** `trace/` | Commands, raw errors, hypotheses and why they were ruled out — written down as you work. When you save, I distill it into the log |
-| **Open questions** `open.md` | What you haven't decided yet — candidate options and their grounds. Once decided, moved to the log and removed |
+| **Open questions** `open.md` | What you haven't decided yet — candidate options and their grounds. Once decided, recorded in the log and listed in the file's Closed table |
 | **Daily notes** `daily/` | The story of each day and stray thoughts. Say "let's wrap up the day" and I write a timeline from the trace |
 | **Question windows** | When I need to ask, I use a multiple-choice window instead of text. One answer stays per question |
 | **Two languages** | English or Korean, chosen at `/alfred-init`. One rulebook either way |
