@@ -70,7 +70,7 @@ Then give me a room to stay in.
 | **Open questions** `open.md` | What you haven't decided yet — candidate options and their grounds. Once decided, recorded in the log and listed in the file's Closed table |
 | **Archive** `Archive/` | Finished things you want to keep — outputs and records — out of the briefing's way. Moved only when you say so |
 | **Daily notes** `daily/` | The story of each day and stray thoughts. Say "let's wrap up the day" and I write a timeline from the trace |
-| **Question windows** | When I need to ask, I use a multiple-choice window instead of text. One answer stays per question |
+| **Question windows** | For short choices I use a multiple-choice window instead of text, so one answer stays per question. Long drafts I confirm with you in chat |
 | **Two languages** | English or Korean, chosen at `/alfred-init`. One rulebook either way |
 | `/alfred-init` | Sets up the workspace. Every file it creates is yours |
 | `/manual-mode lite\|medium\|full` | Manual mode that ties my hands — you type the commands and code yourself |
