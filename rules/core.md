@@ -43,7 +43,11 @@ Higher wins. The common rules are the default; wherever the user changed somethi
 │   ├── open.md               open questions and options (decided items move to its Closed table)
 │   └── trace/YYYY-MM-DD.md   work ledger (written by the assistant)
 ├── project-workspace/<category>/<project>/   actual code and outputs (same tree as project-logs)
-└── daily/YYYY/YYYY-MM/YYYY-MM-DD.md           daily notes
+├── daily/YYYY/YYYY-MM/YYYY-MM-DD.md           daily notes
+└── Archive/                  kept but not in use (section 13)
+    ├── README.md             list of what's archived
+    ├── workspace-archive/    outputs, same shape as project-workspace (left out of git)
+    └── log-archive/          records, same shape as project-logs (tracked in git)
 ```
 
 - **A project = a directory with a log.md.** Category folders are not projects
@@ -51,6 +55,7 @@ Higher wins. The common rules are the default; wherever the user changed somethi
   - strict: outputs only under the project-workspace mirror path. project-logs holds only log.md · open.md · trace/
   - relaxed: plans and reference documents may sit next to log.md (itineraries, candidate lists and the like)
 - Projects under project-workspace may each have their own git. The workspace root git is for rules, logs and daily notes
+  (and `Archive/` except `Archive/workspace-archive/`)
 
 ## 3. Boot (every session start)
 
@@ -160,7 +165,7 @@ Higher wins. The common rules are the default; wherever the user changed somethi
 ---
 objective:
   - goal text (YYYY-MM-DD)     # append-only. When the goal changes, append. The last item is the current goal
-status: active                 # active / paused / incubating / done
+status: active                 # active / paused / incubating / done / archived (moved to Archive/log-archive)
 code: THS                      # 2–4 uppercase letters. Prefix of entry numbers
 updated: YYYY-MM-DD
 next_action: undecided         # one. Only what the user said ("미정" in Korean workspaces)
@@ -268,3 +273,20 @@ workspace_repo: ~/path         # optional. Only when code lives outside the mirr
   - Dates are values checked with `date`. Update `updated` when editing the file
 - Files modified from someone else's work get `modified by`. Leave generated files, project-logs and daily notes alone. No retroactive changes to existing files
 - Why: once outputs are shared with a team, nothing in the file says who made it in which project
+
+## 13. Archive — kept but not in use
+
+- `Archive/` holds what isn't used now but shouldn't be thrown away. Two parts, each following the original path — the path is the provenance
+  - `Archive/workspace-archive/<category>/<project>/<what>/` — outputs. Same shape as project-workspace. Left out of the workspace git (size)
+  - `Archive/log-archive/<original project-logs path>/` — records. A project directory (log · open · trace) moved whole,
+    same shape as project-logs. Tracked by the workspace git
+  - `Archive/README.md` — the list: what · path · original location · what it is · archive decided · moved on · related records · taken out
+- **Records move only when the user says so.** The default is to leave them in place with `status: paused` or `done`.
+  When a project directory is moved, set its status to `archived`
+  - Typical cases: a project that has been done and untouched for months, or an idea the user dropped
+- Archiving only some open.md items: put them in an `open.md` at the same path under log-archive, holding only the moved items
+  with their original numbers. In the original open.md, list them in the Closed table with the archive path as where they went.
+  The project itself stays where it is, status unchanged
+- Update the README table whenever something goes in or comes out. Things taken out keep their row; write the date under "taken out"
+- **Boot and project search never look inside Archive.** If needed, the user points to it ("continue X in the archive" / "archive 에 있는 X 이어서")
+- Why: finished things left in project-logs make every boot heavier and the briefing noisier, but deleting them loses records and outputs you may need again

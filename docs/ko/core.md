@@ -46,7 +46,11 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-03
 │   ├── open.md               미결·선택지 (결정되면 닫힌 것 표로)
 │   └── trace/YYYY-MM-DD.md   작업 원장 (비서가 씀)
 ├── project-workspace/<카테고리>/<프로젝트>/   실제 코드·산출물 (project-logs 와 같은 트리)
-└── daily/YYYY/YYYY-MM/YYYY-MM-DD.md           날짜별 일기
+├── daily/YYYY/YYYY-MM/YYYY-MM-DD.md           날짜별 일기
+└── Archive/                  안 쓰지만 버리지 않는 것 (13절)
+    ├── README.md             보관 목록 표
+    ├── workspace-archive/    산출물. project-workspace 와 같은 모양 (git 제외)
+    └── log-archive/          기록. project-logs 와 같은 모양 (git 추적)
 ```
 
 - **프로젝트 = log.md 가 있는 디렉토리.** 카테고리 폴더는 프로젝트가 아니다
@@ -54,6 +58,7 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-03
   - 엄격: 산출물은 project-workspace 미러 경로에만. project-logs 에는 log.md · open.md · trace/ 만
   - 완화: log.md 옆에 계획·자료 문서를 함께 둬도 된다 (여행 일정표, 후보 목록 같은 것)
 - project-workspace 아래 프로젝트는 각자 git 을 가질 수 있다. 워크스페이스 루트 git 은 규약·로그·daily 용이다
+  (`Archive/` 도 추적하되 `Archive/workspace-archive/` 는 제외)
 
 ## 3. 부팅 (세션 시작 시 항상)
 
@@ -162,7 +167,7 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-03
 ---
 objective:
   - 목표 내용 (YYYY-MM-DD)     # append-only. 목표가 바뀌면 끝에 추가. 마지막 항목이 현재 목표
-status: active                 # active / paused / incubating / done
+status: active                 # active / paused / incubating / done / archived (Archive/log-archive 로 옮긴 것)
 code: THS                      # 대문자 2~4자. 항목 번호의 접두
 updated: YYYY-MM-DD
 next_action: 미정              # 1개. 사용자가 말한 것만 (영어 워크스페이스는 undecided)
@@ -269,3 +274,19 @@ workspace_repo: ~/경로          # 선택. 코드가 미러 경로 밖에 있�
   - 날짜는 `date` 로 확인한 값. 파일을 고칠 때 updated 를 갱신
 - 남의 저작물을 고친 파일은 `modified by` 로. 자동 생성물, project-logs · daily 는 손대지 않는다. 기존 파일 소급 안 함
 - 왜: 산출물이 팀에 공유되면 누가 어느 프로젝트에서 만들었는지가 파일에 안 남는다
+
+## 13. Archive — 안 쓰지만 버리지 않는 것
+
+- `Archive/` 에는 지금은 안 쓰지만 버리지 않을 것을 둔다. 둘로 나뉘고, 둘 다 원래 경로를 그대로 따른다 — 경로가 출처다
+  - `Archive/workspace-archive/<카테고리>/<프로젝트>/<보관한 것>/` — 산출물. project-workspace 와 같은 모양. 워크스페이스 git 에 올리지 않는다 (용량)
+  - `Archive/log-archive/<원래 project-logs 경로>/` — 기록. 프로젝트 디렉토리(log · open · trace)를 통째로,
+    project-logs 와 같은 모양으로. 워크스페이스 git 으로 추적
+  - `Archive/README.md` — 목록 표: 보관한 것 · 경로 · 원래 위치 · 무엇 · 보관 결정 · 옮긴 날 · 관련 기록 · 꺼냄
+- **기록은 사용자가 말할 때만 옮긴다.** 기본은 제자리에서 `status: paused` / `done`.
+  프로젝트 디렉토리를 옮기면 status 를 `archived` 로 바꾼다
+  - 흔한 경우: done 뒤 몇 달씩 안 본 프로젝트, 사용자가 버린 아이디어
+- open.md 항목 일부만 보관할 때: log-archive 아래 같은 경로에 `open.md` 를 두고 옮긴 항목만 원래 번호 그대로 담는다.
+  원래 open.md 에는 닫힌 것 표에 올리고 결론이 간 곳에 archive 경로를 적는다. 프로젝트는 제자리, status 도 그대로
+- 넣거나 꺼낼 때 README 표를 고친다. 꺼낸 것은 행을 지우지 말고 `꺼냄` 에 날짜를 적는다
+- **부팅과 프로젝트 찾기는 Archive 를 보지 않는다.** 필요하면 사용자가 짚는다 ("archive 에 있는 X 이어서" / "continue X in the archive")
+- 왜: 끝난 것을 project-logs 에 두면 부팅이 무거워지고 브리핑이 시끄러워진다. 그렇다고 지우면 다시 필요할 기록과 산출물을 잃는다

@@ -49,6 +49,9 @@ project-workspace/<category>/.gitkeep
 daily/_template.md                     ← templates/<lang>/daily/
 daily/_timeline-example.md             ← templates/<lang>/daily/
 daily/YYYY/YYYY-MM/YYYY-MM-DD.md       ← today's, from _template with only the date replaced
+Archive/README.md                      ← templates/<lang>/Archive/README.md
+Archive/log-archive/.gitkeep
+Archive/workspace-archive/.gitkeep
 ```
 
 ### 4. Create

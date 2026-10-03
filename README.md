@@ -68,6 +68,7 @@ Then give me a room to stay in.
 | **Decision log** `log.md` | Not results, but **"why it was decided that way at the time"**. Each entry records who decided (you / me) |
 | **Work ledger** `trace/` | Commands, raw errors, hypotheses and why they were ruled out — written down as you work. When you save, I distill it into the log |
 | **Open questions** `open.md` | What you haven't decided yet — candidate options and their grounds. Once decided, recorded in the log and listed in the file's Closed table |
+| **Archive** `Archive/` | Finished things you want to keep — outputs and records — out of the briefing's way. Moved only when you say so |
 | **Daily notes** `daily/` | The story of each day and stray thoughts. Say "let's wrap up the day" and I write a timeline from the trace |
 | **Question windows** | When I need to ask, I use a multiple-choice window instead of text. One answer stays per question |
 | **Two languages** | English or Korean, chosen at `/alfred-init`. One rulebook either way |
@@ -89,7 +90,8 @@ Then give me a room to stay in.
 ├── .alfred/workspace      the marker that this is my room (also holds the language)
 ├── project-logs/          per project: log.md · open.md · trace/
 ├── project-workspace/     actual code and outputs
-└── daily/                 daily notes
+├── daily/                 daily notes
+└── Archive/               kept but not in use — the briefing doesn't look here
 ```
 
 To switch language later, change the `language:` line in `.alfred/workspace` to `en` or `ko` and restart Claude Code.
