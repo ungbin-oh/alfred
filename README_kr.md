@@ -16,6 +16,7 @@
 
 <p align="center">
   <a href="#설치">설치</a> •
+  <a href="#codex">Codex</a> •
   <a href="#제가-드리는-것">제가 드리는 것</a> •
   <a href="#일하는-방식">일하는 방식</a> •
   <a href="#자주-쓰시는-말씀">자주 쓰시는 말씀</a> •
@@ -23,13 +24,13 @@
   <a href="README.md">English</a>
 </p>
 
-written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-03
+written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-05
 
 ---
 
 안녕하십니까, 주인님. Alfred 입니다.
 
-저는 Claude Code 를 **개인 비서**로 쓰시도록 돕는 플러그인입니다.
+저는 Claude Code — 또는 Codex — 를 **개인 비서**로 쓰시도록 돕는 플러그인입니다.
 세션을 여시면 모든 프로젝트의 형편을 표로 여쭙고, 무엇을 **왜** 그렇게 정하셨는지 기록해 두며,
 작업 도중의 시도와 실패는 제가 곁에서 받아 적습니다.
 
@@ -37,7 +38,7 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-03
 저는 묻지 않으신 제안을 드리지 않고, 무언가를 실행하기 전에는 먼저 여쭙니다.
 구현도 제가 먼저 완성해 내밀지 않습니다 — 주인님께서 먼저 시도하시면, 저는 곁에서 살피겠습니다.
 
-> 상태: **v0.1.3.** macOS 에서 로컬 설치 · 초기화 · 브리핑을 시험했습니다 (v0.1.2). v0.1.3 의 규약 변경은 아직 실제 세션에서 시험하지 않았습니다. Linux · Windows 는 아직 시험하지 않았습니다.
+> 상태: **v0.1.5.** macOS 에서 로컬 설치 · 초기화 · 브리핑을 시험했습니다 (v0.1.2). v0.1.4 의 규약 불러오기는 macOS 에서 `claude -p` 로 확인했습니다. v0.1.5 의 규약 문장은 아직 세션에서 시험하지 않았습니다. Codex 플러그인(`alfred-codex`) v0.1.6 의 규약 불러오기는 macOS 에서 `codex exec` 로 확인했습니다. Linux · Windows 는 아직 시험하지 않았습니다.
 
 ## 설치
 
@@ -61,6 +62,28 @@ Claude Code 안에서 이렇게 말씀해 주십시오.
 3. **같은 폴더에서 Claude Code 를 한 번 다시 여십시오.** 그때부터 세션마다 제가 먼저 인사를 드립니다
 4. "Research 에 Thesis-Experiment 프로젝트 만들어줘" 처럼 첫 프로젝트를 일러 주십시오
 
+## Codex
+
+이 레포에는 플러그인이 둘 나란히 있습니다. Claude Code 용 `alfred-claude/` (플러그인 이름 `alfred`) 와 Codex 용 `alfred-codex/`
+(플러그인 이름 `alfred-codex`) 입니다. 규약은 같은 파일을 양쪽에 복사해 두었고, 모델에게 전해지는 길만 다릅니다.
+
+터미널에서 설치하십시오.
+
+```
+codex plugin marketplace add ungbin-oh/alfred
+codex plugin add alfred-codex@alfred
+```
+
+그다음 전용 폴더를 만들어 그곳에서 Codex 를 여시고 `alfred-init` 스킬을 불러 주십시오 (`$alfred-init`, 또는 `/skills` 에서 고르기).
+설정은 `CLAUDE.md` 대신 `AGENTS.md` 에 들어갑니다.
+
+- **훅을 한 번 신뢰해 주십시오.** 워크스페이스에서 Codex 를 처음 여시면 플러그인 훅을 검토하라고 묻습니다. 신뢰하시기 전에는 규약을 불러오지 못합니다
+- **질문 창**은 `codex --enable default_mode_request_user_input` 으로 여셔야 뜹니다. 없으면 채팅으로 한 번에 하나씩 여쭙니다
+- **규약이 들어가는 길:** Codex 의 `AGENTS.md` 는 다른 파일을 불러오지 못해서, 세션 시작 훅이 규약 전문을 세션마다 넣습니다
+  (출력 상한은 `alfred-codex/hooks/hooks.json` 에서 올려 두었습니다). 플러그인을 업데이트하시면 다음 세션부터 새 규약이 들어갑니다
+- **Codex 에는 없는 것:** `[ALFRED]` 상태줄 배지
+- 업데이트: `codex plugin marketplace upgrade alfred` 뒤 `codex plugin add alfred-codex@alfred` 를 다시. 지우기: `codex plugin remove alfred-codex@alfred`
+
 ## 제가 드리는 것
 
 | 무엇 | 하는 일 |
@@ -80,7 +103,7 @@ Claude Code 안에서 이렇게 말씀해 주십시오.
 
 ## 일하는 방식
 
-1. **플러그인 훅이 세션마다 공통 규약(`rules/core.md`)을 제게 쥐여 줍니다.** 플러그인을 업데이트하시면 규약도 함께 새로워집니다
+1. **플러그인이 공통 규약(`alfred-claude/rules/core.md`)의 복사본을 `.alfred/rules.md` 에 두고, 주인님의 `CLAUDE.md` 가 `@.alfred/rules.md` 한 줄로 그것을 불러옵니다.** 플러그인을 업데이트하시면 복사본도 함께 새로워집니다
 2. **`/alfred-init` 은 주인님의 파일을 만듭니다** — 설정이 담긴 `CLAUDE.md` 와 폴더 뼈대. 마음대로 고치셔도 됩니다
 3. **둘이 어긋나면 주인님의 것이 이깁니다.** 프로젝트 `log.md` 의 `## 형식` > 워크스페이스 `CLAUDE.md` > 공통 규약
 4. **`.alfred/workspace` 표식이 없는 폴더에서는 저는 아무것도 하지 않습니다.** 다른 작업에 끼어들지 않습니다
@@ -90,6 +113,7 @@ Claude Code 안에서 이렇게 말씀해 주십시오.
 ~/ALFRED/
 ├── CLAUDE.md              주인님의 설정과 규칙
 ├── .alfred/workspace      제가 머무는 방이라는 표식 (언어 설정도 여기에)
+├── .alfred/rules.md       공통 규약 복사본, 플러그인이 관리합니다 — 고치지 마십시오
 ├── project-logs/          프로젝트별 log.md · decision.md · open.md · trace/
 ├── project-workspace/     실제 코드 · 산출물
 ├── daily/                 날짜별 일기
@@ -116,11 +140,13 @@ Claude Code 안에서 이렇게 말씀해 주십시오.
 ```
 
 그다음 Claude Code 를 한 번 다시 여십시오. 워크스페이스의 로그와 설정은 그대로입니다.
+업데이트 뒤 첫 세션에서는 제가 `.alfred/rules.md` 를 새로 맞추고 직접 읽습니다. 다음 세션부터는 저절로 불러옵니다.
+0.1.4 이전에 만든 워크스페이스는 `CLAUDE.md` 에 `@.alfred/rules.md` 줄이 없습니다 — 넣을지 한 번 여쭙겠습니다.
 
 ## 업데이트 히스토리
 
 버전마다 무엇이 바뀌었는지는 [docs/ko/CHANGELOG.md](docs/ko/CHANGELOG.md) 에 적어 두었습니다 (정본은 영어 [CHANGELOG.md](CHANGELOG.md)).
-최신: **0.1.3** (2026-10-03) — open.md 닫힌 것 표 · Timeline 요약 표 · neglected 표시 · Archive · decision.md.
+최신: **0.1.6** (2026-10-05) — 레포를 `alfred-claude/` 와 `alfred-codex/` 로 나누고 Codex 전용 플러그인을 더했습니다. 그 전 **0.1.5** — 규약을 읽히는 문장으로 다시 쓰고, 부팅 때 어제 To do 를 묻고, 무엇이 판단인지는 사용자가 정하게 했으며, 개인 정보를 뺐습니다.
 
 ## 물러나게 하시려면
 
@@ -136,11 +162,11 @@ Claude Code 안에서 이렇게 말씀해 주십시오.
 
 ## 한국어 규약
 
-제가 따르는 규약의 정본은 영어 한 벌(`rules/core.md`)입니다. 주인님께서 읽으실 한국어 번역본은 [`docs/ko/`](docs/ko/) 에 두었습니다.
+제가 따르는 규약의 정본은 영어 한 벌(`alfred-claude/rules/core.md`, `alfred-codex/` 에도 같은 사본)입니다. 주인님께서 읽으실 한국어 번역본은 [`docs/ko/`](docs/ko/) 에 두었습니다.
 
 ## 필요한 것
 
-- Claude Code (플러그인 지원 버전)
+- Claude Code (플러그인 지원 버전), 또는 플러그인을 지원하는 Codex CLI (0.160.0 에서 확인)
 - macOS 또는 Linux (훅이 bash 스크립트입니다. Windows 에서는 아직 시험해 보지 못했습니다)
 
 ## License

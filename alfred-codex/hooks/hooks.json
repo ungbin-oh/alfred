@@ -1,0 +1,29 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/session-start.sh\"",
+            "timeout": 5,
+            "statusMessage": "Loading Alfred...",
+            "additionalContextLimit": 20000
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/manual-mode.sh\"",
+            "timeout": 5,
+            "statusMessage": "Checking manual mode..."
+          }
+        ]
+      }
+    ]
+  }
+}

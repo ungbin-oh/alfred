@@ -16,6 +16,7 @@
 
 <p align="center">
   <a href="#install">Install</a> •
+  <a href="#codex">Codex</a> •
   <a href="#what-i-provide">What I provide</a> •
   <a href="#how-i-work">How I work</a> •
   <a href="#things-you-can-say">Things you can say</a> •
@@ -23,13 +24,13 @@
   <a href="README_kr.md">한국어</a>
 </p>
 
-written by Ungbin_Oh · created 2026-09-27 · updated 2026-10-03
+written by Ungbin_Oh · created 2026-09-27 · updated 2026-10-05
 
 ---
 
 Good day. I am Alfred.
 
-I am a plugin that lets you use Claude Code as a **personal assistant**.
+I am a plugin that lets you use Claude Code — or Codex — as a **personal assistant**.
 When you open a session, I report on every project in a table. I record what you decided and **why**,
 and while you work, I note down every attempt and failure at your side.
 
@@ -37,7 +38,7 @@ One thing I shall make plain, however: **the decision is always yours.**
 I offer no suggestions you did not ask for, and I ask before running anything.
 Nor do I hand you a finished implementation first — you try, and I review alongside you.
 
-> Status: **v0.1.3.** Local install, init and briefing tested on macOS (v0.1.2). The v0.1.3 rule changes have not yet been tried in a live session. Linux and Windows not yet tested.
+> Status: **v0.1.5.** Local install, init and briefing tested on macOS (v0.1.2). v0.1.4 rule loading checked with `claude -p` on macOS; v0.1.5 rule wording not yet tested in a session. Codex plugin (`alfred-codex`) v0.1.6: rule loading checked with `codex exec` on macOS. Linux and Windows not yet tested.
 
 ## Install
 
@@ -61,6 +62,29 @@ Then give me a room to stay in.
 3. **Restart Claude Code once in the same folder.** From then on, I greet you first in every session
 4. Tell me your first project, e.g. "create a Thesis-Experiment project in Research"
 
+## Codex
+
+The repository holds two plugins side by side: `alfred-claude/` for Claude Code (plugin `alfred`) and `alfred-codex/` for Codex
+(plugin `alfred-codex`). The rules are the same file copied into both; only the way they reach the model differs.
+
+Install in a terminal:
+
+```
+codex plugin marketplace add ungbin-oh/alfred
+codex plugin add alfred-codex@alfred
+```
+
+Then make a dedicated folder, open Codex there and call the `alfred-init` skill (`$alfred-init`, or pick it from `/skills`).
+Your settings go in `AGENTS.md` instead of `CLAUDE.md`.
+
+- **Trust the hooks once.** The first time Codex starts in the workspace it asks you to review the plugin's hooks. Until you trust them,
+  I can't load the rules
+- **Question windows** need `codex --enable default_mode_request_user_input`. Without it I ask in chat, one question at a time
+- **How the rules arrive:** Codex has no import in `AGENTS.md`, so the session-start hook prints the full rules into each session
+  (its output limit is raised in `alfred-codex/hooks/hooks.json`). Updating the plugin updates the rules from the next session
+- **Not in Codex:** the `[ALFRED]` statusline badge
+- Update: `codex plugin marketplace upgrade alfred`, then `codex plugin add alfred-codex@alfred` again. Remove: `codex plugin remove alfred-codex@alfred`
+
 ## What I provide
 
 | What | What it does |
@@ -80,7 +104,7 @@ Then give me a room to stay in.
 
 ## How I work
 
-1. **The plugin hook hands me the common rules (`rules/core.md`) every session.** Update the plugin and the rules update with it
+1. **The plugin keeps a copy of the common rules (`alfred-claude/rules/core.md`) in `.alfred/rules.md`, and your `CLAUDE.md` loads it with the line `@.alfred/rules.md`.** Update the plugin and the copy updates with it
 2. **`/alfred-init` creates your files** — `CLAUDE.md` holding your settings, and the folder skeleton. Edit them as you like
 3. **When the two disagree, yours wins.** Project `log.md` `## Format` > workspace `CLAUDE.md` > common rules
 4. **In a folder without the `.alfred/workspace` marker, I do nothing.** I don't intrude on other work
@@ -90,6 +114,7 @@ Then give me a room to stay in.
 ~/ALFRED/
 ├── CLAUDE.md              your settings and rules
 ├── .alfred/workspace      the marker that this is my room (also holds the language)
+├── .alfred/rules.md       copy of the common rules, kept by the plugin — don't edit
 ├── project-logs/          per project: log.md · decision.md · open.md · trace/
 ├── project-workspace/     actual code and outputs
 ├── daily/                 daily notes
@@ -116,11 +141,12 @@ To switch language later, change the `language:` line in `.alfred/workspace` to 
 ```
 
 Then restart Claude Code once. Your workspace logs and settings stay as they are.
+In the first session after an update I refresh `.alfred/rules.md` and read it myself; from the next session it loads on its own.
+Workspaces made before 0.1.4 don't have the `@.alfred/rules.md` line in `CLAUDE.md` yet — I'll ask you once whether to add it.
 
 ## Update history
 
-What changed in each version is in [CHANGELOG.md](CHANGELOG.md). Latest: **0.1.3** (2026-10-03) — open.md Closed table,
-Timeline summary table, neglected flag, Archive, decision.md.
+What changed in each version is in [CHANGELOG.md](CHANGELOG.md). Latest: **0.1.6** (2026-10-05) — the repository splits into `alfred-claude/` and `alfred-codex/`, and Codex gets its own plugin. Before that, **0.1.5** — rules rewritten in plainer sentences, boot asks about yesterday's To do, decision.md leaves "what counts as a judgment" to you, personal details removed.
 
 ## Dismissing me
 
@@ -136,11 +162,11 @@ then delete `~/.claude/alfred-statusline.sh` and `.alfred-statusline-chain`.
 
 ## Korean translation
 
-The rules and skills have one English source. A Korean translation for readers lives in [`docs/ko/`](docs/ko/); Alfred itself doesn't read it.
+The rules and skills have one English source (`alfred-claude/`; `alfred-codex/` carries the same rules). A Korean translation for readers lives in [`docs/ko/`](docs/ko/); Alfred itself doesn't read it.
 
 ## Requirements
 
-- Claude Code (a version with plugin support)
+- Claude Code (a version with plugin support), or Codex CLI with plugins (checked with 0.160.0)
 - macOS or Linux (the hooks are bash scripts. Not yet tested on Windows)
 
 ## License

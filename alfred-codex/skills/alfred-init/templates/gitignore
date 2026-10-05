@@ -1,0 +1,13 @@
+# Each project's code is managed in its own git
+project-workspace/
+
+# Archived outputs (can be large). Archived records under Archive/log-archive/ stay tracked
+Archive/workspace-archive/
+
+# Alfred state files (session modes, etc.)
+.alfred/manual-mode
+
+# Editor / OS
+.claude/
+.obsidian/
+.DS_Store

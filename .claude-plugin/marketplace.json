@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "alfred",
-  "description": "Alfred — a personal assistant workflow for Claude Code.",
+  "description": "Alfred — a personal assistant workflow for Claude Code and Codex.",
   "owner": {
     "name": "Ungbin_Oh",
     "url": "https://github.com/ungbin-oh"
@@ -10,7 +10,13 @@
     {
       "name": "alfred",
       "description": "Boot briefing, decision-first project logs, work traces and daily notes. The user decides; Alfred organizes.",
-      "source": "./",
+      "source": "./alfred-claude",
+      "category": "productivity"
+    },
+    {
+      "name": "alfred-codex",
+      "description": "Alfred for Codex — boot briefing, decision-first project logs, work traces and daily notes. The user decides; Alfred organizes.",
+      "source": "./alfred-codex",
       "category": "productivity"
     }
   ]
