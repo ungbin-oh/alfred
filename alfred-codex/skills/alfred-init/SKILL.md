@@ -67,7 +67,7 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` contents:
   ```
   alfred-workspace
-  version: 0.1.7
+  version: 0.1.8
   created: YYYY-MM-DD
   language: en
   ```

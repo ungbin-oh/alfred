@@ -4,6 +4,16 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-05
 
 Newest first. Hashes are commits in this repository. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
 
+## 0.1.8 — 2026-10-05
+
+**Bug fix** (`alfred-codex` only; `alfred` for Claude Code stays 0.1.7).
+
+- **Codex's own `/init` could be mistaken for Alfred's setup** — Codex lists `/init` on its start screen every session. It is Codex's
+  command for writing a contributor-guide `AGENTS.md`, and in an Alfred workspace that file holds the user's settings.
+  A new `UserPromptSubmit` hook (`alfred-codex/hooks/init-guard.sh`) catches the `/init` prompt in an Alfred workspace and tells the
+  model not to touch any file and to explain that Alfred is already set up (`$alfred-init` is Alfred's setup). Outside Alfred
+  workspaces `/init` works as usual. Codex asks once more to trust hooks after updating
+
 ## 0.1.7 — 2026-10-05
 
 **Bug fix** (both plugins: `alfred` and `alfred-codex` are now 0.1.7).

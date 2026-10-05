@@ -21,6 +21,12 @@
             "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/manual-mode.sh\"",
             "timeout": 5,
             "statusMessage": "Checking manual mode..."
+          },
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/init-guard.sh\"",
+            "timeout": 5,
+            "statusMessage": "Checking for Codex /init..."
           }
         ]
       }

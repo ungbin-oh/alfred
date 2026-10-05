@@ -6,6 +6,16 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-05
 
 최신이 위. 해시는 이 레포의 커밋.
 
+## 0.1.8 — 2026-10-05
+
+**버그 수정** (`alfred-codex` 만. Claude Code 용 `alfred` 는 0.1.7 그대로).
+
+- **Codex 자체 `/init` 을 Alfred 설정으로 착각할 수 있었다** — Codex 는 시작 화면마다 `/init` 을 띄운다. 기여자 가이드
+  `AGENTS.md` 를 쓰는 Codex 명령인데, Alfred 워크스페이스에서는 그 파일에 사용자 설정이 들어 있다.
+  새 `UserPromptSubmit` 훅(`alfred-codex/hooks/init-guard.sh`)이 Alfred 워크스페이스에서 `/init` 프롬프트를 잡아,
+  모델이 어떤 파일도 건드리지 않고 Alfred 는 이미 설정돼 있다고(`$alfred-init` 이 Alfred 설정) 안내하게 한다.
+  Alfred 워크스페이스 밖에서는 `/init` 이 원래대로 된다. 업데이트 뒤 Codex 가 훅 신뢰를 한 번 더 묻는다
+
 ## 0.1.7 — 2026-10-05
 
 **버그 수정** (두 플러그인 모두: `alfred` · `alfred-codex` 가 0.1.7).
