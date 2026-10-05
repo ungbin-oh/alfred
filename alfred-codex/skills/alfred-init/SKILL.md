@@ -43,7 +43,7 @@ Put the default in the options and let the user answer freely too.
 5. Whether to turn on the author header, and if so, the name to put in it (off)
 
 ### 3. Show what will be created and confirm
-Show the list below as text, then **confirm through the question window** before creating (create / redo settings / stop).
+Show the list below in chat and **confirm in chat** before creating (create / redo settings / stop). Don't open a question window right after the list — it covers the list. Don't put the list in an option preview either — only about 15 lines show.
 `<lang>` is `en` or `ko` per step 2.
 ```
 AGENTS.md                              ← templates/<lang>/AGENTS.md with settings filled in
@@ -67,7 +67,7 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` contents:
   ```
   alfred-workspace
-  version: 0.1.6
+  version: 0.1.7
   created: YYYY-MM-DD
   language: en
   ```

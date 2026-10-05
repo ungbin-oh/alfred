@@ -38,7 +38,7 @@ One thing I shall make plain, however: **the decision is always yours.**
 I offer no suggestions you did not ask for, and I ask before running anything.
 Nor do I hand you a finished implementation first — you try, and I review alongside you.
 
-> Status: **v0.1.5.** Local install, init and briefing tested on macOS (v0.1.2). v0.1.4 rule loading checked with `claude -p` on macOS; v0.1.5 rule wording not yet tested in a session. Codex plugin (`alfred-codex`) v0.1.6: rule loading checked with `codex exec` on macOS. Linux and Windows not yet tested.
+> Status: **v0.1.7.** Local install, init and briefing tested on macOS (v0.1.2). v0.1.4 rule loading checked with `claude -p` on macOS; v0.1.5 rule wording not yet tested in a session. Codex plugin (`alfred-codex`) v0.1.6: rule loading checked with `codex exec` on macOS. Linux and Windows not yet tested.
 
 ## Install
 
@@ -146,7 +146,7 @@ Workspaces made before 0.1.4 don't have the `@.alfred/rules.md` line in `CLAUDE.
 
 ## Update history
 
-What changed in each version is in [CHANGELOG.md](CHANGELOG.md). Latest: **0.1.6** (2026-10-05) — the repository splits into `alfred-claude/` and `alfred-codex/`, and Codex gets its own plugin. Before that, **0.1.5** — rules rewritten in plainer sentences, boot asks about yesterday's To do, decision.md leaves "what counts as a judgment" to you, personal details removed.
+What changed in each version is in [CHANGELOG.md](CHANGELOG.md). Latest: **0.1.7** (2026-10-05) — bug fix: `alfred-init` shows the file list in chat instead of under a question window. Before that, **0.1.6** — the repository splits into `alfred-claude/` and `alfred-codex/`, and Codex gets its own plugin. Before that, **0.1.5** — rules rewritten in plainer sentences, boot asks about yesterday's To do, decision.md leaves "what counts as a judgment" to you, personal details removed.
 
 ## Dismissing me
 

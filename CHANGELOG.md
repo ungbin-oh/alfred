@@ -4,6 +4,14 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-05
 
 Newest first. Hashes are commits in this repository. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
 
+## 0.1.7 — 2026-10-05
+
+**Bug fix** (both plugins: `alfred` and `alfred-codex` are now 0.1.7).
+
+- **`alfred-init`: the file list was covered by the question window** — step 3 said to show the list of files to create and then
+  confirm in a question window. The window covered the list, and a list put in an option preview was cut off after about 15 lines.
+  This went against the rules' own question-window section. Now the list is shown in chat and confirmed in chat
+
 ## 0.1.6 — 2026-10-05
 
 Codex support, as a separate plugin in the same repository.
