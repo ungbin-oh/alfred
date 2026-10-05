@@ -4,13 +4,13 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-05
 
 > **한국어 번역본이다.** 정본은 레포 루트의 `CHANGELOG.md` (영어). 정본이 바뀌면 같은 커밋에서 맞춘다.
 
-최신이 위. 해시는 이 레포의 커밋.
+최신이 위. 해시는 이 레포의 커밋. 0.1.8 부터 레포 전체에 버전이 하나다 — 두 플러그인(Claude Code 용 `alfred`, Codex 용 `alfred-codex`)이 같은 번호를 쓰고, 항목마다 **[Claude]** · **[Codex]** · **[공통]** 을 붙인다.
 
 ## 0.1.8 — 2026-10-05
 
-**버그 수정** (`alfred-codex` 만. Claude Code 용 `alfred` 는 0.1.7 그대로).
+**버그 수정.** 두 플러그인 모두 0.1.8.
 
-- **Codex 자체 `/init` 을 Alfred 설정으로 착각할 수 있었다** — Codex 는 시작 화면마다 `/init` 을 띄운다. 기여자 가이드
+- **[Codex] Codex 자체 `/init` 을 Alfred 설정으로 착각할 수 있었다** — Codex 는 시작 화면마다 `/init` 을 띄운다. 기여자 가이드
   `AGENTS.md` 를 쓰는 Codex 명령인데, Alfred 워크스페이스에서는 그 파일에 사용자 설정이 들어 있다.
   새 `UserPromptSubmit` 훅(`alfred-codex/hooks/init-guard.sh`)이 Alfred 워크스페이스에서 `/init` 프롬프트를 잡아,
   모델이 어떤 파일도 건드리지 않고 Alfred 는 이미 설정돼 있다고(`$alfred-init` 이 Alfred 설정) 안내하게 한다.
