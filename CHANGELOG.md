@@ -4,6 +4,16 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-05
 
 Newest first. Hashes are commits in this repository. From 0.1.8 on there is one version for the whole repository: both plugins (`alfred` for Claude Code, `alfred-codex` for Codex) carry the same number, and each item is tagged **[Claude]**, **[Codex]** or **[Both]**. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
 
+## 0.1.9 — 2026-10-05
+
+**Bug fix.** Both plugins are now 0.1.9.
+
+- **[Both] `alfred-init` confirms through the question window again** — 0.1.7 moved the "create / redo settings / stop" confirmation
+  to chat so the window would not cover the file list, which meant typing the answer. Now the window asks, with a two-or-three-line
+  summary (file count and top-level items) inside the question itself; the full list is shown in chat only if asked for.
+  The closing "use git?" question also goes through the window. Codex's skill names `request_user_input` explicitly, since without it
+  the confirmation still came as chat. Checked in Claude Code and Codex
+
 ## 0.1.8 — 2026-10-05
 
 **Bug fix.** Both plugins are now 0.1.8.

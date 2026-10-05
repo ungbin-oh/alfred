@@ -40,7 +40,7 @@ Put the default in the options and take free input through the "Other" the windo
 5. Whether to turn on the author header, and if so, the name to put in it (off)
 
 ### 3. Show what will be created and confirm
-Show the list below in chat and **confirm in chat** before creating (create / redo settings / stop). Don't open a question window right after the list — it covers the list. Don't put the list in an option preview either — only about 15 lines show.
+**Confirm through the question window** before creating (create / redo settings / stop). Put a short summary of what will be created **in the question text itself** — the file count and the top-level items, two or three lines (e.g. "15 files: CLAUDE.md, .alfred/, project-logs · project-workspace for Work/Research/Life, daily/, Archive/"). Don't print the full list in chat before the window (the window covers it) and don't put it in an option preview (only about 15 lines show). If the user asks to see the full list, show it in chat and ask again.
 `<lang>` is `en` or `ko` per step 2.
 ```
 CLAUDE.md                              ← templates/<lang>/CLAUDE.md with settings filled in
@@ -65,7 +65,7 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` contents:
   ```
   alfred-workspace
-  version: 0.1.8
+  version: 0.1.9
   created: YYYY-MM-DD
   language: en
   ```
@@ -92,7 +92,7 @@ If turning on:
 ### 6. Wrap up
 - Tell the user they **must restart Claude Code in this folder** for the hook to recognize the workspace
 - Tell them the first project can start with "create a <name> project in <category>"
-- Only ask whether to use git. Run `git init` only if the user says to
+- Only ask whether to use git — through the question window (use git / not now). Run `git init` only if the user says to
 
 ## Creating a new project (after init, when the user asks)
 Create `project-logs/<category>/<project>/log.md` with the frontmatter from section 7 of the common rules and the top section
