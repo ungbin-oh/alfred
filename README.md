@@ -11,6 +11,7 @@
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat" alt="License"></a>
   <img src="https://img.shields.io/badge/Claude%20Code-plugin-D97757?style=flat" alt="Claude Code plugin">
+  <img src="https://img.shields.io/badge/Codex-plugin-10A37F?style=flat" alt="Codex plugin">
   <a href="https://github.com/ungbin-oh/alfred/stargazers"><img src="https://img.shields.io/github/stars/ungbin-oh/alfred?style=flat&color=yellow" alt="Stars"></a>
 </p>
 
@@ -24,7 +25,7 @@
   <a href="README_kr.md">한국어</a>
 </p>
 
-written by Ungbin_Oh · created 2026-09-27 · updated 2026-10-05
+written by Ungbin_Oh · created 2026-09-27 · updated 2026-10-06
 
 ---
 
@@ -38,7 +39,7 @@ One thing I shall make plain, however: **the decision is always yours.**
 I offer no suggestions you did not ask for, and I ask before running anything.
 Nor do I hand you a finished implementation first — you try, and I review alongside you.
 
-> Status: **v0.1.7.** Local install, init and briefing tested on macOS (v0.1.2). v0.1.4 rule loading checked with `claude -p` on macOS; v0.1.5 rule wording not yet tested in a session. Codex plugin (`alfred-codex`) v0.1.6: rule loading checked with `codex exec` on macOS. Linux and Windows not yet tested.
+> Status: **v0.1.9.** Install from GitHub, `alfred-init` and rule loading tested in interactive sessions on macOS, in both Claude Code and Codex. Linux and Windows not yet tested.
 
 ## Install
 
@@ -56,7 +57,7 @@ Then give me a room to stay in.
    mkdir ~/ALFRED && cd ~/ALFRED && claude
    ```
 2. Call `/alfred-init`. I first ask your language (**English** by default, or 한국어), then your name, how to address you,
-   and your categories — all in question windows — and I create nothing until you've seen the file list and approved it.
+   and your categories — all in question windows — and I create nothing until you've approved a short summary of what will be created, also in a question window.
    Last, I ask whether to show a sky-blue `[ALFRED]` badge in your statusline
    (this edits `statusLine` in the global `~/.claude/settings.json`. If you already have a statusline, I can sit next to it)
 3. **Restart Claude Code once in the same folder.** From then on, I greet you first in every session
@@ -82,6 +83,7 @@ Your settings go in `AGENTS.md` instead of `CLAUDE.md`.
 - **Question windows** need `codex --enable default_mode_request_user_input`. Without it I ask in chat, one question at a time
 - **How the rules arrive:** Codex has no import in `AGENTS.md`, so the session-start hook prints the full rules into each session
   (its output limit is raised in `alfred-codex/hooks/hooks.json`). Updating the plugin updates the rules from the next session
+- **Ignore Codex's own `/init`.** Codex's start screen lists `/init` every session — that is Codex's command for writing a contributor guide, not Alfred's setup. In an Alfred workspace I stop it from touching your files
 - **Not in Codex:** the `[ALFRED]` statusline badge
 - Update: `codex plugin marketplace upgrade alfred`, then `codex plugin add alfred-codex@alfred` again. Remove: `codex plugin remove alfred-codex@alfred`
 
@@ -146,7 +148,7 @@ Workspaces made before 0.1.4 don't have the `@.alfred/rules.md` line in `CLAUDE.
 
 ## Update history
 
-What changed in each version is in [CHANGELOG.md](CHANGELOG.md). Latest: **0.1.9** (2026-10-05) — bug fix: `alfred-init` confirms through the question window again, with a short summary inside the question. Before that, **0.1.8** — bug fix (Codex): Codex's own `/init` no longer touches an Alfred workspace. Before that, **0.1.7** — bug fix: `alfred-init` shows the file list in chat instead of under a question window. Before that, **0.1.6** — the repository splits into `alfred-claude/` and `alfred-codex/`, and Codex gets its own plugin. Before that, **0.1.5** — rules rewritten in plainer sentences, boot asks about yesterday's To do, decision.md leaves "what counts as a judgment" to you, personal details removed.
+What changed in each version is in [CHANGELOG.md](CHANGELOG.md). Both plugins share one version number; each change is tagged [Claude], [Codex] or [Both]. Latest: **0.1.9** (2026-10-05) — bug fix: `alfred-init` confirms through the question window again, with a short summary inside the question. Before that, **0.1.8** — bug fix (Codex): Codex's own `/init` no longer touches an Alfred workspace. Before that, **0.1.7** — bug fix: `alfred-init` shows the file list in chat instead of under a question window. Before that, **0.1.6** — the repository splits into `alfred-claude/` and `alfred-codex/`, and Codex gets its own plugin. Before that, **0.1.5** — rules rewritten in plainer sentences, boot asks about yesterday's To do, decision.md leaves "what counts as a judgment" to you, personal details removed.
 
 ## Dismissing me
 
