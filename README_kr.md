@@ -17,7 +17,6 @@
 
 <p align="center">
   <a href="#설치">설치</a> •
-  <a href="#codex">Codex</a> •
   <a href="#제가-드리는-것">제가 드리는 것</a> •
   <a href="#일하는-방식">일하는 방식</a> •
   <a href="#자주-쓰시는-말씀">자주 쓰시는 말씀</a> •
@@ -29,62 +28,34 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-06
 
 ---
 
-안녕하십니까, 주인님. Alfred 입니다.
+### 당신의 모든 일을 기록하고, 추적하세요.
 
-저는 Claude Code — 또는 Codex — 를 **개인 비서**로 쓰시도록 돕는 플러그인입니다.
-세션을 여시면 모든 프로젝트의 형편을 표로 여쭙고, 무엇을 **왜** 그렇게 정하셨는지 기록해 두며,
-작업 도중의 시도와 실패는 제가 곁에서 받아 적습니다.
+프로젝트 다섯 개를 동시에 굴리고 계신가요? Alfred 가 하나하나 놓치지 않고 붙잡아 둡니다.
+무엇을 했고, 무엇을 정했고, **왜** 그렇게 정했는지 — 언제 돌아와도 멈춘 그 자리에서 바로 이어 가세요.
 
-다만 한 가지는 분명히 해 두겠습니다. **결정은 언제나 주인님의 몫입니다.**
-저는 묻지 않으신 제안을 드리지 않고, 무언가를 실행하기 전에는 먼저 여쭙니다.
-구현도 제가 먼저 완성해 내밀지 않습니다 — 주인님께서 먼저 시도하시면, 저는 곁에서 살피겠습니다.
+- 🎩 **세션을 열면 모든 프로젝트가 한눈에** — 상태 · 마지막 작업 · 다음 할 일을 표 하나로
+- 📝 **모든 결정을, 그 이유와 함께** — 나중에 떠올리는 게 아니라 일하는 그 순간에 기록
+- 🧭 **결정은 당신이, 정리는 Alfred 가** — 묻지 않은 제안 없이, 허락 없이는 아무것도 실행하지 않습니다
 
-> 상태: **v0.1.9.** macOS 에서 GitHub 설치 · `alfred-init` · 규약 불러오기를 Claude Code 와 Codex 양쪽 실제 세션에서 시험했습니다. Linux · Windows 는 아직 시험하지 않았습니다.
+멀티태스킹을 도와, 당신이 일하는 방식을 완전히 바꿔 드리겠습니다.
 
 ## 설치
 
-Claude Code 안에서 이렇게 말씀해 주십시오.
-
+**Claude Code**
 ```
-/plugin marketplace add ungbin-oh/alfred
-/plugin install alfred@alfred
+claude plugin marketplace add ungbin-oh/alfred
+claude plugin install alfred@alfred
+mkdir ~/ALFRED && cd ~/ALFRED && claude
+# 세션에서: /alfred-init  → 끝나면 Claude Code 다시 열기
 ```
 
-그다음 제가 머물 방을 하나 마련해 주시면 됩니다.
-
-1. 전용 폴더를 만들고 그곳에서 Claude Code 를 여십시오
-   ```
-   mkdir ~/ALFRED && cd ~/ALFRED && claude
-   ```
-2. `/alfred-init` 이라고 불러 주십시오. 먼저 언어(기본 English, 또는 **한국어**)를 여쭙고, 이어서 성함 · 호칭 · 카테고리를 질문 창으로 여쭙니다.
-   만들 것의 요약을 질문 창으로 보여 드리고 허락을 받고서야 만듭니다.
-   마지막으로 상태줄에 하늘색 `[ALFRED]` 배지를 띄울지 여쭙니다
-   (전역 `~/.claude/settings.json` 의 `statusLine` 을 고칩니다. 이미 쓰시는 상태줄이 있으면 옆에 나란히 둘 수 있습니다)
-3. **같은 폴더에서 Claude Code 를 한 번 다시 여십시오.** 그때부터 세션마다 제가 먼저 인사를 드립니다
-4. "Research 에 Thesis-Experiment 프로젝트 만들어줘" 처럼 첫 프로젝트를 일러 주십시오
-
-## Codex
-
-이 레포에는 플러그인이 둘 나란히 있습니다. Claude Code 용 `alfred-claude/` (플러그인 이름 `alfred`) 와 Codex 용 `alfred-codex/`
-(플러그인 이름 `alfred-codex`) 입니다. 규약은 같은 파일을 양쪽에 복사해 두었고, 모델에게 전해지는 길만 다릅니다.
-
-터미널에서 설치하십시오.
-
+**Codex**
 ```
 codex plugin marketplace add ungbin-oh/alfred
 codex plugin add alfred-codex@alfred
+mkdir ~/ALFRED && cd ~/ALFRED && codex --enable default_mode_request_user_input
+# 훅 신뢰를 물으면 신뢰 → $alfred-init  → 끝나면 Codex 다시 열기
 ```
-
-그다음 전용 폴더를 만들어 그곳에서 Codex 를 여시고 `alfred-init` 스킬을 불러 주십시오 (`$alfred-init`, 또는 `/skills` 에서 고르기).
-설정은 `CLAUDE.md` 대신 `AGENTS.md` 에 들어갑니다.
-
-- **훅을 한 번 신뢰해 주십시오.** 워크스페이스에서 Codex 를 처음 여시면 플러그인 훅을 검토하라고 묻습니다. 신뢰하시기 전에는 규약을 불러오지 못합니다
-- **질문 창**은 `codex --enable default_mode_request_user_input` 으로 여셔야 뜹니다. 없으면 채팅으로 한 번에 하나씩 여쭙니다
-- **규약이 들어가는 길:** Codex 의 `AGENTS.md` 는 다른 파일을 불러오지 못해서, 세션 시작 훅이 규약 전문을 세션마다 넣습니다
-  (출력 상한은 `alfred-codex/hooks/hooks.json` 에서 올려 두었습니다). 플러그인을 업데이트하시면 다음 세션부터 새 규약이 들어갑니다
-- **Codex 의 `/init` 은 무시하십시오.** Codex 시작 화면에 늘 뜨는 `/init` 은 기여자 가이드를 쓰는 Codex 명령이지, 제 설정이 아닙니다. Alfred 워크스페이스에서는 그것이 주인님 파일을 건드리지 못하게 막습니다
-- **Codex 에는 없는 것:** `[ALFRED]` 상태줄 배지
-- 업데이트: `codex plugin marketplace upgrade alfred` 뒤 `codex plugin add alfred-codex@alfred` 를 다시. 지우기: `codex plugin remove alfred-codex@alfred`
 
 ## 제가 드리는 것
 
@@ -136,31 +107,20 @@ codex plugin add alfred-codex@alfred
 ## 새 버전을 받으시려면
 
 ```
-/plugin marketplace update alfred
-/plugin uninstall alfred@alfred
-/plugin install alfred@alfred
+claude plugin marketplace update alfred && claude plugin update alfred@alfred      # Claude Code
+codex plugin marketplace upgrade alfred && codex plugin add alfred-codex@alfred    # Codex
 ```
 
-그다음 Claude Code 를 한 번 다시 여십시오. 워크스페이스의 로그와 설정은 그대로입니다.
-업데이트 뒤 첫 세션에서는 제가 `.alfred/rules.md` 를 새로 맞추고 직접 읽습니다. 다음 세션부터는 저절로 불러옵니다.
-0.1.4 이전에 만든 워크스페이스는 `CLAUDE.md` 에 `@.alfred/rules.md` 줄이 없습니다 — 넣을지 한 번 여쭙겠습니다.
-
-## 업데이트 히스토리
-
-버전마다 무엇이 바뀌었는지는 [docs/ko/CHANGELOG.md](docs/ko/CHANGELOG.md) 에 적어 두었습니다 (정본은 영어 [CHANGELOG.md](CHANGELOG.md)). 두 플러그인은 버전 번호 하나를 같이 쓰고, 바뀐 것마다 [Claude] · [Codex] · [공통] 을 붙입니다.
-최신: **0.1.9** (2026-10-05) — 버그 수정: `alfred-init` 이 다시 질문 창으로 확인하고, 만들 것의 요약을 질문 안에 넣습니다. 그 전 **0.1.8** — 버그 수정 (Codex): Codex 자체 `/init` 이 Alfred 워크스페이스를 건드리지 않습니다. 그 전 **0.1.7** — 버그 수정: `alfred-init` 이 파일 목록을 질문 창 밑이 아니라 채팅으로 보여 줍니다. 그 전 **0.1.6** — 레포를 `alfred-claude/` 와 `alfred-codex/` 로 나누고 Codex 전용 플러그인을 더했습니다. 그 전 **0.1.5** — 규약을 읽히는 문장으로 다시 쓰고, 부팅 때 어제 To do 를 묻고, 무엇이 판단인지는 사용자가 정하게 했으며, 개인 정보를 뺐습니다.
+워크스페이스의 로그와 설정은 그대로입니다.
 
 ## 물러나게 하시려면
 
 ```
-/plugin uninstall alfred@alfred
+claude plugin uninstall alfred@alfred      # Claude Code
+codex plugin remove alfred-codex@alfred    # Codex
 ```
 
-워크스페이스의 로그와 일기는 그대로 남습니다. 모두 주인님의 것이니까요.
-
-상태줄 배지를 켜셨다면 따로 되돌려 주십시오. `~/.claude/settings.json` 의 `statusLine` 을 지우시거나,
-나란히 띄우기로 켜셨다면 `~/.claude/.alfred-statusline-chain` 에 저장된 원래 명령으로 되돌린 뒤
-`~/.claude/alfred-statusline.sh` 와 `.alfred-statusline-chain` 을 지우시면 됩니다.
+로그와 일기는 그대로 남습니다 — 모두 주인님의 것입니다. 상태줄 배지를 켜셨다면 `~/.claude/settings.json` 의 `statusLine` 을 지워 주십시오.
 
 ## 한국어 규약
 
@@ -174,3 +134,10 @@ codex plugin add alfred-codex@alfred
 ## License
 
 [MIT](LICENSE) © 2026 Ungbin Oh
+
+## 업데이트 히스토리
+
+버전마다 무엇이 바뀌었는지는 [docs/ko/CHANGELOG.md](docs/ko/CHANGELOG.md) 에 적어 두었습니다 (정본은 영어 [CHANGELOG.md](CHANGELOG.md)). 두 플러그인은 버전 번호 하나를 같이 쓰고, 바뀐 것마다 [Claude] · [Codex] · [공통] 을 붙입니다.
+최신: **0.1.9** (2026-10-05) — 버그 수정: `alfred-init` 이 다시 질문 창으로 확인하고, 만들 것의 요약을 질문 안에 넣습니다. 그 전 **0.1.8** — 버그 수정 (Codex): Codex 자체 `/init` 이 Alfred 워크스페이스를 건드리지 않습니다. 그 전 **0.1.7** — 버그 수정: `alfred-init` 이 파일 목록을 질문 창 밑이 아니라 채팅으로 보여 줍니다. 그 전 **0.1.6** — 레포를 `alfred-claude/` 와 `alfred-codex/` 로 나누고 Codex 전용 플러그인을 더했습니다. 그 전 **0.1.5** — 규약을 읽히는 문장으로 다시 쓰고, 부팅 때 어제 To do 를 묻고, 무엇이 판단인지는 사용자가 정하게 했으며, 개인 정보를 뺐습니다.
+
+- 상태: **v0.1.9** — macOS 의 Claude Code · Codex 에서 시험했습니다. Linux · Windows 는 아직입니다

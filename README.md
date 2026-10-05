@@ -17,7 +17,6 @@
 
 <p align="center">
   <a href="#install">Install</a> •
-  <a href="#codex">Codex</a> •
   <a href="#what-i-provide">What I provide</a> •
   <a href="#how-i-work">How I work</a> •
   <a href="#things-you-can-say">Things you can say</a> •
@@ -29,63 +28,34 @@ written by Ungbin_Oh · created 2026-09-27 · updated 2026-10-06
 
 ---
 
-Good day. I am Alfred.
+### Record everything. Track everything. Lose nothing.
 
-I am a plugin that lets you use Claude Code — or Codex — as a **personal assistant**.
-When you open a session, I report on every project in a table. I record what you decided and **why**,
-and while you work, I note down every attempt and failure at your side.
+Juggling five projects at once? Alfred keeps every one of them on track —
+what you did, what you decided, and **why** — so you can switch freely and pick up exactly where you left off.
 
-One thing I shall make plain, however: **the decision is always yours.**
-I offer no suggestions you did not ask for, and I ask before running anything.
-Nor do I hand you a finished implementation first — you try, and I review alongside you.
+- 🎩 **Open a session, see every project** — status, last touched, what's next, in one table
+- 📝 **Every decision, with its reason** — written down as you work, not reconstructed later
+- 🧭 **You decide. Alfred organizes.** — no unasked suggestions, nothing runs without your OK
 
-> Status: **v0.1.9.** Install from GitHub, `alfred-init` and rule loading tested in interactive sessions on macOS, in both Claude Code and Codex. Linux and Windows not yet tested.
+Your multitasking, finally under control.
 
 ## Install
 
-Say this inside Claude Code:
-
+**Claude Code**
 ```
-/plugin marketplace add ungbin-oh/alfred
-/plugin install alfred@alfred
+claude plugin marketplace add ungbin-oh/alfred
+claude plugin install alfred@alfred
+mkdir ~/ALFRED && cd ~/ALFRED && claude
+# in the session: /alfred-init  → then reopen Claude Code
 ```
 
-Then give me a room to stay in.
-
-1. Make a dedicated folder and open Claude Code there
-   ```
-   mkdir ~/ALFRED && cd ~/ALFRED && claude
-   ```
-2. Call `/alfred-init`. I first ask your language (**English** by default, or 한국어), then your name, how to address you,
-   and your categories — all in question windows — and I create nothing until you've approved a short summary of what will be created, also in a question window.
-   Last, I ask whether to show a sky-blue `[ALFRED]` badge in your statusline
-   (this edits `statusLine` in the global `~/.claude/settings.json`. If you already have a statusline, I can sit next to it)
-3. **Restart Claude Code once in the same folder.** From then on, I greet you first in every session
-4. Tell me your first project, e.g. "create a Thesis-Experiment project in Research"
-
-## Codex
-
-The repository holds two plugins side by side: `alfred-claude/` for Claude Code (plugin `alfred`) and `alfred-codex/` for Codex
-(plugin `alfred-codex`). The rules are the same file copied into both; only the way they reach the model differs.
-
-Install in a terminal:
-
+**Codex**
 ```
 codex plugin marketplace add ungbin-oh/alfred
 codex plugin add alfred-codex@alfred
+mkdir ~/ALFRED && cd ~/ALFRED && codex --enable default_mode_request_user_input
+# trust the hooks when asked, then: $alfred-init  → then reopen Codex
 ```
-
-Then make a dedicated folder, open Codex there and call the `alfred-init` skill (`$alfred-init`, or pick it from `/skills`).
-Your settings go in `AGENTS.md` instead of `CLAUDE.md`.
-
-- **Trust the hooks once.** The first time Codex starts in the workspace it asks you to review the plugin's hooks. Until you trust them,
-  I can't load the rules
-- **Question windows** need `codex --enable default_mode_request_user_input`. Without it I ask in chat, one question at a time
-- **How the rules arrive:** Codex has no import in `AGENTS.md`, so the session-start hook prints the full rules into each session
-  (its output limit is raised in `alfred-codex/hooks/hooks.json`). Updating the plugin updates the rules from the next session
-- **Ignore Codex's own `/init`.** Codex's start screen lists `/init` every session — that is Codex's command for writing a contributor guide, not Alfred's setup. In an Alfred workspace I stop it from touching your files
-- **Not in Codex:** the `[ALFRED]` statusline badge
-- Update: `codex plugin marketplace upgrade alfred`, then `codex plugin add alfred-codex@alfred` again. Remove: `codex plugin remove alfred-codex@alfred`
 
 ## What I provide
 
@@ -137,30 +107,20 @@ To switch language later, change the `language:` line in `.alfred/workspace` to 
 ## Updating
 
 ```
-/plugin marketplace update alfred
-/plugin uninstall alfred@alfred
-/plugin install alfred@alfred
+claude plugin marketplace update alfred && claude plugin update alfred@alfred      # Claude Code
+codex plugin marketplace upgrade alfred && codex plugin add alfred-codex@alfred    # Codex
 ```
 
-Then restart Claude Code once. Your workspace logs and settings stay as they are.
-In the first session after an update I refresh `.alfred/rules.md` and read it myself; from the next session it loads on its own.
-Workspaces made before 0.1.4 don't have the `@.alfred/rules.md` line in `CLAUDE.md` yet — I'll ask you once whether to add it.
-
-## Update history
-
-What changed in each version is in [CHANGELOG.md](CHANGELOG.md). Both plugins share one version number; each change is tagged [Claude], [Codex] or [Both]. Latest: **0.1.9** (2026-10-05) — bug fix: `alfred-init` confirms through the question window again, with a short summary inside the question. Before that, **0.1.8** — bug fix (Codex): Codex's own `/init` no longer touches an Alfred workspace. Before that, **0.1.7** — bug fix: `alfred-init` shows the file list in chat instead of under a question window. Before that, **0.1.6** — the repository splits into `alfred-claude/` and `alfred-codex/`, and Codex gets its own plugin. Before that, **0.1.5** — rules rewritten in plainer sentences, boot asks about yesterday's To do, decision.md leaves "what counts as a judgment" to you, personal details removed.
+Your logs and settings stay as they are.
 
 ## Dismissing me
 
 ```
-/plugin uninstall alfred@alfred
+claude plugin uninstall alfred@alfred      # Claude Code
+codex plugin remove alfred-codex@alfred    # Codex
 ```
 
-Your workspace logs and notes remain. They are all yours.
-
-If you turned on the statusline badge, undo it separately: delete `statusLine` from `~/.claude/settings.json`,
-or if you chose to show both, restore the original command saved in `~/.claude/.alfred-statusline-chain`,
-then delete `~/.claude/alfred-statusline.sh` and `.alfred-statusline-chain`.
+Your logs and notes stay — they're yours. If you turned on the statusline badge, remove `statusLine` from `~/.claude/settings.json`.
 
 ## Korean translation
 
@@ -174,3 +134,9 @@ The rules and skills have one English source (`alfred-claude/`; `alfred-codex/` 
 ## License
 
 [MIT](LICENSE) © 2026 Ungbin Oh
+
+## Update history
+
+What changed in each version is in [CHANGELOG.md](CHANGELOG.md). Both plugins share one version number; each change is tagged [Claude], [Codex] or [Both]. Latest: **0.1.9** (2026-10-05) — bug fix: `alfred-init` confirms through the question window again, with a short summary inside the question. Before that, **0.1.8** — bug fix (Codex): Codex's own `/init` no longer touches an Alfred workspace. Before that, **0.1.7** — bug fix: `alfred-init` shows the file list in chat instead of under a question window. Before that, **0.1.6** — the repository splits into `alfred-claude/` and `alfred-codex/`, and Codex gets its own plugin. Before that, **0.1.5** — rules rewritten in plainer sentences, boot asks about yesterday's To do, decision.md leaves "what counts as a judgment" to you, personal details removed.
+
+- Status: **v0.1.9** — tested on macOS in Claude Code and Codex. Linux and Windows not yet tested
