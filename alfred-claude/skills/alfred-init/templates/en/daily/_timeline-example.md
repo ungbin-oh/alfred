@@ -35,7 +35,7 @@ All [[Thesis-Experiment]].
 
 **② 13:10–15:30 · Narrowing the conditions**
 - Listed 6 candidate conditions
-- Decided to cut to three before the advisor meeting (time budget)
+- Decided to cut to three before the team meeting (time budget)
 - Learning-rate sweep, 3 points → largest value diverged
 - **Blamed the model for divergence, but the cause was missing warmup** → converged after adding warmup
 

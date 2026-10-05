@@ -6,7 +6,8 @@ description: Set up an Alfred workspace in the current folder — CLAUDE.md (per
 # alfred-init
 
 Turns the current working folder into an Alfred workspace. Every file created **belongs to the user**.
-The common rules are injected every session by the plugin hook, so they are not copied here.
+The common rules are copied into `.alfred/rules.md` by `../../hooks/sync-rules.sh` (relative to this skill), and the workspace
+`CLAUDE.md` loads them with the line `@.alfred/rules.md`. The plugin's session-start hook keeps that copy up to date.
 
 Templates are in this skill directory's `templates/` (next to this SKILL.md), one set per language:
 `templates/en/` and `templates/ko/`. `templates/gitignore` is shared.
@@ -17,7 +18,8 @@ Templates are in this skill directory's `templates/` (next to this SKILL.md), on
 - Look at where you are and what's there with `pwd`, `ls -la`
 - If `.alfred/workspace` already exists, say it's **already an initialized workspace** and stop
 - If `CLAUDE.md` already exists, don't overwrite it. Ask via the multiple-choice question window (AskUserQuestion):
-  append an Alfred settings section to the end of the existing file / stop
+  append an Alfred settings section to the end of the existing file / stop.
+  The appended section must include the line `@.alfred/rules.md` on its own line (not in backticks)
 - If you're directly in the home directory (`~`), confirm once more (usually a dedicated folder is used)
 
 ### 2. Ask for settings
@@ -43,6 +45,7 @@ Show the list below as text, then **confirm through the question window** before
 ```
 CLAUDE.md                              ← templates/<lang>/CLAUDE.md with settings filled in
 .alfred/workspace                      ← marker (version, created date, language)
+.alfred/rules.md                       ← copy of the common rules, written by ../../hooks/sync-rules.sh
 .gitignore                             ← templates/gitignore
 project-logs/<category>/.gitkeep       ← one per category
 project-workspace/<category>/.gitkeep
@@ -62,12 +65,14 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` contents:
   ```
   alfred-workspace
-  version: 0.1.3
+  version: 0.1.5
   created: YYYY-MM-DD
   language: en
   ```
   (`language: ko` for Korean. The session-start hook reads this line)
 - Copy templates as-is; don't add author headers (they're the user's files)
+- Copy the common rules: `bash "<this skill dir>/../../hooks/sync-rules.sh" "<workspace root>"`. It prints `created`.
+  Check that `CLAUDE.md` has the line `@.alfred/rules.md` on its own line. Don't edit `.alfred/rules.md` — the plugin overwrites it
 
 ### 5. Statusline badge (optional)
 Shows a sky-blue `[ALFRED]` badge in the statusline inside Alfred workspaces. **This edits global settings (`~/.claude/settings.json`),

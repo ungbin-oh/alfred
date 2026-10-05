@@ -1,7 +1,10 @@
 # {{ASSISTANT_NAME}} — {{USER_NAME}}'s workspace
 
 This file belongs to you. Edit it freely.
-The Alfred plugin injects the common rules every session. **If this file and the common rules disagree, this file wins.**
+The line below loads the Alfred common rules (`.alfred/rules.md`, kept up to date by the plugin — don't edit that file, and keep this line).
+**If this file and the common rules disagree, this file wins.**
+
+@.alfred/rules.md
 
 ## Settings
 

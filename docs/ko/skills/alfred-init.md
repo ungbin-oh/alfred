@@ -1,14 +1,15 @@
 # alfred-init
 
-written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-03
+written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-05
 
-> **한국어 번역본이다.** 정본은 `skills/alfred-init/SKILL.md` (영어) 이고 Claude Code 는 이 파일을 읽지 않는다.
+> **한국어 번역본이다.** 정본은 `alfred-claude/skills/alfred-init/SKILL.md` (영어) 이고 Claude Code 는 이 파일을 읽지 않는다.
 > 정본이 바뀌면 이 파일도 같은 커밋에서 맞춘다.
 
 스킬 설명: Alfred 워크스페이스를 현재 폴더에 만든다 — CLAUDE.md(개인 설정), project-logs/, daily/ 템플릿, .alfred/workspace 마커. 사용자가 /alfred-init 을 입력하거나 "Alfred 설치/초기화해줘" 라고 명시할 때만 쓴다.
 
 현재 작업 폴더를 Alfred 워크스페이스로 만든다. 만들어지는 파일은 전부 **사용자 소유**다.
-공통 규약은 플러그인 훅이 세션마다 넣어 주므로 여기서 복사하지 않는다.
+공통 규약은 `../../hooks/sync-rules.sh` (이 스킬 기준)가 `.alfred/rules.md` 로 복사하고, 워크스페이스
+`CLAUDE.md` 가 `@.alfred/rules.md` 한 줄로 불러온다. 그 복사본은 플러그인의 세션 시작 훅이 최신으로 맞춘다.
 
 템플릿은 이 스킬 디렉토리의 `templates/` 에 있다 (이 SKILL.md 와 같은 위치). 언어별로 한 벌씩:
 `templates/en/` 과 `templates/ko/`. `templates/gitignore` 는 공용이다.
@@ -19,7 +20,8 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-03
 - `pwd`, `ls -la` 로 현재 위치와 내용을 본다
 - 이미 `.alfred/workspace` 가 있으면 **이미 초기화된 워크스페이스**라고 알리고 멈춘다
 - `CLAUDE.md` 가 이미 있으면 덮어쓰지 않는다. 객관식 질문 창(AskUserQuestion)으로 묻는다:
-  기존 파일 끝에 Alfred 설정 절을 붙일지 / 중단할지
+  기존 파일 끝에 Alfred 설정 절을 붙일지 / 중단할지.
+  붙이는 절에는 `@.alfred/rules.md` 한 줄을 따로 넣는다 (백틱으로 감싸지 않는다)
 - 홈 디렉토리(`~`) 바로 위라면 한 번 더 확인한다 (보통은 전용 폴더를 쓴다)
 
 ### 2. 설정 묻기
@@ -45,6 +47,7 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-03
 ```
 CLAUDE.md                              ← templates/<lang>/CLAUDE.md 에 설정값을 채움
 .alfred/workspace                      ← 마커 (버전·생성일·언어)
+.alfred/rules.md                       ← 공통 규약 복사본, ../../hooks/sync-rules.sh 가 씀
 .gitignore                             ← templates/gitignore
 project-logs/<카테고리>/.gitkeep        ← 카테고리마다
 project-workspace/<카테고리>/.gitkeep
@@ -64,12 +67,14 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` 내용:
   ```
   alfred-workspace
-  version: 0.1.3
+  version: 0.1.5
   created: YYYY-MM-DD
   language: en
   ```
   (한국어면 `language: ko`. 세션 시작 훅이 이 줄을 읽는다)
 - 템플릿은 복사만 하고 저작 헤더를 넣지 않는다 (사용자 파일이다)
+- 공통 규약 복사: `bash "<이 스킬 폴더>/../../hooks/sync-rules.sh" "<워크스페이스 루트>"`. `created` 가 찍힌다.
+  `CLAUDE.md` 에 `@.alfred/rules.md` 가 한 줄로 들어 있는지 확인한다. `.alfred/rules.md` 는 고치지 않는다 — 플러그인이 덮어쓴다
 
 ### 5. 상태줄 배지 (선택)
 Alfred 워크스페이스에서 상태줄에 하늘색 `[ALFRED]` 배지를 띄운다. **전역 설정(`~/.claude/settings.json`)을 고치는 일이라

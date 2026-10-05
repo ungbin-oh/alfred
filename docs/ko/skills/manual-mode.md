@@ -1,8 +1,8 @@
 # manual-mode
 
-written by Ungbin_Oh · created 2026-09-26 · updated 2026-09-27
+written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-05
 
-> **한국어 번역본이다.** 정본은 `skills/manual-mode/SKILL.md` (영어) 이고 Claude Code 는 이 파일을 읽지 않는다.
+> **한국어 번역본이다.** 정본은 `alfred-claude/skills/manual-mode/SKILL.md` (영어) 이고 Claude Code 는 이 파일을 읽지 않는다.
 > 정본이 바뀌면 이 파일도 같은 커밋에서 맞춘다.
 
 스킬 설명: 수동 모드 토글 (lite / medium / full / once / status / off). 사용자가 /manual-mode 를 입력할 때만 쓴다. 켜면 비서는 명령·코드를 출력만 하고 사용자가 직접 실행한다.
