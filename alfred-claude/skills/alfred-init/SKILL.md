@@ -70,7 +70,7 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` contents:
   ```
   alfred-workspace
-  version: 0.3.1
+  version: 0.3.2
   created: YYYY-MM-DD
   language: en
   ```
@@ -95,7 +95,7 @@ If turning on:
 - To undo: restore `statusLine.command` from `~/.claude/.alfred-statusline-chain`, or delete `statusLine`
 
 ### 6. Wrap up
-- Tell the user they **must restart Claude Code in this folder** for the hook to recognize the workspace
+Write the closing message in this order, and put the restart **last**, in bold, on its own line — the user acts on the last thing they read. Nothing else in Alfred works until the restart, guide mode included.
 - Tell them the first project can start with "create a <name> project in <category>"
   - Then introduce Incubator, in the chosen language and with the chosen form of address. Say it in your own words, close to this
     (ko): "아직 무엇을 구상 중이시라면 편하게 말씀해 주세요. Incubator 에서 그 내용을 추적하고 키웠다가, 실제 프로젝트로 띄울 때
@@ -104,7 +104,8 @@ If turning on:
     (en): "If you're still shaping an idea, just tell me. Incubator tracks it and lets it grow; when it becomes a real project, you move it
     to the folder you want. Even small questions go into Incubator so no idea slips away. Ideas you won't act on right now — just say so
     and I'll put them in Incubator's open.md. Make good use of open!"
-  - Then one line for first-timers: `/guide-mode on` gives a short tour of Alfred and a usage tip now and then (`/guide-mode off` stops it)
+  - Then one line for first-timers: **after the restart**, `/guide-mode on` gives a short tour of Alfred and a usage tip now and then (`/guide-mode off` stops it)
+  - Last, in bold: they **must restart Claude Code in this folder now** (quit, then `claude`) for the hook to recognize the workspace
 - Only ask whether to use git — through the question window (use git / not now). Run `git init` only if the user says to
 
 ## Creating a new project (after init, when the user asks)

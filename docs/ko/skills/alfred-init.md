@@ -71,7 +71,7 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` 내용:
   ```
   alfred-workspace
-  version: 0.3.1
+  version: 0.3.2
   created: YYYY-MM-DD
   language: en
   ```
@@ -96,13 +96,14 @@ Alfred 워크스페이스에서 상태줄에 하늘색 `[ALFRED]` 배지를 띄�
 - 되돌리기: `~/.claude/.alfred-statusline-chain` 에 저장된 명령을 `statusLine.command` 로 되돌리거나 `statusLine` 을 지운다
 
 ### 6. 마무리 안내
-- **Claude Code 를 이 폴더에서 다시 시작해야** 훅이 워크스페이스를 알아본다고 알린다
+아래 순서로 쓰고, 다시 시작 안내는 **맨 끝에 굵게 한 줄로** 둔다 — 사용자는 마지막에 읽은 것을 한다. 다시 시작하기 전에는 가이드 모드를 포함해 아무것도 제대로 돌지 않는다.
 - 첫 프로젝트는 "<카테고리> 에 <이름> 프로젝트 만들어줘" 로 시작하면 된다고 알린다
 - 이어서 Incubator 를 소개한다 (고른 언어 · 호칭으로, 자기 말로 하되 이 뜻에 가깝게): "아직 무엇을 구상 중이시라면 편하게 말씀해 주세요.
   Incubator 에서 그 내용을 추적하고 키웠다가, 실제 프로젝트로 띄울 때 원하시는 디렉토리로 옮기시면 됩니다. Incubator 에는 간단한 궁금증도 기록해
   아이디어가 날아가지 않게 해 드립니다. 떠오른 아이디어 중 지금 당장 하지 않으실 것은 말씀만 해 주시면 Incubator open 에 적어 두겠습니다.
   open 을 적극적으로 써 보세요!"
-- 이어서 처음 쓰는 사람에게 한 줄: `/guide-mode on` 을 치면 Alfred 를 짧게 소개하고 쓰는 동안 가끔 사용법 팁을 준다 (`/guide-mode off` 로 끔)
+- 이어서 처음 쓰는 사람에게 한 줄: **다시 시작한 뒤** `/guide-mode on` 을 치면 Alfred 를 짧게 소개하고 쓰는 동안 가끔 사용법 팁을 준다 (`/guide-mode off` 로 끔)
+- 맨 끝에 굵게: **지금 이 폴더에서 Claude Code 를 다시 시작해야** (나갔다가 `claude`) 훅이 워크스페이스를 알아본다
 - git 을 쓸지는 질문 창으로 묻기만 한다 (쓴다 / 나중에). `git init` 은 사용자가 하겠다고 할 때만 실행한다
 
 ## 새 프로젝트를 만들 때 (init 이후, 사용자가 요청하면)

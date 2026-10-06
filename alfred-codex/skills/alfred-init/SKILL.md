@@ -94,7 +94,7 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` contents:
   ```
   alfred-workspace
-  version: 0.3.1
+  version: 0.3.2
   created: YYYY-MM-DD
   language: en
   ```
@@ -105,9 +105,7 @@ Archive/workspace-archive/.gitkeep
 First ask about git, then write the closing message.
 - **Ask whether to use git as a chat gate** (see above): one line that the files were created, then the bold question and the bold
   "type `use git` or `not now`" line (ko: `git 사용` · `지금은 안 함`). Run `git init` only if the user answers `use git`
-- After the answer, in one closing message:
-  - Tell the user they **must restart Codex in this folder** (plain `codex`) for the hook to recognize the workspace.
-    On the first start Codex asks them to review and trust the plugin's hooks; until they do, the rules are not loaded
+- After the answer, in one closing message. Write the closing message in this order, and put the restart **last**, in bold, on its own line — the user acts on the last thing they read. Nothing else in Alfred works until the restart, guide mode included.
   - Tell them the first project can start with "create a <name> project in <category>"
   - Then introduce Incubator, in the chosen language and with the chosen form of address. Say it in your own words, close to this
     (ko): "아직 무엇을 구상 중이시라면 편하게 말씀해 주세요. Incubator 에서 그 내용을 추적하고 키웠다가, 실제 프로젝트로 띄울 때
@@ -116,7 +114,9 @@ First ask about git, then write the closing message.
     (en): "If you're still shaping an idea, just tell me. Incubator tracks it and lets it grow; when it becomes a real project, you move it
     to the folder you want. Even small questions go into Incubator so no idea slips away. Ideas you won't act on right now — just say so
     and I'll put them in Incubator's open.md. Make good use of open!"
-  - Then one line for first-timers: `$guide-mode on` gives a short tour of Alfred and a usage tip now and then (`$guide-mode off` stops it)
+  - Then one line for first-timers: **after the restart**, `$guide-mode on` gives a short tour of Alfred and a usage tip now and then (`$guide-mode off` stops it)
+  - Last, in bold: they **must restart Codex in this folder now** (quit, then plain `codex`) for the hook to recognize the workspace.
+    On the first start Codex asks them to review and trust the plugin's hooks; until they do, the rules are not loaded
 
 ## Creating a new project (after init, when the user asks)
 Create `project-logs/<category>/<project>/log.md` with the frontmatter from section 7 of the common rules and the top section

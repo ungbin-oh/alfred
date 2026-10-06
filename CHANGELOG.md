@@ -7,6 +7,14 @@ Newest first. Hashes are commits in this repository. From 0.1.8 on there is one 
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
 
+## 0.3.2 — 2026-10-06
+
+**Bug fix.** Both plugins are now 0.3.2.
+
+- **[Both] `alfred-init` ends with the restart** — the closing message put "restart in this folder" near the top and the guide-mode
+  line last, so a user could turn on guide mode before restarting. Now the restart is the last line, in bold, and guide mode is
+  introduced as something to turn on after the restart. Found in a real Windows 11 test
+
 ## 0.3.1 — 2026-10-06
 
 **Guide mode.** Both plugins are now 0.3.1.
