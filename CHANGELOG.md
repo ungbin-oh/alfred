@@ -7,6 +7,15 @@ Newest first. Hashes are commits in this repository. From 0.1.8 on there is one 
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
 
+## 0.3.4 — 2026-10-06
+
+**Bug fix.** Both plugins are now 0.3.4.
+
+- **[Claude] Guide mode shows the tour** — even after 0.3.3, Claude wrote "I've introduced the main features" instead of the tour.
+  A common rule said some setups show only the final message, not text between tool calls, so facts go inside the window; the tour
+  sits right before the first window. That rule (a personal display setting, not general) is gone — the question itself stays short.
+  The guide skill now says plainly: write all ten lines before the window, never a one-line stand-in
+
 ## 0.3.3 — 2026-10-06
 
 **Bug fix.** Both plugins are now 0.3.3.

@@ -150,8 +150,7 @@ Higher wins. The common rules are the default; wherever the user changed somethi
   so ask even free-form things like names through the window (put the default or a best guess as an option)
 - Long text, such as a save draft or an introduction, is written out in chat as usual; a question window may follow it — the text above stays readable
 - **Don't put long content in a window's option preview field.** Only about 15 lines show and the rest is cut off — keep anything the user must read in full in chat, above the window
-- Some setups show the user only the final message, not text written between tool calls. Put the facts the question needs inside the window.
-  If the question is long, don't use the window — ask in chat
+- Keep the question itself short. If it can't be short, don't use the window — ask in chat
 - Options contain **only choices already on the table:** what the user said, what the rules set, what came up earlier in the conversation.
   Don't use the window to slip in a new direction (No unsolicited suggestions). Mark "(Recommended)" only when the user asked for an opinion
 - Things that only inform (reports, briefings) stay as normal text

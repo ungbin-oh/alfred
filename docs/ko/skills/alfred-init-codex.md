@@ -27,4 +27,4 @@ written by Ungbin_Oh · created 2026-10-05 · updated 2026-10-06
 - **마무리 안내** — 같은 폴더에서 Codex 를 다시 열어야 한다 (그냥 `codex`). 처음 열 때 Codex 가 플러그인 훅을 검토 · 신뢰하라고 묻고, 신뢰 전에는 규약이 들어가지 않는다
 - **Incubator 뼈대** — Claude 판과 같다 (`project-logs/Incubator/` 의 log.md · open.md · trace/, `project-workspace/Incubator/`). 예시 파일 수는 19개
 - **가이드 모드 안내** — Codex 호출 이름으로: `$guide-mode on` · `$guide-mode off`, "다시 연 뒤" 라고. 마무리 안내의 맨 끝은 굵은 "지금 이 폴더에서 Codex 다시 열기" (훅 신뢰 안내 포함)
-- 마커 `.alfred/workspace` 의 version 은 0.3.3
+- 마커 `.alfred/workspace` 의 version 은 0.3.4
