@@ -4,9 +4,12 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-06
 
 Newest first. Hashes are commits in this repository. From 0.1.8 on there is one version for the whole repository: both plugins (`alfred` for Claude Code, `alfred-codex` for Codex) carry the same number, and each item is tagged **[Claude]**, **[Codex]** or **[Both]**. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
 
-## 0.1.15 — 2026-10-06
+**Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
+minor number goes up from there. Commit messages from that day keep the old numbers.
 
-**Bug fix.** Both plugins are now 0.1.15.
+## 0.2.3 — 2026-10-06
+
+**Bug fix.** Both plugins are now 0.2.3.
 
 - **[Both] The assistant-name question always has two options** — with English chosen, the question offered only `Alfred`
   (Korean had `Alfred` / `알프레드`). Claude Code's question window rejects a question with fewer than two options
@@ -14,9 +17,9 @@ Newest first. Hashes are commits in this repository. From 0.1.8 on there is one 
   `Alfred` / `Alf` in English and `Alfred` / `알프레드` in Korean, and `alfred-init` says every question needs at least two.
   Found in a real Windows 11 test
 
-## 0.1.14 — 2026-10-06
+## 0.2.2 — 2026-10-06
 
-**Session names.** Both plugins are now 0.1.14.
+**Session names.** Both plugins are now 0.2.2.
 
 - **[Claude] A new session in an Alfred workspace is named by date** — on a fresh start with no name set (no `--name` / `-n`),
   the session-start hook returns `sessionTitle` with today's date (YYYY-MM-DD), the same as `/rename`. Resumed sessions and names
@@ -24,9 +27,9 @@ Newest first. Hashes are commits in this repository. From 0.1.8 on there is one 
 - **[Codex] Not available** — Codex hooks have no field for the thread name, and the terminal title can't show a date; Codex names
   the thread from the first message. Use `/rename` in Codex if you want a date
 
-## 0.1.13 — 2026-10-06
+## 0.2.1 — 2026-10-06
 
-**Codex setup questions that must be answered in chat.** Both plugins are now 0.1.13.
+**Codex setup questions that must be answered in chat.** Both plugins are now 0.2.1.
 
 - **[Codex] Create confirmation, git and existing-`AGENTS.md` questions are chat gates** — Codex's own Default-mode instructions say
   never to use `request_user_input` for permission requests, and to ask in plain chat when an answer is needed before work can go on
@@ -35,9 +38,9 @@ Newest first. Hashes are commits in this repository. From 0.1.8 on there is one 
   "type `create`, `redo settings` or `stop` in the chat box" line, both in bold. If the next message is something else, Alfred doesn't
   act on it, says in bold that setup isn't finished and what is missing, and repeats the line. Found in a real Windows 11 test
 
-## 0.1.12 — 2026-10-06
+## 0.2.0 — 2026-10-06
 
-**Windows support (Codex) and setup.** Both plugins are now 0.1.12.
+**Windows support (Codex) and setup.** Both plugins are now 0.2.0.
 
 - **[Codex] Hooks run on Windows** — Codex runs hook commands through `cmd.exe` on Windows, where `bash` is usually WSL's Linux bash,
   which can't open `C:\` paths: all three hooks failed ("hook exited with code 1") and the common rules never reached the session.
