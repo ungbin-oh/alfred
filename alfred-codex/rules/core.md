@@ -40,6 +40,8 @@ Higher wins. The common rules are the default; wherever the user changed somethi
 ├── CLAUDE.md                 user settings and user rules
 ├── .alfred/workspace         workspace marker (delete it and Alfred turns off). Holds the language setting
 ├── .alfred/rules.md          copy of these common rules, kept by the plugin (don't edit)
+├── .alfred/guide-mode        exists while guide mode is on (/guide-mode)
+├── project-logs/Incubator/       the incubator — a project of its own (code INC) and the home of sub-projects not yet launched elsewhere
 ├── project-logs/<category>/<project>/
 │   ├── log.md                decision summary (append-only)
 │   ├── open.md               open questions and options (decided items move to its Closed table)
@@ -53,7 +55,18 @@ Higher wins. The common rules are the default; wherever the user changed somethi
     └── log-archive/          records, same shape as project-logs (tracked in git)
 ```
 
-- **A project = a directory with a log.md.** Category folders are not projects
+- **A project = a directory with a log.md.** Category folders are not projects — the one exception is `Incubator/`
+- **Incubator** (`project-logs/Incubator/`) is a top-level folder that is itself a project (code `INC`)
+  - Its own log · open · trace collect questions asked out of curiosity, things studied, stray research thoughts,
+    and doubts that come up in another project but fall outside that project's scope. Where they came from doesn't matter
+  - When something gets actually pursued, launch it as a sub-project **only when the user says so**: `Incubator/<sub>/` with its own
+    code · log · trace, `status: incubating` by default. Its workspace is `project-workspace/Incubator/<sub>/` with its own git.
+    A sub-project's records never go into the Incubator body's trace
+  - When a sub-project grows, move the whole folder — the log side and the workspace side — to the category where it will continue.
+    If it's dropped, move it to `Archive/` (log-archive · workspace-archive, section 13)
+  - Output placement is strict
+  - Why: questions and half-ideas need somewhere to land without derailing the current project, and somewhere to grow
+    before they deserve a category of their own
 - The list of categories and each one's output placement (strict/relaxed) is in `CLAUDE.md`
   - strict: outputs only under the project-workspace mirror path. project-logs holds only log.md · open.md · decision.md · trace/
   - relaxed: plans and reference documents may sit next to log.md (itineraries, candidate lists and the like)
@@ -72,7 +85,9 @@ Higher wins. The common rules are the default; wherever the user changed somethi
    - Collect unchecked items (`- [ ]`) under `## Tomorrow`
    - Skim `## To do`, and in the briefing ask the user once whether those were done
 5. First reply: one line of greeting as the assistant, then the status briefing
-   - **One subheading + one table per category.** Columns: project / status / updated / days idle / next_action
+   - **One subheading + one table per category** (every top-level folder of project-logs, Incubator included).
+     Columns: project / status / updated / days idle / next_action
+   - Incubator's table: the Incubator body in the first row, its sub-projects below
    - The project cell is `name (code)` — e.g. `Thesis-Experiment (THS)`. Folder names don't carry the code
    - Keep it tight. Table directly on the line after the subheading; one blank line only between a table and the next subheading
    - Leave `status: done` out of the table; put "· done: N" next to the subheading
@@ -114,6 +129,8 @@ Higher wins. The common rules are the default; wherever the user changed somethi
   unrequested improvement ideas · "it would also be good to …"
 - Still do: facts, analysis, review, pointing things out. Saying something wrong is wrong is not a suggestion
 - The boot briefing's notable items are an exception (status notices)
+- Guide mode is an exception too: while it's on (`/guide-mode`), one short tip per reply on how to use Alfred is allowed.
+  A tip explains a feature; it never suggests what to do with the user's work
 - Why: an unrequested suggestion is not help but an instruction. The user makes the judgment, and when the assistant's suggestion
   comes first, the user has less room to think it through on their own
 - For the same reason, keep answers short. Answer only what was asked, then stop
@@ -153,6 +170,7 @@ Higher wins. The common rules are the default; wherever the user changed somethi
 - Never climb to the next rung unasked. Silence or hesitation is not consent
 - Mark who decided in log entries: `(user name)` / `(assistant name)` (format in section 7). So that later it shows where the user didn't decide directly
 - `/manual-mode` ties the assistant's hands further (lite / medium / full)
+- `/guide-mode` is for people new to Alfred: a short tour when turned on, then a usage tip now and then (on / off)
 
 ## 6. The shell fills in the time
 
@@ -253,6 +271,8 @@ workspace_repo: ~/path         # optional. Only when code lives outside the mirr
   - Why: when finished items stay visible, you can see what has piled up
 - Link from log.md with `[[open]]`. If next_action is undecided, point here
 - One per project. Split multiple open items into sections
+- In the Incubator body, an item that may become a sub-project keeps the user's reasons in a `**Why pursue it (user)**` section
+  (`**왜 하려 하나 (사용자)**` in Korean workspaces) next to the item's problem statement — the Incubator body has no decision.md (section 14)
 
 ## 10. Saving ("save" / "저장해" / end of session)
 
@@ -302,7 +322,7 @@ workspace_repo: ~/path         # optional. Only when code lives outside the mirr
   - `Archive/README.md` — the list: what · path · original location · what it is · archive decided · moved on · related records · taken out
 - **Records move only when the user says so.** The default is to leave them in place with `status: paused` or `done`.
   When a project directory is moved, set its status to `archived`
-  - Typical cases: a project that has been done and untouched for months, or an idea the user dropped
+  - Typical cases: a project that has been done and untouched for months, an idea the user dropped, or an Incubator sub-project the user gave up on
 - Archiving only some open.md items: put them in an `open.md` at the same path under log-archive, holding only the moved items
   with their original numbers. In the original open.md, list them in the Closed table with the archive path as where they went.
   The project itself stays where it is, status unchanged
@@ -320,6 +340,12 @@ workspace_repo: ~/path         # optional. Only when code lives outside the mirr
   Under each judgment, link the log · trace · daily · outputs behind it. Judgments are few
   - Why separate: with the log alone, judgments tended not to get recorded. Judgments are few and very important, so they get their own document
 - **Location:** one per project, next to log.md and open.md
+- **Exception — the Incubator body has no decision.md.** Incubator is an incubator: it has no single purpose and many starting points,
+  so there is no purpose to measure a judgment against
+  - Before a sub-project is launched, its "why" is written as fragments in the open item's `Why pursue it` section (section 9)
+  - On launch, the sub-project gets its own decision.md and that section moves into `## Starting point` as "the situation then and
+    why it started". The Incubator open's Closed table points to that decision.md
+  - Judgments that change Incubator's own structure go in the Incubator (INC) log
 - **At the top of the file, `## Starting point`** (`## 출발점` in Korean workspaces): the first objective (with its date) +
   the situation then and why it started. The first judgment's "previous situation" points here
 - Entry format (number `<code>-dec<N>`, header time from the shell):

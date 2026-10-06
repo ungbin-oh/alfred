@@ -7,6 +7,33 @@ Newest first. Hashes are commits in this repository. From 0.1.8 on there is one 
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
 
+## 0.3.1 — 2026-10-06
+
+**Guide mode.** Both plugins are now 0.3.1.
+
+- **[Both] `/guide-mode` (`$guide-mode` in Codex)** — for people new to Alfred. Turning it on writes `.alfred/guide-mode` and gives a
+  short tour (boot briefing, projects, Incubator, "later" ideas, save, continue, daily timeline, question windows, manual mode, Archive),
+  then invites the first use: start a project or put an idea in Incubator. While it's on, a UserPromptSubmit hook (`hooks/guide-mode.sh`;
+  Codex also via `run-windows.ps1` on Windows) lets Alfred end a reply with at most one short "💡 Tip" about a feature that fits.
+  The common rules list it as an exception to "no unsolicited suggestions": a tip explains a feature, never what to do with your work.
+  `alfred-init` mentions it in its closing message. Not yet tried in a real session
+
+## 0.3.0 — 2026-10-06
+
+**Incubator.** Both plugins are now 0.3.0.
+
+- **[Both] Incubator — a place for what doesn't belong to a project yet** — `project-logs/Incubator/` is a top-level folder that is itself
+  a project (code INC). Its log · open · trace collect questions asked out of curiosity, study notes, stray research thoughts and doubts
+  that fall outside the current project. When something gets pursued, the user launches it as a sub-project `Incubator/<sub>/`
+  (status incubating, workspace with its own git); when it grows, the whole folder moves to its category, and if dropped, to Archive.
+  The boot briefing shows an Incubator table (body first, subs below). The Incubator body has no decision.md — a sub-project's "why" waits
+  in its open item and moves into the sub-project's decision.md starting point on launch. Common rules: sections 2, 3, 9, 13, 14
+- **[Both] `alfred-init` always creates the Incubator skeleton** — `project-logs/Incubator/` log.md · open.md · trace/ and
+  `project-workspace/Incubator/`, plus an Incubator row in the settings file's category table. It's not asked; the category question says so
+- Not yet tried in a real session
+- **[Both] `alfred-init` introduces Incubator at the end** — after setup, Alfred tells the user to bring ideas still taking shape and
+  small questions to Incubator, and to say "later" ideas so they go into Incubator's open.md
+
 ## 0.2.3 — 2026-10-06
 
 **Bug fix.** Both plugins are now 0.2.3.

@@ -11,7 +11,7 @@
 # the same .sh hook with it. The hook's stdin and stdout pass through as raw bytes, so nothing is
 # re-encoded (Windows PowerShell 5.1 would otherwise mangle non-ASCII text).
 #
-# Usage: run-windows.ps1 <session-start | manual-mode | init-guard>
+# Usage: run-windows.ps1 <session-start | manual-mode | init-guard | guide-mode>
 #
 # Git Bash is looked up on every run, because its folder differs from PC to PC:
 #   1. Next to `git` on PATH - walk up from git.exe to the folder that has bin\bash.exe
@@ -29,7 +29,7 @@ param([string]$Hook)
 
 $ErrorActionPreference = 'SilentlyContinue'
 
-$known = @('session-start', 'manual-mode', 'init-guard')
+$known = @('session-start', 'manual-mode', 'init-guard', 'guide-mode')
 if ($known -notcontains $Hook) { exit 0 }
 
 # A candidate counts only if it exists and is not WSL's bash

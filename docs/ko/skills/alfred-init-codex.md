@@ -25,4 +25,6 @@ written by Ungbin_Oh · created 2026-10-05 · updated 2026-10-06
 - **창 하나에 질문 셋까지** — 그래서 2번 창은 사용자 이름 · 호칭 · 비서 이름, 3번 창은 카테고리 · 저작 헤더
 - **상태줄 배지 절이 없다** — Codex 는 사용자 상태줄을 지원하지 않는다. 그래서 "마무리 안내" 가 5절이 된다
 - **마무리 안내** — 같은 폴더에서 Codex 를 다시 열어야 한다 (그냥 `codex`). 처음 열 때 Codex 가 플러그인 훅을 검토 · 신뢰하라고 묻고, 신뢰 전에는 규약이 들어가지 않는다
-- 마커 `.alfred/workspace` 의 version 은 0.2.3
+- **Incubator 뼈대** — Claude 판과 같다 (`project-logs/Incubator/` 의 log.md · open.md · trace/, `project-workspace/Incubator/`). 예시 파일 수는 19개
+- **가이드 모드 안내** — 마무리 안내 끝 한 줄은 Codex 호출 이름으로: `$guide-mode on` · `$guide-mode off`
+- 마커 `.alfred/workspace` 의 version 은 0.3.1

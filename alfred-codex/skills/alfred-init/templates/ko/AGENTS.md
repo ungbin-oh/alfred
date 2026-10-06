@@ -17,10 +17,12 @@ Alfred 공통 규약은 플러그인(세션 시작 훅)이 세션마다 넣어 �
 ## 카테고리
 
 project-logs/ 바로 아래 폴더가 카테고리다. 부팅 브리핑은 카테고리마다 표를 하나씩 만든다.
+`Incubator` 는 늘 있다: 카테고리이면서 그 자체로 프로젝트(INC) — 질문 · 공부 · 잡생각, 띄우기 전의 하위 프로젝트.
 
 | 폴더 | 무엇 | 산출물 배치 |
 |---|---|---|
 {{CATEGORY_ROWS}}
+| Incubator | 질문 · 공부 · 잡생각, 띄우기 전의 하위 프로젝트 | 엄격 |
 
 - 엄격: 산출물은 project-workspace/ 미러 경로에만. project-logs 에는 log.md · open.md · decision.md · trace/ 만
 - 완화: log.md 옆에 계획·자료 문서를 함께 둬도 된다

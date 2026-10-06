@@ -34,13 +34,14 @@ Put the default in the options and take free input through the "Other" the windo
 2. How the assistant addresses the user (en e.g. "sir", the user's name / ko e.g. "OO님", "주인님")
 3. Assistant name — options: en `Alfred` (default) / `Alf` · ko `Alfred` (default) / `알프레드`. Every question needs at least two options (the window rejects a question with one)
 4. Category folders — names and output placement (strict/relaxed)
-   (default: `Work` strict · `Research` strict · `Life` relaxed)
+   (default: `Work` strict · `Research` strict · `Life` relaxed). `Incubator` is always added on top of these (strict) — don't ask about it;
+   say so in the question text
 
 **Window 3**
 5. Whether to turn on the author header, and if so, the name to put in it (off)
 
 ### 3. Show what will be created and confirm
-**Confirm through the question window** before creating (create / redo settings / stop). Put a short summary of what will be created **in the question text itself** — the file count and the top-level items, two or three lines (e.g. "15 files: CLAUDE.md, .alfred/, project-logs · project-workspace for Work/Research/Life, daily/, Archive/"). Don't print the full list in chat before the window (the window covers it) and don't put it in an option preview (only about 15 lines show). If the user asks to see the full list, show it in chat and ask again.
+**Confirm through the question window** before creating (create / redo settings / stop). Put a short summary of what will be created **in the question text itself** — the file count and the top-level items, two or three lines (e.g. "20 files: CLAUDE.md, .alfred/, project-logs · project-workspace for Work/Research/Life + Incubator, daily/, Archive/"). Don't print the full list in chat before the window (the window covers it) and don't put it in an option preview (only about 15 lines show). If the user asks to see the full list, show it in chat and ask again.
 `<lang>` is `en` or `ko` per step 2.
 ```
 CLAUDE.md                              ← templates/<lang>/CLAUDE.md with settings filled in
@@ -49,6 +50,10 @@ CLAUDE.md                              ← templates/<lang>/CLAUDE.md with setti
 .gitignore                             ← templates/gitignore
 project-logs/<category>/.gitkeep       ← one per category
 project-workspace/<category>/.gitkeep
+project-logs/Incubator/log.md             ← templates/<lang>/Incubator/log.md ({{TODAY}} filled in)
+project-logs/Incubator/open.md            ← templates/<lang>/Incubator/open.md
+project-logs/Incubator/trace/.gitkeep
+project-workspace/Incubator/.gitkeep
 daily/_template.md                     ← templates/<lang>/daily/
 daily/_timeline-example.md             ← templates/<lang>/daily/
 daily/YYYY/YYYY-MM/YYYY-MM-DD.md       ← today's, from _template with only the date replaced
@@ -65,12 +70,12 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` contents:
   ```
   alfred-workspace
-  version: 0.2.3
+  version: 0.3.1
   created: YYYY-MM-DD
   language: en
   ```
   (`language: ko` for Korean. The session-start hook reads this line)
-- Copy templates as-is; don't add author headers (they're the user's files)
+- Copy templates as-is; don't add author headers (they're the user's files). In `Incubator/log.md`, replace `{{TODAY}}` with today's date
 - Copy the common rules: `bash "<this skill dir>/../../hooks/sync-rules.sh" "<workspace root>"`. It prints `created`.
   Check that `CLAUDE.md` has the line `@.alfred/rules.md` on its own line. Don't edit `.alfred/rules.md` — the plugin overwrites it
 
@@ -92,6 +97,14 @@ If turning on:
 ### 6. Wrap up
 - Tell the user they **must restart Claude Code in this folder** for the hook to recognize the workspace
 - Tell them the first project can start with "create a <name> project in <category>"
+  - Then introduce Incubator, in the chosen language and with the chosen form of address. Say it in your own words, close to this
+    (ko): "아직 무엇을 구상 중이시라면 편하게 말씀해 주세요. Incubator 에서 그 내용을 추적하고 키웠다가, 실제 프로젝트로 띄울 때
+    원하시는 디렉토리로 옮기시면 됩니다. Incubator 에는 간단한 궁금증도 기록해 아이디어가 날아가지 않게 해 드립니다.
+    떠오른 아이디어 중 지금 당장 하지 않으실 것은 말씀만 해 주시면 Incubator open 에 적어 두겠습니다. open 을 적극적으로 써 보세요!"
+    (en): "If you're still shaping an idea, just tell me. Incubator tracks it and lets it grow; when it becomes a real project, you move it
+    to the folder you want. Even small questions go into Incubator so no idea slips away. Ideas you won't act on right now — just say so
+    and I'll put them in Incubator's open.md. Make good use of open!"
+  - Then one line for first-timers: `/guide-mode on` gives a short tour of Alfred and a usage tip now and then (`/guide-mode off` stops it)
 - Only ask whether to use git — through the question window (use git / not now). Run `git init` only if the user says to
 
 ## Creating a new project (after init, when the user asks)

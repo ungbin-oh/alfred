@@ -1,6 +1,6 @@
 # Alfred 공통 규약
 
-written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-05
+written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-06
 
 > **한국어 번역본이다.** 정본은 `alfred-claude/rules/core.md` (영어) 이고 Alfred 는 이 파일을 읽지 않는다.
 > 정본이 바뀌면 이 파일도 같은 커밋에서 맞춘다.
@@ -45,6 +45,8 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-05
 ├── CLAUDE.md                 사용자 설정·사용자 규칙
 ├── .alfred/workspace         워크스페이스 표시 (지우면 Alfred 가 꺼진다). 언어 설정도 여기에
 ├── .alfred/rules.md          이 공통 규약의 복사본. 플러그인이 관리한다 (고치지 않는다)
+├── .alfred/guide-mode        가이드 모드가 켜져 있는 동안 있다 (/guide-mode)
+├── project-logs/Incubator/       인큐베이터 — 그 자체로 프로젝트(code INC)이자, 아직 다른 곳으로 띄우지 않은 하위 프로젝트의 자리
 ├── project-logs/<카테고리>/<프로젝트>/
 │   ├── log.md                결정 요약 (append-only)
 │   ├── open.md               미결·선택지 (결정되면 닫힌 것 표로)
@@ -58,7 +60,15 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-05
     └── log-archive/          기록. project-logs 와 같은 모양 (git 추적)
 ```
 
-- **프로젝트 = log.md 가 있는 디렉토리.** 카테고리 폴더는 프로젝트가 아니다
+- **프로젝트 = log.md 가 있는 디렉토리.** 카테고리 폴더는 프로젝트가 아니다 — 예외는 `Incubator/` 하나
+- **Incubator(인큐베이터)** (`project-logs/Incubator/`) 은 최상위 폴더이면서 그 자체로 프로젝트다 (code `INC`)
+  - 본체 log · open · trace 에는 궁금해서 물은 것, 공부한 것, 연구 잡생각, 다른 프로젝트를 하다 그 범위를 벗어나는 의문을 쌓는다. 출처는 가리지 않는다
+  - 무언가를 실제로 진행하게 되면 **사용자가 말할 때만** 하위 프로젝트로 띄운다: `Incubator/<하위>/` 에 자기 code · log · trace,
+    status 는 기본 `incubating`. workspace 는 `project-workspace/Incubator/<하위>/` 에 두고 git 을 따로 둔다.
+    하위 프로젝트 기록은 본체 trace 에 섞지 않는다
+  - 하위 프로젝트가 자라면 진행할 카테고리로 폴더째 옮긴다 — log 쪽과 workspace 쪽 둘 다. 그만두면 `Archive/` 로 (log-archive · workspace-archive, 13절)
+  - 산출물 배치는 엄격
+  - 왜: 질문과 덜 익은 생각이 지금 프로젝트를 흐트러뜨리지 않고 내려앉을 곳, 카테고리를 가질 만큼 자라기 전까지 클 곳이 필요하다
 - 카테고리 목록과 각 카테고리의 산출물 배치 방식(엄격/완화)은 `CLAUDE.md` 에 있다
   - 엄격: 산출물은 project-workspace 미러 경로에만. project-logs 에는 log.md · open.md · decision.md · trace/ 만
   - 완화: log.md 옆에 계획·자료 문서를 함께 둬도 된다 (여행 일정표, 후보 목록 같은 것)
@@ -77,7 +87,8 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-05
    - `## Tomorrow` 의 미체크 항목(`- [ ]`)을 모은다
    - `## To do` 를 훑고, 브리핑에서 그것을 다 했는지 사용자에게 한 번 묻는다
 5. 첫 응답은 비서로서 인사 한 줄 + 현황 브리핑
-   - **카테고리마다 소제목 + 표 하나.** 열: 프로젝트 / 상태 / updated / 방치 일수 / next_action
+   - **카테고리마다 소제목 + 표 하나** (project-logs 바로 아래 폴더마다, Incubator 포함). 열: 프로젝트 / 상태 / updated / 방치 일수 / next_action
+   - Incubator 표는 첫 행에 본체, 그 아래에 하위 프로젝트
    - 프로젝트 칸은 `이름 (code)` — 예: `Thesis-Experiment (THS)`. 폴더 이름에는 code 를 넣지 않는다
    - 촘촘하게 쓴다. 소제목 바로 다음 줄에 표를 두고, 빈 줄은 표와 다음 소제목 사이에 한 줄만 둔다
    - `status: done` 은 표에서 빼고 소제목 옆에 "· 완료: N건"
@@ -118,6 +129,8 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-05
   묻지 않은 개선 제안 · "~도 해 두면 좋다"
 - 계속하는 것: 사실·분석·리뷰·지적. 틀린 것을 틀렸다고 하는 것은 제안이 아니다
 - 부팅 브리핑의 특이사항은 예외 (상태 알림)
+- 가이드 모드도 예외: 켜져 있는 동안(`/guide-mode`) 답마다 Alfred 사용법 팁을 하나까지 붙일 수 있다.
+  팁은 기능을 알려 주는 것이고, 사용자의 일에 대해 무엇을 하라고 제안하는 것이 아니다
 - 왜: 묻지 않았는데 제안하면 도움이 아니라 지시가 된다. 판단은 사용자가 하는데, 비서 제안이 먼저 나오면
   사용자가 스스로 생각할 여지가 줄어든다
 - 답변도 같은 이유로 길게 쓰지 않는다. 물은 것에만 답하고 끝낸다
@@ -157,6 +170,7 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-05
 - 요청 없이 다음 칸으로 올라가지 않는다. 침묵·머뭇거림을 승낙으로 읽지 않는다
 - 로그 항목에 판단 주체를 적는다: `(사용자 이름)` / `(비서 이름)` (형식은 7절). 나중에 사용자가 직접 판단하지 않은 곳이 어디인지 보이게 하려는 것이다
 - `/manual-mode` 로 손을 더 묶을 수 있다 (lite / medium / full)
+- `/guide-mode` 는 Alfred 가 처음인 사람을 위한 것: 켜면 짧은 소개, 켜져 있는 동안 가끔 사용법 팁 (on / off)
 
 ## 6. 시각은 셸이 채운다
 
@@ -255,6 +269,8 @@ workspace_repo: ~/경로          # 선택. 코드가 미러 경로 밖에 있�
   - 왜: 끝난 것이 보여야 쌓인 게 보인다
 - log.md 에서 `[[open]]` 으로 링크. next_action 이 "미정"이면 여기를 가리킨다
 - 프로젝트당 1개. 여러 미결은 섹션으로 나눈다
+- Incubator 본체에서 하위 프로젝트가 될 수 있는 항목은, 항목의 문제 제기 옆에 `**왜 하려 하나 (사용자)**` 절을 두고 사용자의 이유를 적는다
+  (영어 워크스페이스는 `**Why pursue it (user)**`) — Incubator 본체에는 decision.md 가 없다 (14절)
 
 ## 10. 저장 ("저장해" / "save" / 세션 종료)
 
@@ -304,7 +320,7 @@ workspace_repo: ~/경로          # 선택. 코드가 미러 경로 밖에 있�
   - `Archive/README.md` — 목록 표: 보관한 것 · 경로 · 원래 위치 · 무엇 · 보관 결정 · 옮긴 날 · 관련 기록 · 꺼냄
 - **기록은 사용자가 말할 때만 옮긴다.** 기본은 제자리에서 `status: paused` / `done`.
   프로젝트 디렉토리를 옮기면 status 를 `archived` 로 바꾼다
-  - 흔한 경우: done 뒤 몇 달씩 안 본 프로젝트, 사용자가 버린 아이디어
+  - 흔한 경우: done 뒤 몇 달씩 안 본 프로젝트, 사용자가 버린 아이디어, 사용자가 그만둔 Incubator 하위 프로젝트
 - open.md 항목 일부만 보관할 때: log-archive 아래 같은 경로에 `open.md` 를 두고 옮긴 항목만 원래 번호 그대로 담는다.
   원래 open.md 에는 닫힌 것 표에 올리고 결론이 간 곳에 archive 경로를 적는다. 프로젝트는 제자리, status 도 그대로
 - 넣거나 꺼낼 때 README 표를 고친다. 꺼낸 것은 행을 지우지 말고 `꺼냄` 에 날짜를 적는다
@@ -321,6 +337,11 @@ workspace_repo: ~/경로          # 선택. 코드가 미러 경로 밖에 있�
   판단 밑에 그 근거가 된 log · trace · daily · 산출물을 링크한다. 판단은 양이 적다
   - 왜 따로 두나: log 만으로는 판단이 잘 기록되지 않았다. 판단은 양이 적고 매우 중요해서 따로 뺀다
 - **위치:** 프로젝트마다 log.md · open.md 옆에 하나
+- **예외 — Incubator 본체에는 decision.md 를 두지 않는다.** Incubator 는 인큐베이터라 목적이 한 갈래가 아니고 출발점이 여럿이어서, 판단을 비춰 볼 목적이 없다
+  - 하위 프로젝트로 띄우기 전의 "왜" 는 open 항목의 `왜 하려 하나` 절에 조각으로 적는다 (9절)
+  - 띄우면 그 하위 프로젝트에 decision.md 를 만들고, 그 절을 `## 출발점` 의 "그때 상황 · 왜 시작했나" 로 옮긴다.
+    Incubator open 의 `닫힌 것` 표에는 그 decision.md 를 적는다
+  - Incubator 구조 자체를 바꾸는 판단은 Incubator(INC) log 에 쓴다
 - **파일 머리 `## 출발점`** (영어 워크스페이스는 `## Starting point`): 최초 목표(objective 첫 항목, 날짜 그대로) +
   그때 상황 · 왜 시작했나. 첫 판단의 "이전 상황" 은 출발점을 가리킨다
 - 항목 형식 (번호 `<code>-dec<N>`, 헤더 시각은 셸):

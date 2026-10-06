@@ -30,6 +30,13 @@
             "commandWindows": "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}\\hooks\\run-windows.ps1\" init-guard",
             "timeout": 5,
             "statusMessage": "Checking for Codex /init..."
+          },
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/guide-mode.sh\"",
+            "commandWindows": "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}\\hooks\\run-windows.ps1\" guide-mode",
+            "timeout": 5,
+            "statusMessage": "Checking guide mode..."
           }
         ]
       }

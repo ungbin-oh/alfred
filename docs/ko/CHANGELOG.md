@@ -9,6 +9,31 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-06
 **번호 다시 매김 (2026-10-06):** 0.2.0–0.2.3 은 처음에 0.1.12–0.1.15 로 냈다. Codex 의 Windows 지원이 새 기능이라 거기서 부 번호를 올렸다.
 그날 커밋 메시지에는 옛 번호가 남아 있다.
 
+## 0.3.1 — 2026-10-06
+
+**가이드 모드.** 두 플러그인 모두 0.3.1.
+
+- **[공통] `/guide-mode` (Codex 는 `$guide-mode`)** — Alfred 가 처음인 사람을 위한 것. 켜면 `.alfred/guide-mode` 를 만들고 짧게 소개한다
+  (부팅 브리핑 · 프로젝트 · 인큐베이터 · "나중에" 아이디어 · 저장 · 이어서 · 하루 정리 · 질문 창 · 수동 모드 · Archive). 이어서 첫 사용으로 이끈다:
+  프로젝트 시작 / 인큐베이터에 아이디어 넣기. 켜져 있는 동안은 UserPromptSubmit 훅(`hooks/guide-mode.sh`, Codex 는 Windows 에서 `run-windows.ps1` 경유)이
+  답 끝에 맞는 기능 팁("💡 팁") 하나까지 붙이게 한다. 공통 규약의 "제안 금지" 예외로 적었다 — 팁은 기능 설명이지 일에 대한 제안이 아니다.
+  `alfred-init` 마무리 안내에서 알려 준다. 실제 세션에서 아직 안 써 봄
+
+## 0.3.0 — 2026-10-06
+
+**인큐베이터(Incubator).** 두 플러그인 모두 0.3.0.
+
+- **[공통] 인큐베이터 — 아직 프로젝트에 속하지 않는 것의 자리** — `project-logs/Incubator/` 은 최상위 폴더이면서 그 자체로 프로젝트다 (code INC).
+  본체 log · open · trace 에 궁금해서 물은 것, 공부한 것, 연구 잡생각, 지금 프로젝트의 범위를 벗어나는 의문을 쌓는다.
+  무언가를 하게 되면 사용자가 하위 프로젝트 `Incubator/<하위>/` 로 띄우고(status incubating, workspace 에 git 따로), 자라면 폴더째 카테고리로,
+  그만두면 Archive 로 옮긴다. 부팅 브리핑에 Incubator 표(첫 행 본체, 아래 하위)가 생긴다. 본체에는 decision.md 가 없다 — 하위 프로젝트의 "왜" 는
+  open 항목에 두었다가 띄울 때 그 decision.md 의 출발점으로 옮긴다. 공통 규약 2 · 3 · 9 · 13 · 14절
+- **[공통] `alfred-init` 이 인큐베이터 뼈대를 늘 만든다** — `project-logs/Incubator/` 의 log.md · open.md · trace/ 와 `project-workspace/Incubator/`,
+  설정 파일 카테고리 표의 Incubator 행. 묻지 않고, 카테고리 질문에 그렇다고 적는다
+- 실제 세션에서는 아직 써 보지 않았다
+- **[공통] `alfred-init` 끝에 Incubator 를 소개한다** — 셋업이 끝나면, 구상 중인 것과 간단한 궁금증은 Incubator 에서 키우고
+  지금 당장 하지 않을 아이디어는 말만 하면 Incubator open 에 적어 둔다고 알린다
+
 ## 0.2.3 — 2026-10-06
 
 **버그 수정.** 두 플러그인 모두 0.2.3.

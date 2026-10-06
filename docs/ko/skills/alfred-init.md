@@ -1,6 +1,6 @@
 # alfred-init
 
-written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-05
+written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-06
 
 > **한국어 번역본이다.** 정본은 `alfred-claude/skills/alfred-init/SKILL.md` (영어) 이고 Claude Code 는 이 파일을 읽지 않는다.
 > 정본이 바뀌면 이 파일도 같은 커밋에서 맞춘다.
@@ -36,13 +36,13 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-05
 2. 비서가 부를 호칭 (영어 예: "sir", 사용자 이름 / 한국어 예: "OO님", "주인님")
 3. 비서 이름 — 선택지: en `Alfred`(기본) / `Alf` · ko `Alfred`(기본) / `알프레드`. 질문마다 선택지는 둘 이상 (하나뿐이면 창이 거절한다)
 4. 카테고리 폴더 — 이름과 산출물 배치 방식(엄격/완화)
-   (기본: `Work` 엄격 · `Research` 엄격 · `Life` 완화)
+   (기본: `Work` 엄격 · `Research` 엄격 · `Life` 완화). `Incubator` 는 이와 별도로 늘 더한다(엄격) — 묻지 않고, 질문 문장에 그렇다고 적는다
 
 **창 3**
 5. 저작 헤더를 켤지, 켠다면 헤더에 쓸 이름 (끔)
 
 ### 3. 만들 것 보여 주고 확인받기
-**질문 창으로 확인받고** 만든다 (만들기 / 설정 다시 / 중단). 만들 것의 요약을 **질문 문장 안에** 두세 줄로 넣는다 — 파일 수와 맨 위 항목 (예: "파일 15개: CLAUDE.md, .alfred/, Work · Research · Life 의 project-logs · project-workspace, daily/, Archive/"). 창 앞에 전체 목록을 채팅으로 찍지 않고(창이 가린다), 선택지 미리보기에도 넣지 않는다(15줄 안팎만 보인다). 사용자가 전체 목록을 보자고 하면 채팅으로 보여 주고 다시 묻는다.
+**질문 창으로 확인받고** 만든다 (만들기 / 설정 다시 / 중단). 만들 것의 요약을 **질문 문장 안에** 두세 줄로 넣는다 — 파일 수와 맨 위 항목 (예: "파일 20개: CLAUDE.md, .alfred/, Work · Research · Life + Incubator 의 project-logs · project-workspace, daily/, Archive/"). 창 앞에 전체 목록을 채팅으로 찍지 않고(창이 가린다), 선택지 미리보기에도 넣지 않는다(15줄 안팎만 보인다). 사용자가 전체 목록을 보자고 하면 채팅으로 보여 주고 다시 묻는다.
 `<lang>` 은 2단계에서 고른 `en` 또는 `ko`.
 ```
 CLAUDE.md                              ← templates/<lang>/CLAUDE.md 에 설정값을 채움
@@ -51,6 +51,10 @@ CLAUDE.md                              ← templates/<lang>/CLAUDE.md 에 설정
 .gitignore                             ← templates/gitignore
 project-logs/<카테고리>/.gitkeep        ← 카테고리마다
 project-workspace/<카테고리>/.gitkeep
+project-logs/Incubator/log.md             ← templates/<lang>/Incubator/log.md ({{TODAY}} 채움)
+project-logs/Incubator/open.md            ← templates/<lang>/Incubator/open.md
+project-logs/Incubator/trace/.gitkeep
+project-workspace/Incubator/.gitkeep
 daily/_template.md                     ← templates/<lang>/daily/
 daily/_timeline-example.md             ← templates/<lang>/daily/
 daily/YYYY/YYYY-MM/YYYY-MM-DD.md       ← 오늘자, _template 에서 date 만 치환
@@ -67,12 +71,12 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` 내용:
   ```
   alfred-workspace
-  version: 0.1.5
+  version: 0.3.1
   created: YYYY-MM-DD
   language: en
   ```
   (한국어면 `language: ko`. 세션 시작 훅이 이 줄을 읽는다)
-- 템플릿은 복사만 하고 저작 헤더를 넣지 않는다 (사용자 파일이다)
+- 템플릿은 복사만 하고 저작 헤더를 넣지 않는다 (사용자 파일이다). `Incubator/log.md` 의 `{{TODAY}}` 는 오늘 날짜로 바꾼다
 - 공통 규약 복사: `bash "<이 스킬 폴더>/../../hooks/sync-rules.sh" "<워크스페이스 루트>"`. `created` 가 찍힌다.
   `CLAUDE.md` 에 `@.alfred/rules.md` 가 한 줄로 들어 있는지 확인한다. `.alfred/rules.md` 는 고치지 않는다 — 플러그인이 덮어쓴다
 
@@ -94,6 +98,11 @@ Alfred 워크스페이스에서 상태줄에 하늘색 `[ALFRED]` 배지를 띄�
 ### 6. 마무리 안내
 - **Claude Code 를 이 폴더에서 다시 시작해야** 훅이 워크스페이스를 알아본다고 알린다
 - 첫 프로젝트는 "<카테고리> 에 <이름> 프로젝트 만들어줘" 로 시작하면 된다고 알린다
+- 이어서 Incubator 를 소개한다 (고른 언어 · 호칭으로, 자기 말로 하되 이 뜻에 가깝게): "아직 무엇을 구상 중이시라면 편하게 말씀해 주세요.
+  Incubator 에서 그 내용을 추적하고 키웠다가, 실제 프로젝트로 띄울 때 원하시는 디렉토리로 옮기시면 됩니다. Incubator 에는 간단한 궁금증도 기록해
+  아이디어가 날아가지 않게 해 드립니다. 떠오른 아이디어 중 지금 당장 하지 않으실 것은 말씀만 해 주시면 Incubator open 에 적어 두겠습니다.
+  open 을 적극적으로 써 보세요!"
+- 이어서 처음 쓰는 사람에게 한 줄: `/guide-mode on` 을 치면 Alfred 를 짧게 소개하고 쓰는 동안 가끔 사용법 팁을 준다 (`/guide-mode off` 로 끔)
 - git 을 쓸지는 질문 창으로 묻기만 한다 (쓴다 / 나중에). `git init` 은 사용자가 하겠다고 할 때만 실행한다
 
 ## 새 프로젝트를 만들 때 (init 이후, 사용자가 요청하면)
