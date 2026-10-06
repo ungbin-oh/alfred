@@ -22,9 +22,15 @@
 # updates only loads by itself from the next session. For this session the notice asks the
 # model to read the file. The hook never edits the user's CLAUDE.md.
 #
-# Assumes macOS / Linux, bash. Not tested on Windows.
+# Session name: on a fresh start (source "startup") with no name set yet (no --name / -n), the hook also
+# names the session with today's date (YYYY-MM-DD) through `sessionTitle` — same effect as /rename.
+# Then everything above goes out as JSON (additionalContext + sessionTitle) instead of plain text.
+#
+# On Windows, Claude Code runs this on Git Bash (Git for Windows is required).
 
 set -u
+
+INPUT=$(cat)
 
 PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
 START_DIR="${CLAUDE_PROJECT_DIR:-$PWD}"
@@ -56,6 +62,7 @@ esac
 
 SYNC=$(bash "$PLUGIN_ROOT/hooks/sync-rules.sh" "$ROOT")
 
+context() {
 echo "ALFRED ACTIVE"
 echo "Current time: $(date '+%Y-%m-%d %H:%M (%a)')"
 echo "Workspace root: $ROOT"
@@ -79,4 +86,19 @@ elif [ "$SYNC" = "created" ] || [ "$SYNC" = "updated" ]; then
   echo "NOTICE — the plugin just $SYNC .alfred/rules.md. The copy loaded into this session is older or missing."
   echo "Before anything else: read $ROOT/.alfred/rules.md in full and follow it for this session."
   echo "From the next session it loads by itself."
+fi
+}
+
+# Name the session by date only on a fresh start that has no name yet
+SOURCE=$(printf '%s' "$INPUT" | tr -d '\r\n' | sed -n 's/.*"source"[[:space:]]*:[[:space:]]*"\([a-z]*\)".*/\1/p')
+HAS_TITLE=no
+printf '%s' "$INPUT" | tr -d '\r\n' | grep -q '"session_title"[[:space:]]*:[[:space:]]*"[^"]' && HAS_TITLE=yes
+
+if [ "$SOURCE" = "startup" ] && [ "$HAS_TITLE" = "no" ]; then
+  # JSON string escape: backslash (Windows paths), double quote, CR dropped, newline as \n
+  CTX=$(context | tr -d '\r' | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g' | awk 'BEGIN{ORS=""} NR>1{print "\\n"} {print}')
+  printf '{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"%s","sessionTitle":"%s"}}\n' \
+    "$CTX" "$(date '+%Y-%m-%d')"
+else
+  context
 fi

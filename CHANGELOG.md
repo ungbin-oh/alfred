@@ -4,6 +4,16 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-06
 
 Newest first. Hashes are commits in this repository. From 0.1.8 on there is one version for the whole repository: both plugins (`alfred` for Claude Code, `alfred-codex` for Codex) carry the same number, and each item is tagged **[Claude]**, **[Codex]** or **[Both]**. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
 
+## 0.1.14 — 2026-10-06
+
+**Session names.** Both plugins are now 0.1.14.
+
+- **[Claude] A new session in an Alfred workspace is named by date** — on a fresh start with no name set (no `--name` / `-n`),
+  the session-start hook returns `sessionTitle` with today's date (YYYY-MM-DD), the same as `/rename`. Resumed sessions and names
+  you set yourself are left alone. The hook then sends its context as JSON instead of plain text
+- **[Codex] Not available** — Codex hooks have no field for the thread name, and the terminal title can't show a date; Codex names
+  the thread from the first message. Use `/rename` in Codex if you want a date
+
 ## 0.1.13 — 2026-10-06
 
 **Codex setup questions that must be answered in chat.** Both plugins are now 0.1.13.
