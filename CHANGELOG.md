@@ -1,8 +1,18 @@
 # Changelog
 
-written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-05
+written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-06
 
 Newest first. Hashes are commits in this repository. From 0.1.8 on there is one version for the whole repository: both plugins (`alfred` for Claude Code, `alfred-codex` for Codex) carry the same number, and each item is tagged **[Claude]**, **[Codex]** or **[Both]**. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
+
+## 0.1.10 — 2026-10-06
+
+**Bug fix.** Both plugins are now 0.1.10.
+
+- **[Both] Hooks no longer hang outside an Alfred workspace on Windows** — every hook looks for the `.alfred/workspace` marker by walking
+  up the folders and stopped only at `/`. A Windows path (`C:\Users\...`) never reaches `/`: Git Bash's `dirname` goes `C:` → `.` → `.`,
+  so the walk never ended. Since the plugin is installed for the whole user, every Claude Code session outside an Alfred workspace
+  hit the 5-second hook timeout at start and on every prompt. The walk now also stops when going up changes nothing; on macOS / Linux it
+  ends exactly where it did before. Inside a workspace nothing changes. Found in a real Windows 11 test
 
 ## 0.1.9 — 2026-10-05
 

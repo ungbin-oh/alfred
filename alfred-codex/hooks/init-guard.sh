@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # written by Ungbin_Oh
 # created : 2026-10-05
-# updated : 2026-10-05
+# updated : 2026-10-06
 #
 # Alfred — guard against Codex's built-in /init (UserPromptSubmit hook, Codex only)
 #
@@ -24,13 +24,17 @@ case "$INPUT" in
 esac
 
 find_root() {
-  local d="$1"
+  local d="$1" p
   while [ -n "$d" ] && [ "$d" != "/" ] && [ "$d" != "." ]; do
     if [ -f "$d/.alfred/workspace" ]; then
       printf '%s' "$d"
       return 0
     fi
-    d=$(dirname "$d")
+    # Stop when going up changes nothing. On macOS / Linux the walk ends at "/", but a Windows
+    # path (C:\Users\...) never reaches "/" — Git Bash goes C: → . → . — and the loop never ended
+    p=$(dirname "$d")
+    [ "$p" = "$d" ] && return 1
+    d="$p"
   done
   return 1
 }
