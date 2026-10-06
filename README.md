@@ -217,8 +217,7 @@ Both plugins share one version number. Every change is in [CHANGELOG.md](CHANGEL
 
 | Version | Date | What changed |
 |---|---|---|
-| **0.3.3** | 2026-10-06 | Guide mode recommends starting in the Incubator — in the tour and as the first, recommended option |
-| 0.3.2 | 2026-10-06 | Bug fix: `alfred-init` puts "restart now" last, in bold, and says guide mode is for after the restart |
+| **0.3.2** | 2026-10-06 | `alfred-init` puts "restart now" last, in bold, with guide mode for after the restart; guide mode recommends starting in the Incubator |
 | 0.3.1 | 2026-10-06 | Guide mode: `/guide-mode on` gives a short tour and a usage tip now and then; `alfred-init` mentions it at the end |
 | 0.3.0 | 2026-10-06 | Incubator: a built-in place for questions, study notes and stray thoughts, where sub-projects start before moving to a category. `alfred-init` always creates it |
 | 0.2.3 | 2026-10-06 | Bug fix: the assistant-name question in `alfred-init` always has two options, so English setup no longer skips it |
@@ -228,4 +227,4 @@ Both plugins share one version number. Every change is in [CHANGELOG.md](CHANGEL
 | 0.1.10 – 0.1.11 | 2026-10-06 | Bug fixes: hooks no longer hang on Windows outside a workspace; Codex question windows |
 | 0.1.5 – 0.1.9 | 2026-10-05 | Plainer rules, Codex plugin and repo split, `alfred-init` fixes |
 
-**Status: v0.3.3** — tested on macOS and Windows 11, in Claude Code and Codex (up to 0.2.3). Incubator (0.3.0) and guide mode (0.3.1) not yet tried in a real session. Linux not yet tested.
+**Status: v0.3.2** — tested on macOS and Windows 11, in Claude Code and Codex (up to 0.2.3). Incubator (0.3.0) and guide mode (0.3.1) not yet tried in a real session. Linux not yet tested.

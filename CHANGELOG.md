@@ -7,21 +7,16 @@ Newest first. Hashes are commits in this repository. From 0.1.8 on there is one 
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
 
-## 0.3.3 — 2026-10-06
-
-**Guide mode starts in the Incubator.** Both plugins are now 0.3.3.
-
-- **[Both] Guide mode recommends the Incubator** — the tour ends with one line recommending a light Q&A in the Incubator to begin,
-  and the first question lists "Start in the Incubator (Recommended)" first, then "Start a project". Codex's window resolves by
-  itself after a timeout, so the recommended option comes first
-
 ## 0.3.2 — 2026-10-06
 
-**Bug fix.** Both plugins are now 0.3.2.
+**Bug fix and guide-mode start.** Both plugins are now 0.3.2.
 
 - **[Both] `alfred-init` ends with the restart** — the closing message put "restart in this folder" near the top and the guide-mode
   line last, so a user could turn on guide mode before restarting. Now the restart is the last line, in bold, and guide mode is
   introduced as something to turn on after the restart. Found in a real Windows 11 test
+- **[Both] Guide mode recommends the Incubator** — the tour ends with one line recommending a light Q&A in the Incubator to begin,
+  and the first question lists "Start in the Incubator (Recommended)" first, then "Start a project". Codex's window resolves by
+  itself after a timeout, so the recommended option comes first
 
 ## 0.3.1 — 2026-10-06
 
