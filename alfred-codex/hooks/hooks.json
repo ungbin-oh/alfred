@@ -6,6 +6,7 @@
           {
             "type": "command",
             "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/session-start.sh\"",
+            "commandWindows": "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}\\hooks\\run-windows.ps1\" session-start",
             "timeout": 5,
             "statusMessage": "Loading Alfred...",
             "additionalContextLimit": 20000
@@ -19,12 +20,14 @@
           {
             "type": "command",
             "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/manual-mode.sh\"",
+            "commandWindows": "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}\\hooks\\run-windows.ps1\" manual-mode",
             "timeout": 5,
             "statusMessage": "Checking manual mode..."
           },
           {
             "type": "command",
             "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/init-guard.sh\"",
+            "commandWindows": "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}\\hooks\\run-windows.ps1\" init-guard",
             "timeout": 5,
             "statusMessage": "Checking for Codex /init..."
           }

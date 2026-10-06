@@ -18,7 +18,7 @@
 # 2,500 tokens by default; hooks/hooks.json raises this hook's additionalContextLimit (in tokens)
 # so the rules are not cut.
 #
-# Assumes macOS / Linux, bash. Not tested on Windows.
+# Assumes bash. On Windows, Codex runs it through hooks/run-windows.ps1 with Git Bash (Git for Windows).
 
 set -u
 

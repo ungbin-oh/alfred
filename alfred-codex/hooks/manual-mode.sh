@@ -12,7 +12,7 @@
 # So this hook doesn't parse the prompt JSON — no dependency like python is needed.
 # If this prompt is a manual-mode call, though, injection is skipped. The skill sets the rules for the toggle turn.
 #
-# Assumes macOS / Linux, bash. Not tested on Windows.
+# Assumes bash. On Windows, Codex runs it through hooks/run-windows.ps1 with Git Bash (Git for Windows).
 
 set -u
 

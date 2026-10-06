@@ -4,6 +4,25 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-06
 
 Newest first. Hashes are commits in this repository. From 0.1.8 on there is one version for the whole repository: both plugins (`alfred` for Claude Code, `alfred-codex` for Codex) carry the same number, and each item is tagged **[Claude]**, **[Codex]** or **[Both]**. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
 
+## 0.1.12 — 2026-10-06
+
+**Windows support (Codex) and setup.** Both plugins are now 0.1.12.
+
+- **[Codex] Hooks run on Windows** — Codex runs hook commands through `cmd.exe` on Windows, where `bash` is usually WSL's Linux bash,
+  which can't open `C:\` paths: all three hooks failed ("hook exited with code 1") and the common rules never reached the session.
+  `hooks/hooks.json` now gives each hook a `commandWindows` that runs the new `hooks/run-windows.ps1`. It finds Git Bash on every run
+  (next to `git` on PATH, then the Git for Windows registry key, then the usual install folders; WSL's bash is never used) and runs the
+  same `.sh` hook, passing stdin and stdout through as raw bytes. Without Git Bash, session-start prints one line asking the user to
+  install Git for Windows. macOS / Linux keep the old `command`. Found in a real Windows 11 test
+- **[Both] Windows needs Git for Windows** — the hooks are bash scripts; Claude Code on Windows also runs them on Git Bash.
+  README Install and Requirements say so, with the install command
+- **[Both] `.gitattributes` keeps `*.sh` at LF** — Git for Windows checks out with CRLF by default (`core.autocrlf=true`), so the
+  marketplace copy of the hooks came out CRLF
+- **[Codex] Question windows are turned on once at setup** — `codex features enable default_mode_request_user_input` writes it to
+  `~/.codex/config.toml`, so Codex is started with plain `codex` from then on. The README and `alfred-init` no longer use
+  `codex --enable …` (which lasted one session). If the window is unavailable during init, Alfred asks the user to run that command
+- **[Both] README install examples on separate lines** — Windows PowerShell 5.1 has no `&&`
+
 ## 0.1.11 — 2026-10-06
 
 **Bug fix.** Both plugins are now 0.1.11.

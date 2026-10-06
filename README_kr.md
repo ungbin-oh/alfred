@@ -41,11 +41,15 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-06
 
 ## 설치
 
+Windows 에서는 [Git for Windows](https://git-scm.com/download/win) 를 먼저 설치해 주십시오 (`winget install --id Git.Git -e`). 제 훅이 그 안의 Git Bash 로 돕니다.
+
 **Claude Code**
 ```
 claude plugin marketplace add ungbin-oh/alfred
 claude plugin install alfred@alfred
-mkdir ~/ALFRED && cd ~/ALFRED && claude
+mkdir ~/ALFRED
+cd ~/ALFRED
+claude
 # 세션에서: /alfred-init  → 끝나면 Claude Code 다시 열기
 ```
 
@@ -53,8 +57,11 @@ mkdir ~/ALFRED && cd ~/ALFRED && claude
 ```
 codex plugin marketplace add ungbin-oh/alfred
 codex plugin add alfred-codex@alfred
-mkdir ~/ALFRED && cd ~/ALFRED && codex --enable default_mode_request_user_input
-# 훅 신뢰를 물으면 신뢰 → $alfred-init  → 끝나면 같은 codex --enable … 명령으로 다시 열기
+codex features enable default_mode_request_user_input   # 한 번만: 질문 창을 계속 켜 둔다
+mkdir ~/ALFRED
+cd ~/ALFRED
+codex
+# 훅 신뢰를 물으면 신뢰 → $alfred-init  → 끝나면 Codex 다시 열기
 ```
 
 ## 제가 드리는 것
@@ -129,7 +136,7 @@ codex plugin remove alfred-codex@alfred    # Codex
 ## 필요한 것
 
 - Claude Code (플러그인 지원 버전), 또는 플러그인을 지원하는 Codex CLI (0.160.0 에서 확인)
-- macOS 또는 Linux (훅이 bash 스크립트입니다. Windows 에서는 아직 시험해 보지 못했습니다)
+- macOS, Linux 또는 Windows. 훅이 bash 스크립트라서, Windows 에서는 Claude Code · Codex 모두 Git for Windows (Git Bash) 가 있어야 합니다 — `winget install --id Git.Git -e` 또는 [git-scm.com](https://git-scm.com/download/win)
 
 ## License
 
@@ -138,6 +145,6 @@ codex plugin remove alfred-codex@alfred    # Codex
 ## 업데이트 히스토리
 
 버전마다 무엇이 바뀌었는지는 [docs/ko/CHANGELOG.md](docs/ko/CHANGELOG.md) 에 적어 두었습니다 (정본은 영어 [CHANGELOG.md](CHANGELOG.md)). 두 플러그인은 버전 번호 하나를 같이 쓰고, 바뀐 것마다 [Claude] · [Codex] · [공통] 을 붙입니다.
-최신: **0.1.11** (2026-10-06) — 버그 수정 (Codex): `alfred-init` 질문 창이 바로 뜨고, Codex 를 다시 열 때도 질문 창 옵션을 붙입니다. 그 전 **0.1.10** — 버그 수정 (Windows): Alfred 워크스페이스 밖에서 훅이 5초씩 멈추지 않습니다. 그 전 **0.1.9** — 버그 수정: `alfred-init` 이 다시 질문 창으로 확인하고, 만들 것의 요약을 질문 안에 넣습니다. 그 전 **0.1.8** — 버그 수정 (Codex): Codex 자체 `/init` 이 Alfred 워크스페이스를 건드리지 않습니다. 그 전 **0.1.7** — 버그 수정: `alfred-init` 이 파일 목록을 질문 창 밑이 아니라 채팅으로 보여 줍니다. 그 전 **0.1.6** — 레포를 `alfred-claude/` 와 `alfred-codex/` 로 나누고 Codex 전용 플러그인을 더했습니다. 그 전 **0.1.5** — 규약을 읽히는 문장으로 다시 쓰고, 부팅 때 어제 To do 를 묻고, 무엇이 판단인지는 사용자가 정하게 했으며, 개인 정보를 뺐습니다.
+최신: **0.1.12** (2026-10-06) — Windows (Codex): 훅을 Git Bash 로 돌려 Windows 의 Codex 에서도 동작하고, Windows 에서는 Git for Windows 가 필요하며, 질문 창은 셋업 때 한 번 켭니다. 그 전 **0.1.11** (2026-10-06) — 버그 수정 (Codex): `alfred-init` 질문 창이 바로 뜨고, Codex 를 다시 열 때도 질문 창 옵션을 붙입니다. 그 전 **0.1.10** — 버그 수정 (Windows): Alfred 워크스페이스 밖에서 훅이 5초씩 멈추지 않습니다. 그 전 **0.1.9** — 버그 수정: `alfred-init` 이 다시 질문 창으로 확인하고, 만들 것의 요약을 질문 안에 넣습니다. 그 전 **0.1.8** — 버그 수정 (Codex): Codex 자체 `/init` 이 Alfred 워크스페이스를 건드리지 않습니다. 그 전 **0.1.7** — 버그 수정: `alfred-init` 이 파일 목록을 질문 창 밑이 아니라 채팅으로 보여 줍니다. 그 전 **0.1.6** — 레포를 `alfred-claude/` 와 `alfred-codex/` 로 나누고 Codex 전용 플러그인을 더했습니다. 그 전 **0.1.5** — 규약을 읽히는 문장으로 다시 쓰고, 부팅 때 어제 To do 를 묻고, 무엇이 판단인지는 사용자가 정하게 했으며, 개인 정보를 뺐습니다.
 
 - 상태: **v0.1.9** — macOS 의 Claude Code · Codex 에서 시험했습니다. Linux · Windows 는 아직입니다

@@ -9,9 +9,10 @@ Turns the current working folder into an Alfred workspace. Every file created **
 The common rules are not copied into the workspace: the plugin's session-start hook adds them to every Codex session.
 The workspace `AGENTS.md` holds only the user's settings.
 
-**Question window:** wherever this skill says "question window", use `request_user_input` if it is available
-(Codex needs it enabled, e.g. `codex --enable default_mode_request_user_input`). If it isn't, ask in chat,
-one question at a time, with the options listed.
+**Question window:** wherever this skill says "question window", use `request_user_input` if it is available.
+Codex needs it enabled once with the setup command `codex features enable default_mode_request_user_input`
+(it stays on — written to `~/.codex/config.toml`). If it isn't available, tell the user once to run that command and reopen Codex,
+and meanwhile ask in chat, one question at a time, with the options listed.
 
 **One rule for every question-window step:** the `request_user_input` call is the very next action.
 - Write no chat text before it — no summary, no options, no "please answer in the window". The call itself carries the question and the options
@@ -75,7 +76,7 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` contents:
   ```
   alfred-workspace
-  version: 0.1.11
+  version: 0.1.12
   created: YYYY-MM-DD
   language: en
   ```
@@ -88,8 +89,7 @@ First ask about git, then write the closing message.
   with one question (header e.g. "Git"), options exactly `use git` / `not now` (in the chosen language). Nothing in chat before the call —
   not the result of creating, not the options. Run `git init` only if the user picks `use git`
 - After the answer, in one closing message:
-  - Tell the user they **must restart Codex in this folder** for the hook to recognize the workspace, with the same command
-    (`codex --enable default_mode_request_user_input` — without it the question windows don't appear).
+  - Tell the user they **must restart Codex in this folder** (plain `codex`) for the hook to recognize the workspace.
     On the first start Codex asks them to review and trust the plugin's hooks; until they do, the rules are not loaded
   - Tell them the first project can start with "create a <name> project in <category>"
 

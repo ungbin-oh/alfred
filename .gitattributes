@@ -1,0 +1,2 @@
+# Hooks are run by bash, also from Git Bash on Windows: keep LF even when Git converts line endings on checkout
+*.sh text eol=lf

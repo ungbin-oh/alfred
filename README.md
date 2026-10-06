@@ -41,11 +41,15 @@ Your multitasking, finally under control.
 
 ## Install
 
+On Windows, install [Git for Windows](https://git-scm.com/download/win) first (`winget install --id Git.Git -e`) — Alfred's hooks run on its Git Bash.
+
 **Claude Code**
 ```
 claude plugin marketplace add ungbin-oh/alfred
 claude plugin install alfred@alfred
-mkdir ~/ALFRED && cd ~/ALFRED && claude
+mkdir ~/ALFRED
+cd ~/ALFRED
+claude
 # in the session: /alfred-init  → then reopen Claude Code
 ```
 
@@ -53,8 +57,11 @@ mkdir ~/ALFRED && cd ~/ALFRED && claude
 ```
 codex plugin marketplace add ungbin-oh/alfred
 codex plugin add alfred-codex@alfred
-mkdir ~/ALFRED && cd ~/ALFRED && codex --enable default_mode_request_user_input
-# trust the hooks when asked, then: $alfred-init  → then reopen Codex with the same codex --enable … command
+codex features enable default_mode_request_user_input   # once: turns on question windows for good
+mkdir ~/ALFRED
+cd ~/ALFRED
+codex
+# trust the hooks when asked, then: $alfred-init  → then reopen Codex
 ```
 
 ## What I provide
@@ -129,7 +136,7 @@ The rules and skills have one English source (`alfred-claude/`; `alfred-codex/` 
 ## Requirements
 
 - Claude Code (a version with plugin support), or Codex CLI with plugins (checked with 0.160.0)
-- macOS or Linux (the hooks are bash scripts. Not yet tested on Windows)
+- macOS, Linux or Windows. The hooks are bash scripts, so Windows needs Git for Windows (Git Bash) for both Claude Code and Codex — `winget install --id Git.Git -e` or [git-scm.com](https://git-scm.com/download/win)
 
 ## License
 
@@ -137,6 +144,6 @@ The rules and skills have one English source (`alfred-claude/`; `alfred-codex/` 
 
 ## Update history
 
-What changed in each version is in [CHANGELOG.md](CHANGELOG.md). Both plugins share one version number; each change is tagged [Claude], [Codex] or [Both]. Latest: **0.1.11** (2026-10-06) — bug fix (Codex): `alfred-init` question windows open directly, and Codex is reopened with the flag that enables them. Before that, **0.1.10** — bug fix (Windows): hooks no longer hang for 5 seconds outside an Alfred workspace. Before that, **0.1.9** — bug fix: `alfred-init` confirms through the question window again, with a short summary inside the question. Before that, **0.1.8** — bug fix (Codex): Codex's own `/init` no longer touches an Alfred workspace. Before that, **0.1.7** — bug fix: `alfred-init` shows the file list in chat instead of under a question window. Before that, **0.1.6** — the repository splits into `alfred-claude/` and `alfred-codex/`, and Codex gets its own plugin. Before that, **0.1.5** — rules rewritten in plainer sentences, boot asks about yesterday's To do, decision.md leaves "what counts as a judgment" to you, personal details removed.
+What changed in each version is in [CHANGELOG.md](CHANGELOG.md). Both plugins share one version number; each change is tagged [Claude], [Codex] or [Both]. Latest: **0.1.12** (2026-10-06) — Windows (Codex): hooks run through Git Bash, so Alfred works in Codex on Windows; Git for Windows is required on Windows; question windows are turned on once at setup. Before that, **0.1.11** (2026-10-06) — bug fix (Codex): `alfred-init` question windows open directly, and Codex is reopened with the flag that enables them. Before that, **0.1.10** — bug fix (Windows): hooks no longer hang for 5 seconds outside an Alfred workspace. Before that, **0.1.9** — bug fix: `alfred-init` confirms through the question window again, with a short summary inside the question. Before that, **0.1.8** — bug fix (Codex): Codex's own `/init` no longer touches an Alfred workspace. Before that, **0.1.7** — bug fix: `alfred-init` shows the file list in chat instead of under a question window. Before that, **0.1.6** — the repository splits into `alfred-claude/` and `alfred-codex/`, and Codex gets its own plugin. Before that, **0.1.5** — rules rewritten in plainer sentences, boot asks about yesterday's To do, decision.md leaves "what counts as a judgment" to you, personal details removed.
 
 - Status: **v0.1.9** — tested on macOS in Claude Code and Codex. Linux and Windows not yet tested

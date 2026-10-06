@@ -11,7 +11,7 @@
 # When the prompt is that /init prompt and the folder is an Alfred workspace, this hook tells the model
 # not to touch any file and to explain the mix-up. Outside Alfred workspaces it prints nothing.
 #
-# Assumes macOS / Linux, bash. Not tested on Windows.
+# Assumes bash. On Windows, Codex runs it through hooks/run-windows.ps1 with Git Bash (Git for Windows).
 
 set -u
 

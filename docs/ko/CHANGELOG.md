@@ -6,6 +6,23 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-06
 
 최신이 위. 해시는 이 레포의 커밋. 0.1.8 부터 레포 전체에 버전이 하나다 — 두 플러그인(Claude Code 용 `alfred`, Codex 용 `alfred-codex`)이 같은 번호를 쓰고, 항목마다 **[Claude]** · **[Codex]** · **[공통]** 을 붙인다.
 
+## 0.1.12 — 2026-10-06
+
+**Windows 지원 (Codex) 과 셋업.** 두 플러그인 모두 0.1.12.
+
+- **[Codex] Windows 에서 훅이 돈다** — Windows 의 Codex 는 훅 명령을 `cmd.exe` 로 돌리고, 거기서 `bash` 는 대개 WSL 의 리눅스 bash 다.
+  리눅스 bash 는 `C:\` 경로를 못 열어 훅 셋이 모두 실패했고("hook exited with code 1"), 공통 규약이 세션에 들어가지 않았다.
+  이제 `hooks/hooks.json` 의 훅마다 `commandWindows` 가 새 `hooks/run-windows.ps1` 을 부른다. 이 스크립트는 실행할 때마다 Git Bash 를 찾고
+  (PATH 의 `git` 옆 → Git for Windows 레지스트리 → 흔한 설치 폴더. WSL 의 bash 는 쓰지 않는다) 같은 `.sh` 훅을 돌리며, 입출력은 바이트 그대로 넘긴다.
+  Git Bash 가 없으면 session-start 가 Git for Windows 를 설치하라는 한 줄을 낸다. macOS · Linux 는 기존 `command` 그대로. 실제 Windows 11 시험에서 발견
+- **[공통] Windows 에는 Git for Windows 가 필요하다** — 훅이 bash 스크립트이고, Windows 의 Claude Code 도 Git Bash 로 돌린다.
+  README 설치 · 필요한 것에 설치 명령과 함께 적었다
+- **[공통] `.gitattributes` 로 `*.sh` 를 LF 로** — Git for Windows 는 기본(`core.autocrlf=true`)으로 CRLF 로 내려받아, 마켓플레이스 사본의 훅이 CRLF 가 됐다
+- **[Codex] 질문 창은 셋업 때 한 번 켠다** — `codex features enable default_mode_request_user_input` 이 `~/.codex/config.toml` 에 남기므로
+  그다음부터는 그냥 `codex` 로 연다. README 와 `alfred-init` 은 한 세션만 가는 `codex --enable …` 을 더 쓰지 않는다.
+  init 중에 질문 창이 없으면 Alfred 가 그 명령을 치라고 알린다
+- **[공통] README 설치 예시를 줄마다 나눴다** — Windows PowerShell 5.1 에는 `&&` 가 없다
+
 ## 0.1.11 — 2026-10-06
 
 **버그 수정.** 두 플러그인 모두 0.1.11.
