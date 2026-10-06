@@ -4,6 +4,17 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-06
 
 Newest first. Hashes are commits in this repository. From 0.1.8 on there is one version for the whole repository: both plugins (`alfred` for Claude Code, `alfred-codex` for Codex) carry the same number, and each item is tagged **[Claude]**, **[Codex]** or **[Both]**. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
 
+## 0.1.13 — 2026-10-06
+
+**Codex setup questions that must be answered in chat.** Both plugins are now 0.1.13.
+
+- **[Codex] Create confirmation, git and existing-`AGENTS.md` questions are chat gates** — Codex's own Default-mode instructions say
+  never to use `request_user_input` for permission requests, and to ask in plain chat when an answer is needed before work can go on
+  (`collaboration-mode-templates/templates/default.md`). So these three never got a window, whatever the skill said — 0.1.11's guess
+  that chat text written first pushed the window back was wrong. `alfred-init` now asks them in chat on purpose: the question and a
+  "type `create`, `redo settings` or `stop` in the chat box" line, both in bold. If the next message is something else, Alfred doesn't
+  act on it, says in bold that setup isn't finished and what is missing, and repeats the line. Found in a real Windows 11 test
+
 ## 0.1.12 — 2026-10-06
 
 **Windows support (Codex) and setup.** Both plugins are now 0.1.12.

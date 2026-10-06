@@ -19,8 +19,17 @@ and meanwhile ask in chat, one question at a time, with the options listed.
 - Don't run other tools between deciding to ask and the call
 - Wait for the answer before writing anything else; what comes after the question is written after the answer
 
-Why: when the options were written in chat first, the window was queued behind them ("Queued follow-up inputs", answered only with shift+←),
-or never opened at all.
+**Chat gates — the questions Codex won't put in a window.** Codex's own instructions forbid `request_user_input` for permission
+requests and for answers needed before work can go on, and tell it to ask those in chat instead. So three steps are asked in chat,
+never in a window: existing `AGENTS.md` (step 1), the create confirmation (step 3) and git (step 5). For each chat gate:
+- Write the question as one **bold** line, then one **bold** line saying exactly what to type — not "choose" or "select", since there is
+  no window to choose in. ko: **"아래 입력창에 `생성` · `설정 다시 하기` · `중단` 중 하나를 입력해 주세요."**
+  en: **"Type `create`, `redo settings` or `stop` in the chat box below."**
+- End the turn right there. Nothing after the bold lines
+- If the next message isn't one of the answers (or a plain equivalent such as "yes" for create): don't act on it and don't answer it.
+  Say in bold that **setup isn't finished yet** — what is still missing (step 3: nothing has been created yet / step 5: git is not decided yet) —
+  that their question can be asked again after setup, and repeat the bold "type …" line. Do this every time until an answer comes
+- "stop" / "cancel" always ends the setup at that point
 
 Templates are in this skill directory's `templates/` (next to this SKILL.md), one set per language:
 `templates/en/` and `templates/ko/`. `templates/gitignore` is shared.
@@ -30,8 +39,8 @@ Templates are in this skill directory's `templates/` (next to this SKILL.md), on
 ### 1. Check the current folder (read only)
 - Look at where you are and what's there with `pwd`, `ls -la`
 - If `.alfred/workspace` already exists, say it's **already an initialized workspace** and stop
-- If `AGENTS.md` already exists, don't overwrite it. Ask via the question window:
-  append an Alfred settings section to the end of the existing file / stop
+- If `AGENTS.md` already exists, don't overwrite it. Ask as a **chat gate** (see above):
+  append an Alfred settings section to the end of the existing file (`append`) / `stop`
 - If you're directly in the home directory (`~`), confirm once more (usually a dedicated folder is used)
 
 ### 2. Ask for settings
@@ -52,7 +61,11 @@ Put the default in the options and let the user answer freely too.
 5. Whether to turn on the author header, and if so, the name to put in it (off)
 
 ### 3. Show what will be created and confirm
-**Confirm through the question window** before creating (the one rule above): call `request_user_input` with one question (header e.g. "Create"), options exactly `create` / `redo settings` / `stop` (in the chosen language). Do not ask this in chat and do not write the summary or the options as chat text before the call — the call itself carries them. Put a short summary of what will be created **in the question text itself** — the file count and the top-level items, two or three lines (e.g. "15 files: AGENTS.md, .alfred/, project-logs · project-workspace for Work/Research/Life, daily/, Archive/"). Don't print the full list in chat before the window (the window covers it) and don't put it in an option preview (only about 15 lines show). If the user asks to see the full list, show it in chat and ask again.
+**Confirm as a chat gate** before creating (see above — Codex won't open a window for this): first a short summary of the settings and
+of what will be created — the file count and the top-level items, two or three lines (e.g. "15 files: AGENTS.md, .alfred/,
+project-logs · project-workspace for Work/Research/Life, daily/, Archive/") — then the bold question and the bold "type `create`,
+`redo settings` or `stop`" line (in the chosen language). Don't print the full list unless the user asks for it; if they do, show it and
+repeat the gate.
 `<lang>` is `en` or `ko` per step 2.
 ```
 AGENTS.md                              ← templates/<lang>/AGENTS.md with settings filled in
@@ -76,7 +89,7 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` contents:
   ```
   alfred-workspace
-  version: 0.1.12
+  version: 0.1.13
   created: YYYY-MM-DD
   language: en
   ```
@@ -85,9 +98,8 @@ Archive/workspace-archive/.gitkeep
 
 ### 5. Wrap up
 First ask about git, then write the closing message.
-- **Ask whether to use git through the question window** (the one rule above): right after creating, call `request_user_input`
-  with one question (header e.g. "Git"), options exactly `use git` / `not now` (in the chosen language). Nothing in chat before the call —
-  not the result of creating, not the options. Run `git init` only if the user picks `use git`
+- **Ask whether to use git as a chat gate** (see above): one line that the files were created, then the bold question and the bold
+  "type `use git` or `not now`" line (ko: `git 사용` · `지금은 안 함`). Run `git init` only if the user answers `use git`
 - After the answer, in one closing message:
   - Tell the user they **must restart Codex in this folder** (plain `codex`) for the hook to recognize the workspace.
     On the first start Codex asks them to review and trust the plugin's hooks; until they do, the rules are not loaded
