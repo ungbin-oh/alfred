@@ -47,27 +47,27 @@ Pick your OS and follow the numbered steps. Each step says where to go next — 
 |  | 🍎 [macOS](#-macos) | 🪟 [Windows](#-windows) |
 |---|---|---|
 | Terminal | Terminal (zsh) | PowerShell |
-| Claude Code users | M1 → M2 → M3 | W1 → W2 → W3 → W4 |
-| Codex users | M1 → M4 → M5 → M6 | W1 → W2 → W5 → W6 → W7 |
+| Claude Code users | MAC-Step1 → MAC-Step2 → MAC-Step3 | Windows-Step1 → Windows-Step2 → Windows-Step3 → Windows-Step4 |
+| Codex users | MAC-Step1 → MAC-Step4 → MAC-Step5 → MAC-Step6 | Windows-Step1 → Windows-Step2 → Windows-Step5 → Windows-Step6 → Windows-Step7 |
 
 ---
 
 ### 🍎 macOS
 
-**M1 · Which tool?**
-- Claude Code → **M2**
-- Codex → **M4**
-- Both → do M2 → M3, then M4 → M6
+**MAC-Step1 · Which tool?**
+- Claude Code → **MAC-Step2**
+- Codex → **MAC-Step4**
+- Both → do MAC-Step2 → MAC-Step3, then MAC-Step4 → MAC-Step6
 
-**M2 · Install Claude Code** — `claude --version` already works? → skip to **M3**
+**MAC-Step2 · Install Claude Code** — `claude --version` already works? → skip to **MAC-Step3**
 
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
 ```
 
-➡️ Open a new terminal, run `claude` once to sign in, then go to **M3**
+➡️ Open a new terminal, run `claude` once to sign in, then go to **MAC-Step3**
 
-**M3 · Alfred for Claude Code**
+**MAC-Step3 · Alfred for Claude Code**
 
 ```bash
 claude plugin marketplace add ungbin-oh/alfred
@@ -77,25 +77,25 @@ cd ~/ALFRED
 claude
 ```
 
-➡️ In the session, type `/alfred-init`. When it finishes, quit and run `claude` again. ✅ Done (using Codex too? → **M4**)
+➡️ In the session, type `/alfred-init`. When it finishes, quit and run `claude` again. ✅ Done (using Codex too? → **MAC-Step4**)
 
-**M4 · Install Node.js** (Codex needs it) — `node --version` already works? → skip to **M5**
+**MAC-Step4 · Install Node.js** (Codex needs it) — `node --version` already works? → skip to **MAC-Step5**
 
 ```bash
 brew install node
 ```
 
-➡️ No Homebrew? Get Node.js from [nodejs.org](https://nodejs.org). Then go to **M5**
+➡️ No Homebrew? Get Node.js from [nodejs.org](https://nodejs.org). Then go to **MAC-Step5**
 
-**M5 · Install Codex** — `codex --version` already works? → skip to **M6**
+**MAC-Step5 · Install Codex** — `codex --version` already works? → skip to **MAC-Step6**
 
 ```bash
 npm install -g @openai/codex
 ```
 
-➡️ Run `codex` once to sign in, then go to **M6**
+➡️ Run `codex` once to sign in, then go to **MAC-Step6**
 
-**M6 · Alfred for Codex**
+**MAC-Step6 · Alfred for Codex**
 
 ```bash
 codex plugin marketplace add ungbin-oh/alfred
@@ -116,20 +116,20 @@ The `features enable` line is needed only once — it turns on question windows 
 > [!IMPORTANT]
 > After every install below, **close PowerShell completely and open a new one** — a new tab is not enough. Until you do, the new command isn't found.
 
-**W1 · Git for Windows** (Alfred's hooks run on its Git Bash) — `git --version` already works? → skip to **W2**
+**Windows-Step1 · Git for Windows** (Alfred's hooks run on its Git Bash) — `git --version` already works? → skip to **Windows-Step2**
 
 ```powershell
 winget install --id Git.Git -e
 ```
 
-➡️ Close and reopen PowerShell, check `git --version`, then go to **W2**. (Already installed? Running it again is harmless. No `winget`? Get Git from [git-scm.com](https://git-scm.com/download/win).)
+➡️ Close and reopen PowerShell, check `git --version`, then go to **Windows-Step2**. (Already installed? Running it again is harmless. No `winget`? Get Git from [git-scm.com](https://git-scm.com/download/win).)
 
-**W2 · Which tool?**
-- Claude Code → **W3**
-- Codex → **W5**
-- Both → do W3 → W4, then W5 → W7
+**Windows-Step2 · Which tool?**
+- Claude Code → **Windows-Step3**
+- Codex → **Windows-Step5**
+- Both → do Windows-Step3 → Windows-Step4, then Windows-Step5 → Windows-Step7
 
-**W3 · Install Claude Code** — `claude --version` already works? → skip to **W4**
+**Windows-Step3 · Install Claude Code** — `claude --version` already works? → skip to **Windows-Step4**
 
 ```powershell
 irm https://claude.ai/install.ps1 | iex
@@ -140,9 +140,9 @@ if (($p -split ';') -notcontains $bin) { [Environment]::SetEnvironmentVariable('
 
 The last three lines add Claude Code's folder (`.local\bin`) to your PATH — the installer doesn't always do it. Running them again changes nothing.
 
-➡️ Close and reopen PowerShell, check `claude --version`, run `claude` once to sign in, then go to **W4**
+➡️ Close and reopen PowerShell, check `claude --version`, run `claude` once to sign in, then go to **Windows-Step4**
 
-**W4 · Alfred for Claude Code**
+**Windows-Step4 · Alfred for Claude Code**
 
 ```powershell
 claude plugin marketplace add ungbin-oh/alfred
@@ -152,25 +152,25 @@ cd ~\ALFRED
 claude
 ```
 
-➡️ In the session, type `/alfred-init`. When it finishes, quit and run `claude` again. ✅ Done (using Codex too? → **W5**)
+➡️ In the session, type `/alfred-init`. When it finishes, quit and run `claude` again. ✅ Done (using Codex too? → **Windows-Step5**)
 
-**W5 · Install Node.js** (Codex needs it) — `node --version` already works? → skip to **W6**
+**Windows-Step5 · Install Node.js** (Codex needs it) — `node --version` already works? → skip to **Windows-Step6**
 
 ```powershell
 winget install --id OpenJS.NodeJS.LTS -e
 ```
 
-➡️ Close and reopen PowerShell, check `node --version`, then go to **W6**
+➡️ Close and reopen PowerShell, check `node --version`, then go to **Windows-Step6**
 
-**W6 · Install Codex** — `codex --version` already works? → skip to **W7**
+**Windows-Step6 · Install Codex** — `codex --version` already works? → skip to **Windows-Step7**
 
 ```powershell
 npm install -g @openai/codex
 ```
 
-➡️ Close and reopen PowerShell, check `codex --version`, run `codex` once to sign in, then go to **W7**
+➡️ Close and reopen PowerShell, check `codex --version`, run `codex` once to sign in, then go to **Windows-Step7**
 
-**W7 · Alfred for Codex**
+**Windows-Step7 · Alfred for Codex**
 
 ```powershell
 codex plugin marketplace add ungbin-oh/alfred
