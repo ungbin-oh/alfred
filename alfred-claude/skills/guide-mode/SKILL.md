@@ -41,8 +41,11 @@ Short — about ten lines, one line per item, no tables. Plain words, no interna
 9. **Question windows** — short choices come as a multiple-choice window; long drafts are confirmed in chat
 10. **`/manual-mode`** — you type the commands and code yourself; **Archive** — finished things you keep, out of the briefing
 
+Close the tour with one line recommending the Incubator as the place to begin — ko: "처음이시라면 Incubator 에서 가볍게 질의응답을
+주고받는 걸 추천드릴게요!" / en: "If you're new, I'd recommend starting in the Incubator — just ask me something and we'll go from there!"
 Then invite the first use. Through the question window (AskUserQuestion): one question — what would you like to start with? — options exactly two,
-"Start a project" / "Put an idea in Incubator" (in the workspace language); the window's "Other" lets them say something else.
+in this order: "Start in the Incubator (Recommended)" / "Start a project" (ko: "Incubator 에서 시작하기 (추천)" / "프로젝트 시작하기");
+the window's "Other" lets them say something else.
 After the answer, do that (create the project with the user's details, or start an Incubator open item / trace entry) — asking for
 details the rules require (objective, code) instead of making them up.
 

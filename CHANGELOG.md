@@ -7,6 +7,14 @@ Newest first. Hashes are commits in this repository. From 0.1.8 on there is one 
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
 
+## 0.3.3 — 2026-10-06
+
+**Guide mode starts in the Incubator.** Both plugins are now 0.3.3.
+
+- **[Both] Guide mode recommends the Incubator** — the tour ends with one line recommending a light Q&A in the Incubator to begin,
+  and the first question lists "Start in the Incubator (Recommended)" first, then "Start a project". Codex's window resolves by
+  itself after a timeout, so the recommended option comes first
+
 ## 0.3.2 — 2026-10-06
 
 **Bug fix.** Both plugins are now 0.3.2.
