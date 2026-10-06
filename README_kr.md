@@ -17,6 +17,7 @@
 
 <p align="center">
   <a href="#설치">설치</a> •
+  <a href="#새-버전을-받으시려면">새 버전 받기</a> •
   <a href="#제가-드리는-것">제가 드리는 것</a> •
   <a href="#일하는-방식">일하는 방식</a> •
   <a href="#자주-쓰시는-말씀">자주 쓰시는 말씀</a> •
@@ -121,6 +122,24 @@ codex
 ➡️ 훅 신뢰를 물으면 신뢰하시고 `$alfred-init` 을 입력하십시오. 끝나면 나갔다가 `codex` 를 다시 실행하십시오.
 `features enable` 줄은 한 번만 치시면 됩니다 — 질문 창을 계속 켜 둡니다.
 
+## 새 버전을 받으시려면
+
+**Claude Code**
+
+```
+claude plugin marketplace update alfred
+claude plugin update alfred@alfred
+```
+
+**Codex**
+
+```
+codex plugin marketplace upgrade alfred
+codex plugin add alfred-codex@alfred
+```
+
+워크스페이스의 로그와 설정은 그대로입니다.
+
 ## 제가 드리는 것
 
 | 무엇 | 하는 일 |
@@ -170,24 +189,6 @@ codex
 | `저장해` | 오늘 한 일과 결정을 요약해 보여 드리고, 허락을 받은 뒤 log.md 에 기록 |
 | `하루를 정리하자` | 오늘 trace 로 daily 의 Timeline 작성 |
 | `전체 히스토리 봐` | 해당 프로젝트 로그 통독 |
-
-## 새 버전을 받으시려면
-
-**Claude Code**
-
-```
-claude plugin marketplace update alfred
-claude plugin update alfred@alfred
-```
-
-**Codex**
-
-```
-codex plugin marketplace upgrade alfred
-codex plugin add alfred-codex@alfred
-```
-
-워크스페이스의 로그와 설정은 그대로입니다.
 
 ## 물러나게 하시려면
 

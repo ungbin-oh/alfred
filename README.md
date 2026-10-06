@@ -17,6 +17,7 @@
 
 <p align="center">
   <a href="#install">Install</a> •
+  <a href="#updating">Updating</a> •
   <a href="#what-i-provide">What I provide</a> •
   <a href="#how-i-work">How I work</a> •
   <a href="#things-you-can-say">Things you can say</a> •
@@ -121,6 +122,24 @@ codex
 ➡️ Trust the hooks when asked, then type `$alfred-init`. When it finishes, quit and run `codex` again.
 The `features enable` line is needed only once — it turns on question windows for good.
 
+## Updating
+
+**Claude Code**
+
+```
+claude plugin marketplace update alfred
+claude plugin update alfred@alfred
+```
+
+**Codex**
+
+```
+codex plugin marketplace upgrade alfred
+codex plugin add alfred-codex@alfred
+```
+
+Your logs and settings stay as they are.
+
 ## What I provide
 
 | What | What it does |
@@ -170,24 +189,6 @@ To switch language later, change the `language:` line in `.alfred/workspace` to 
 | `save` | Show a summary of today's work and decisions, and write it to log.md once you approve |
 | `let's wrap up the day` | Write the Timeline of today's daily note from the trace |
 | `show full history` | Read that project's whole log |
-
-## Updating
-
-**Claude Code**
-
-```
-claude plugin marketplace update alfred
-claude plugin update alfred@alfred
-```
-
-**Codex**
-
-```
-codex plugin marketplace upgrade alfred
-codex plugin add alfred-codex@alfred
-```
-
-Your logs and settings stay as they are.
 
 ## Dismissing me
 
