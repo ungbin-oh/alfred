@@ -41,61 +41,85 @@ Your multitasking, finally under control.
 
 ## Install
 
-### For Mac
+Pick your OS, then the tool you use — Claude Code, Codex, or both.
+
+| | 🍎 [macOS](#-macos) | 🪟 [Windows](#-windows) |
+|---|---|---|
+| Terminal | Terminal (zsh) | PowerShell |
+| Before you start | — | Git for Windows |
+
+---
+
+### 🍎 macOS
 
 **Claude Code**
-```
+
+```bash
 claude plugin marketplace add ungbin-oh/alfred
 claude plugin install alfred@alfred
 mkdir ~/ALFRED
 cd ~/ALFRED
 claude
-# in the session: /alfred-init  → then reopen Claude Code
 ```
 
+➡️ In the session, type `/alfred-init`. When it finishes, quit and run `claude` again.
+
 **Codex**
-```
+
+```bash
 codex plugin marketplace add ungbin-oh/alfred
 codex plugin add alfred-codex@alfred
-codex features enable default_mode_request_user_input   # once: turns on question windows for good
+codex features enable default_mode_request_user_input
 mkdir ~/ALFRED
 cd ~/ALFRED
 codex
-# trust the hooks when asked, then: $alfred-init  → then reopen Codex
 ```
 
-### For Windows
+➡️ Trust the hooks when asked, then type `$alfred-init`. When it finishes, quit and run `codex` again.
+The `features enable` line is needed only once — it turns on question windows for good.
 
-In PowerShell. Alfred's hooks run on Git Bash, so [Git for Windows](https://git-scm.com/download/win) comes first.
-If it's already installed, running the command again is harmless — winget says so, or updates it.
-If `winget` isn't found, install Git from the link above instead.
+---
 
-**Git for Windows**
-```
+### 🪟 Windows
+
+> [!IMPORTANT]
+> Alfred's hooks run on Git Bash, so install **Git for Windows** first.
+> Already installed? Running it again is harmless — winget says so, or updates it.
+> If `winget` isn't found, download Git from [git-scm.com](https://git-scm.com/download/win) instead.
+
+**Step 1 · Git for Windows**
+
+```powershell
 winget install --id Git.Git -e
 ```
-Then close the terminal and open a new one.
 
-**Claude Code**
-```
+➡️ Close the terminal and open a new one.
+
+**Step 2 · Claude Code**
+
+```powershell
 claude plugin marketplace add ungbin-oh/alfred
 claude plugin install alfred@alfred
 mkdir ~\ALFRED
 cd ~\ALFRED
 claude
-# in the session: /alfred-init  → then reopen Claude Code
 ```
 
-**Codex**
-```
+➡️ In the session, type `/alfred-init`. When it finishes, quit and run `claude` again.
+
+**Step 2 · Codex**
+
+```powershell
 codex plugin marketplace add ungbin-oh/alfred
 codex plugin add alfred-codex@alfred
-codex features enable default_mode_request_user_input   # once: turns on question windows for good
+codex features enable default_mode_request_user_input
 mkdir ~\ALFRED
 cd ~\ALFRED
 codex
-# trust the hooks when asked, then: $alfred-init  → then reopen Codex
 ```
+
+➡️ Trust the hooks when asked, then type `$alfred-init`. When it finishes, quit and run `codex` again.
+The `features enable` line is needed only once — it turns on question windows for good.
 
 ## What I provide
 
@@ -146,9 +170,18 @@ To switch language later, change the `language:` line in `.alfred/workspace` to 
 
 ## Updating
 
+**Claude Code**
+
 ```
-claude plugin marketplace update alfred && claude plugin update alfred@alfred      # Claude Code
-codex plugin marketplace upgrade alfred && codex plugin add alfred-codex@alfred    # Codex
+claude plugin marketplace update alfred
+claude plugin update alfred@alfred
+```
+
+**Codex**
+
+```
+codex plugin marketplace upgrade alfred
+codex plugin add alfred-codex@alfred
 ```
 
 Your logs and settings stay as they are.
@@ -168,8 +201,8 @@ The rules and skills have one English source (`alfred-claude/`; `alfred-codex/` 
 
 ## Requirements
 
-- Claude Code (a version with plugin support), or Codex CLI with plugins (checked with 0.160.0)
-- macOS, Linux or Windows. The hooks are bash scripts, so Windows needs Git for Windows (Git Bash) for both Claude Code and Codex — `winget install --id Git.Git -e` or [git-scm.com](https://git-scm.com/download/win)
+- Claude Code (a version with plugin support), or Codex CLI with plugins (checked with 0.160)
+- macOS, Linux or Windows. On Windows, Git for Windows (Git Bash) — the hooks are bash scripts
 
 ## License
 
@@ -177,6 +210,15 @@ The rules and skills have one English source (`alfred-claude/`; `alfred-codex/` 
 
 ## Update history
 
-What changed in each version is in [CHANGELOG.md](CHANGELOG.md). Both plugins share one version number; each change is tagged [Claude], [Codex] or [Both]. Latest: **0.2.3** (2026-10-06) — bug fix: the assistant-name question in `alfred-init` always has two options, so English setup no longer skips it. Before that, **0.2.2** (2026-10-06) — Claude Code: a new session in an Alfred workspace is named by date. Before that, **0.2.1** (2026-10-06) — Codex: `alfred-init` asks the create confirmation and git in chat on purpose (Codex won't open a window for them), in bold with exactly what to type. Before that, **0.2.0** (2026-10-06) — Windows (Codex): hooks run through Git Bash, so Alfred works in Codex on Windows; Git for Windows is required on Windows; question windows are turned on once at setup. Before that, **0.1.11** (2026-10-06) — bug fix (Codex): `alfred-init` question windows open directly, and Codex is reopened with the flag that enables them. Before that, **0.1.10** — bug fix (Windows): hooks no longer hang for 5 seconds outside an Alfred workspace. Before that, **0.1.9** — bug fix: `alfred-init` confirms through the question window again, with a short summary inside the question. Before that, **0.1.8** — bug fix (Codex): Codex's own `/init` no longer touches an Alfred workspace. Before that, **0.1.7** — bug fix: `alfred-init` shows the file list in chat instead of under a question window. Before that, **0.1.6** — the repository splits into `alfred-claude/` and `alfred-codex/`, and Codex gets its own plugin. Before that, **0.1.5** — rules rewritten in plainer sentences, boot asks about yesterday's To do, decision.md leaves "what counts as a judgment" to you, personal details removed.
+Both plugins share one version number. Every change is in [CHANGELOG.md](CHANGELOG.md), tagged [Claude], [Codex] or [Both].
 
-- Status: **v0.1.9** — tested on macOS in Claude Code and Codex. Linux and Windows not yet tested
+| Version | Date | What changed |
+|---|---|---|
+| **0.2.3** | 2026-10-06 | Bug fix: the assistant-name question in `alfred-init` always has two options, so English setup no longer skips it |
+| 0.2.2 | 2026-10-06 | Claude Code: a new session in an Alfred workspace is named by date |
+| 0.2.1 | 2026-10-06 | Codex: `alfred-init` asks the create confirmation and git in chat (Codex won't open a window for them), in bold with exactly what to type |
+| 0.2.0 | 2026-10-06 | Windows (Codex): hooks run through Git Bash; Git for Windows is required on Windows; question windows are turned on once at setup |
+| 0.1.10 – 0.1.11 | 2026-10-06 | Bug fixes: hooks no longer hang on Windows outside a workspace; Codex question windows |
+| 0.1.5 – 0.1.9 | 2026-10-05 | Plainer rules, Codex plugin and repo split, `alfred-init` fixes |
+
+**Status: v0.2.3** — tested on macOS and Windows 11, in Claude Code and Codex. Linux not yet tested.

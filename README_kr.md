@@ -41,61 +41,85 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-06
 
 ## 설치
 
-### Mac
+쓰시는 OS 를 고르시고, 그 아래에서 쓰시는 도구(Claude Code · Codex · 둘 다)를 따라 하십시오.
+
+| | 🍎 [macOS](#-macos) | 🪟 [Windows](#-windows) |
+|---|---|---|
+| 터미널 | 터미널 (zsh) | PowerShell |
+| 먼저 설치할 것 | — | Git for Windows |
+
+---
+
+### 🍎 macOS
 
 **Claude Code**
-```
+
+```bash
 claude plugin marketplace add ungbin-oh/alfred
 claude plugin install alfred@alfred
 mkdir ~/ALFRED
 cd ~/ALFRED
 claude
-# 세션에서: /alfred-init  → 끝나면 Claude Code 다시 열기
 ```
 
+➡️ 세션에서 `/alfred-init` 을 입력하십시오. 끝나면 나갔다가 `claude` 를 다시 실행하십시오.
+
 **Codex**
-```
+
+```bash
 codex plugin marketplace add ungbin-oh/alfred
 codex plugin add alfred-codex@alfred
-codex features enable default_mode_request_user_input   # 한 번만: 질문 창을 계속 켜 둔다
+codex features enable default_mode_request_user_input
 mkdir ~/ALFRED
 cd ~/ALFRED
 codex
-# 훅 신뢰를 물으면 신뢰 → $alfred-init  → 끝나면 Codex 다시 열기
 ```
 
-### Windows
+➡️ 훅 신뢰를 물으면 신뢰하시고 `$alfred-init` 을 입력하십시오. 끝나면 나갔다가 `codex` 를 다시 실행하십시오.
+`features enable` 줄은 한 번만 치시면 됩니다 — 질문 창을 계속 켜 둡니다.
 
-PowerShell 에서 칩니다. 제 훅이 Git Bash 로 돌기 때문에 [Git for Windows](https://git-scm.com/download/win) 가 먼저입니다.
-이미 설치하셨어도 명령을 다시 치시면 괜찮습니다 — 이미 있다고 알리거나 새 버전으로 올립니다.
-`winget` 을 찾을 수 없다고 나오면 위 링크에서 받아 설치해 주십시오.
+---
 
-**Git for Windows**
-```
+### 🪟 Windows
+
+> [!IMPORTANT]
+> 제 훅이 Git Bash 로 돌기 때문에 **Git for Windows** 를 먼저 설치해 주십시오.
+> 이미 설치하셨어도 다시 치시면 괜찮습니다 — 이미 있다고 알리거나 새 버전으로 올립니다.
+> `winget` 을 찾을 수 없다고 나오면 [git-scm.com](https://git-scm.com/download/win) 에서 받아 설치해 주십시오.
+
+**1단계 · Git for Windows**
+
+```powershell
 winget install --id Git.Git -e
 ```
-설치가 끝나면 터미널을 닫고 새로 열어 주십시오.
 
-**Claude Code**
-```
+➡️ 터미널을 닫고 새로 여십시오.
+
+**2단계 · Claude Code**
+
+```powershell
 claude plugin marketplace add ungbin-oh/alfred
 claude plugin install alfred@alfred
 mkdir ~\ALFRED
 cd ~\ALFRED
 claude
-# 세션에서: /alfred-init  → 끝나면 Claude Code 다시 열기
 ```
 
-**Codex**
-```
+➡️ 세션에서 `/alfred-init` 을 입력하십시오. 끝나면 나갔다가 `claude` 를 다시 실행하십시오.
+
+**2단계 · Codex**
+
+```powershell
 codex plugin marketplace add ungbin-oh/alfred
 codex plugin add alfred-codex@alfred
-codex features enable default_mode_request_user_input   # 한 번만: 질문 창을 계속 켜 둔다
+codex features enable default_mode_request_user_input
 mkdir ~\ALFRED
 cd ~\ALFRED
 codex
-# 훅 신뢰를 물으면 신뢰 → $alfred-init  → 끝나면 Codex 다시 열기
 ```
+
+➡️ 훅 신뢰를 물으면 신뢰하시고 `$alfred-init` 을 입력하십시오. 끝나면 나갔다가 `codex` 를 다시 실행하십시오.
+`features enable` 줄은 한 번만 치시면 됩니다 — 질문 창을 계속 켜 둡니다.
 
 ## 제가 드리는 것
 
@@ -146,9 +170,18 @@ codex
 
 ## 새 버전을 받으시려면
 
+**Claude Code**
+
 ```
-claude plugin marketplace update alfred && claude plugin update alfred@alfred      # Claude Code
-codex plugin marketplace upgrade alfred && codex plugin add alfred-codex@alfred    # Codex
+claude plugin marketplace update alfred
+claude plugin update alfred@alfred
+```
+
+**Codex**
+
+```
+codex plugin marketplace upgrade alfred
+codex plugin add alfred-codex@alfred
 ```
 
 워크스페이스의 로그와 설정은 그대로입니다.
@@ -168,8 +201,8 @@ codex plugin remove alfred-codex@alfred    # Codex
 
 ## 필요한 것
 
-- Claude Code (플러그인 지원 버전), 또는 플러그인을 지원하는 Codex CLI (0.160.0 에서 확인)
-- macOS, Linux 또는 Windows. 훅이 bash 스크립트라서, Windows 에서는 Claude Code · Codex 모두 Git for Windows (Git Bash) 가 있어야 합니다 — `winget install --id Git.Git -e` 또는 [git-scm.com](https://git-scm.com/download/win)
+- Claude Code (플러그인 지원 버전), 또는 플러그인을 지원하는 Codex CLI (0.160 에서 확인)
+- macOS, Linux 또는 Windows. Windows 에서는 Git for Windows (Git Bash) — 훅이 bash 스크립트입니다
 
 ## License
 
@@ -177,7 +210,15 @@ codex plugin remove alfred-codex@alfred    # Codex
 
 ## 업데이트 히스토리
 
-버전마다 무엇이 바뀌었는지는 [docs/ko/CHANGELOG.md](docs/ko/CHANGELOG.md) 에 적어 두었습니다 (정본은 영어 [CHANGELOG.md](CHANGELOG.md)). 두 플러그인은 버전 번호 하나를 같이 쓰고, 바뀐 것마다 [Claude] · [Codex] · [공통] 을 붙입니다.
-최신: **0.2.3** (2026-10-06) — 버그 수정: `alfred-init` 의 비서 이름 질문에 선택지가 늘 둘이라, 영어 설정에서도 빠지지 않습니다. 그 전 **0.2.2** (2026-10-06) — Claude Code: Alfred 워크스페이스에서 새로 연 세션에 날짜 이름이 붙습니다. 그 전 **0.2.1** (2026-10-06) — Codex: `alfred-init` 이 생성 확인과 git 을 일부러 채팅으로 묻고(Codex 가 이 둘엔 창을 띄우지 않습니다), 무엇을 입력할지 굵게 적습니다. 그 전 **0.2.0** (2026-10-06) — Windows (Codex): 훅을 Git Bash 로 돌려 Windows 의 Codex 에서도 동작하고, Windows 에서는 Git for Windows 가 필요하며, 질문 창은 셋업 때 한 번 켭니다. 그 전 **0.1.11** (2026-10-06) — 버그 수정 (Codex): `alfred-init` 질문 창이 바로 뜨고, Codex 를 다시 열 때도 질문 창 옵션을 붙입니다. 그 전 **0.1.10** — 버그 수정 (Windows): Alfred 워크스페이스 밖에서 훅이 5초씩 멈추지 않습니다. 그 전 **0.1.9** — 버그 수정: `alfred-init` 이 다시 질문 창으로 확인하고, 만들 것의 요약을 질문 안에 넣습니다. 그 전 **0.1.8** — 버그 수정 (Codex): Codex 자체 `/init` 이 Alfred 워크스페이스를 건드리지 않습니다. 그 전 **0.1.7** — 버그 수정: `alfred-init` 이 파일 목록을 질문 창 밑이 아니라 채팅으로 보여 줍니다. 그 전 **0.1.6** — 레포를 `alfred-claude/` 와 `alfred-codex/` 로 나누고 Codex 전용 플러그인을 더했습니다. 그 전 **0.1.5** — 규약을 읽히는 문장으로 다시 쓰고, 부팅 때 어제 To do 를 묻고, 무엇이 판단인지는 사용자가 정하게 했으며, 개인 정보를 뺐습니다.
+두 플러그인은 버전 번호 하나를 같이 씁니다. 바뀐 것은 모두 [docs/ko/CHANGELOG.md](docs/ko/CHANGELOG.md) 에 [Claude] · [Codex] · [공통] 을 붙여 적었습니다 (정본은 영어 [CHANGELOG.md](CHANGELOG.md)).
 
-- 상태: **v0.1.9** — macOS 의 Claude Code · Codex 에서 시험했습니다. Linux · Windows 는 아직입니다
+| 버전 | 날짜 | 바뀐 것 |
+|---|---|---|
+| **0.2.3** | 2026-10-06 | 버그 수정: `alfred-init` 의 비서 이름 질문에 선택지가 늘 둘이라, 영어 설정에서도 빠지지 않습니다 |
+| 0.2.2 | 2026-10-06 | Claude Code: Alfred 워크스페이스에서 새로 연 세션에 날짜 이름이 붙습니다 |
+| 0.2.1 | 2026-10-06 | Codex: `alfred-init` 이 생성 확인과 git 을 채팅으로 묻고(Codex 가 이 둘엔 창을 띄우지 않습니다), 무엇을 입력할지 굵게 적습니다 |
+| 0.2.0 | 2026-10-06 | Windows (Codex): 훅을 Git Bash 로 돌립니다. Windows 에서는 Git for Windows 가 필요하고, 질문 창은 셋업 때 한 번 켭니다 |
+| 0.1.10 – 0.1.11 | 2026-10-06 | 버그 수정: Windows 에서 워크스페이스 밖 훅 멈춤, Codex 질문 창 |
+| 0.1.5 – 0.1.9 | 2026-10-05 | 규약 문장 정리, Codex 플러그인 · 레포 분리, `alfred-init` 수정 |
+
+**상태: v0.2.3** — macOS · Windows 11 의 Claude Code · Codex 에서 시험했습니다. Linux 는 아직입니다.
