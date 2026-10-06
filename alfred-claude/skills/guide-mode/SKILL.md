@@ -30,8 +30,7 @@ Writing and deleting the state file is done by the assistant (allowed even while
 ## The tour (when turned on)
 
 Short — about ten lines, one line per item, no tables. Plain words, no internal section numbers.
-**Write all ten lines in chat before the window.** Never replace them with a line like "I've introduced the main features" — the user
-has seen nothing until you write it. Text written before the window stays visible above it.
+**Write all ten lines out in full** — never a stand-in like "I've introduced the main features"; the user has seen nothing until you write it.
 1. One line of what Alfred is: you decide, Alfred keeps the records
 2. **Boot briefing** — opening a session shows every project's status, last update and next action
 3. **Projects** — each has `log.md` (decisions and why), `trace/` (everything as it happens), `decision.md` (judgments that set direction), `open.md` (things you want but won't start yet)
@@ -45,11 +44,10 @@ has seen nothing until you write it. Text written before the window stays visibl
 
 Close the tour with one line recommending the Incubator as the place to begin — ko: "처음이시라면 Incubator 에서 가볍게 질의응답을
 주고받는 걸 추천드릴게요!" / en: "If you're new, I'd recommend starting in the Incubator — just ask me something and we'll go from there!"
-Then invite the first use. Through the question window (AskUserQuestion): one question — what would you like to start with? — options exactly two,
-in this order: "Start in the Incubator (Recommended)" / "Start a project" (ko: "Incubator 에서 시작하기 (추천)" / "프로젝트 시작하기");
-the window's "Other" lets them say something else.
-After the answer, do that (create the project with the user's details, or start an Incubator open item / trace entry) — asking for
-details the rules require (objective, code) instead of making them up.
+End the reply with that line — no question window and no other question after the tour. A window in the same reply made Claude Code
+shrink the tour to one line. The user answers in their own words; if they bring an idea or a question, start it in the Incubator
+(open item / trace entry); if they ask for a project, create it, asking for what the rules require (objective, code) instead of
+making it up.
 
 ## While on
 

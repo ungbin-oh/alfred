@@ -7,6 +7,15 @@ Newest first. Hashes are commits in this repository. From 0.1.8 on there is one 
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
 
+## 0.3.5 — 2026-10-06
+
+**Guide mode without the first question.** Both plugins are now 0.3.5.
+
+- **[Both] The tour ends with the Incubator recommendation** — with a question window right after the tour, Claude Code still shrank
+  the tour to one line (0.3.3 and 0.3.4 rewording didn't stop it; without a window the full tour came out). Turning guide mode on now
+  writes the tour and ends with "If you're new, I'd recommend starting in the Incubator" — no window. The user answers in their own
+  words. Codex does the same, so both behave alike
+
 ## 0.3.4 — 2026-10-06
 
 **Bug fix.** Both plugins are now 0.3.4.

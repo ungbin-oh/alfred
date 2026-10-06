@@ -43,12 +43,10 @@ Short — about ten lines, one line per item, no tables. Plain words, no interna
 
 Close the tour with one line recommending the Incubator as the place to begin — ko: "처음이시라면 Incubator 에서 가볍게 질의응답을
 주고받는 걸 추천드릴게요!" / en: "If you're new, I'd recommend starting in the Incubator — just ask me something and we'll go from there!"
-Then invite the first use. It is an optional preference question, so use `request_user_input` if it is available: one question — what would you like to
-start with? — options exactly two, in this order: "Start in the Incubator (Recommended)" / "Start a project" (ko: "Incubator 에서 시작하기 (추천)" /
-"프로젝트 시작하기"). Incubator goes first: Codex's window resolves by itself after a short timeout if nobody answers. If the window isn't
-available, ask the same in chat in one line.
-After the answer, do that (create the project with the user's details, or start an Incubator open item / trace entry) — asking for
-details the rules require (objective, code) instead of making them up.
+End the reply with that line — no question window and no other question after the tour. A window in the same reply made Claude Code
+shrink the tour to one line. The user answers in their own words; if they bring an idea or a question, start it in the Incubator
+(open item / trace entry); if they ask for a project, create it, asking for what the rules require (objective, code) instead of
+making it up.
 
 ## While on
 
