@@ -53,7 +53,7 @@ Put the default in the options and let the user answer freely too.
 **Window 2** (up to 3 questions per window in Codex)
 1. User name (used to mark who decided in logs). If `git config user.name` is set, offer it as an option
 2. How the assistant addresses the user (en e.g. "sir", the user's name / ko e.g. "OO님", "주인님")
-3. Assistant name (Alfred)
+3. Assistant name — options: en `Alfred` (default) / `Alf` · ko `Alfred` (default) / `알프레드`. Every question needs at least two options
 
 **Window 3**
 4. Category folders — names and output placement (strict/relaxed)
@@ -89,7 +89,7 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` contents:
   ```
   alfred-workspace
-  version: 0.1.14
+  version: 0.1.15
   created: YYYY-MM-DD
   language: en
   ```

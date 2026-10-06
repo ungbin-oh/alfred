@@ -24,7 +24,7 @@ Templates are in this skill directory's `templates/` (next to this SKILL.md), on
 
 ### 2. Ask for settings
 **Ask via the multiple-choice question window (AskUserQuestion).** Never in text.
-Put the default in the options and take free input through the "Other" the window adds.
+Put the default in the options and take free input through the "Other" the window adds. Each question gets 2–4 options — never just one.
 
 **Window 1 — language, alone.** Everything after this is asked in the chosen language.
 - Language: `English` (default) / `한국어`
@@ -32,7 +32,7 @@ Put the default in the options and take free input through the "Other" the windo
 **Window 2** (up to 4 questions per window)
 1. User name (used to mark who decided in logs). If `git config user.name` is set, offer it as an option
 2. How the assistant addresses the user (en e.g. "sir", the user's name / ko e.g. "OO님", "주인님")
-3. Assistant name (Alfred)
+3. Assistant name — options: en `Alfred` (default) / `Alf` · ko `Alfred` (default) / `알프레드`. Every question needs at least two options (the window rejects a question with one)
 4. Category folders — names and output placement (strict/relaxed)
    (default: `Work` strict · `Research` strict · `Life` relaxed)
 
@@ -65,7 +65,7 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` contents:
   ```
   alfred-workspace
-  version: 0.1.14
+  version: 0.1.15
   created: YYYY-MM-DD
   language: en
   ```

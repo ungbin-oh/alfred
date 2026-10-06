@@ -4,6 +4,16 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-06
 
 Newest first. Hashes are commits in this repository. From 0.1.8 on there is one version for the whole repository: both plugins (`alfred` for Claude Code, `alfred-codex` for Codex) carry the same number, and each item is tagged **[Claude]**, **[Codex]** or **[Both]**. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
 
+## 0.1.15 — 2026-10-06
+
+**Bug fix.** Both plugins are now 0.1.15.
+
+- **[Both] The assistant-name question always has two options** — with English chosen, the question offered only `Alfred`
+  (Korean had `Alfred` / `알프레드`). Claude Code's question window rejects a question with fewer than two options
+  (InputValidationError), so the question was dropped and the name was set to Alfred without asking. The options are now
+  `Alfred` / `Alf` in English and `Alfred` / `알프레드` in Korean, and `alfred-init` says every question needs at least two.
+  Found in a real Windows 11 test
+
 ## 0.1.14 — 2026-10-06
 
 **Session names.** Both plugins are now 0.1.14.
