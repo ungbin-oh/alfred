@@ -41,7 +41,7 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-06
 
 ## 설치
 
-Windows 에서는 [Git for Windows](https://git-scm.com/download/win) 를 먼저 설치해 주십시오 (`winget install --id Git.Git -e`). 제 훅이 그 안의 Git Bash 로 돕니다.
+### Mac
 
 **Claude Code**
 ```
@@ -60,6 +60,39 @@ codex plugin add alfred-codex@alfred
 codex features enable default_mode_request_user_input   # 한 번만: 질문 창을 계속 켜 둔다
 mkdir ~/ALFRED
 cd ~/ALFRED
+codex
+# 훅 신뢰를 물으면 신뢰 → $alfred-init  → 끝나면 Codex 다시 열기
+```
+
+### Windows
+
+PowerShell 에서 칩니다. 제 훅이 Git Bash 로 돌기 때문에 [Git for Windows](https://git-scm.com/download/win) 가 먼저입니다.
+이미 설치하셨어도 명령을 다시 치시면 괜찮습니다 — 이미 있다고 알리거나 새 버전으로 올립니다.
+`winget` 을 찾을 수 없다고 나오면 위 링크에서 받아 설치해 주십시오.
+
+**Git for Windows**
+```
+winget install --id Git.Git -e
+```
+설치가 끝나면 터미널을 닫고 새로 열어 주십시오.
+
+**Claude Code**
+```
+claude plugin marketplace add ungbin-oh/alfred
+claude plugin install alfred@alfred
+mkdir ~\ALFRED
+cd ~\ALFRED
+claude
+# 세션에서: /alfred-init  → 끝나면 Claude Code 다시 열기
+```
+
+**Codex**
+```
+codex plugin marketplace add ungbin-oh/alfred
+codex plugin add alfred-codex@alfred
+codex features enable default_mode_request_user_input   # 한 번만: 질문 창을 계속 켜 둔다
+mkdir ~\ALFRED
+cd ~\ALFRED
 codex
 # 훅 신뢰를 물으면 신뢰 → $alfred-init  → 끝나면 Codex 다시 열기
 ```

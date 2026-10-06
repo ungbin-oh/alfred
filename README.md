@@ -41,7 +41,7 @@ Your multitasking, finally under control.
 
 ## Install
 
-On Windows, install [Git for Windows](https://git-scm.com/download/win) first (`winget install --id Git.Git -e`) — Alfred's hooks run on its Git Bash.
+### For Mac
 
 **Claude Code**
 ```
@@ -60,6 +60,39 @@ codex plugin add alfred-codex@alfred
 codex features enable default_mode_request_user_input   # once: turns on question windows for good
 mkdir ~/ALFRED
 cd ~/ALFRED
+codex
+# trust the hooks when asked, then: $alfred-init  → then reopen Codex
+```
+
+### For Windows
+
+In PowerShell. Alfred's hooks run on Git Bash, so [Git for Windows](https://git-scm.com/download/win) comes first.
+If it's already installed, running the command again is harmless — winget says so, or updates it.
+If `winget` isn't found, install Git from the link above instead.
+
+**Git for Windows**
+```
+winget install --id Git.Git -e
+```
+Then close the terminal and open a new one.
+
+**Claude Code**
+```
+claude plugin marketplace add ungbin-oh/alfred
+claude plugin install alfred@alfred
+mkdir ~\ALFRED
+cd ~\ALFRED
+claude
+# in the session: /alfred-init  → then reopen Claude Code
+```
+
+**Codex**
+```
+codex plugin marketplace add ungbin-oh/alfred
+codex plugin add alfred-codex@alfred
+codex features enable default_mode_request_user_input   # once: turns on question windows for good
+mkdir ~\ALFRED
+cd ~\ALFRED
 codex
 # trust the hooks when asked, then: $alfred-init  → then reopen Codex
 ```
