@@ -47,13 +47,23 @@ Pick your OS, then the tool you use — Claude Code, Codex, or both.
 |                  | 🍎 [macOS](#-macos) | 🪟 [Windows](#-windows) |
 | ---------------- | ------------------- | ----------------------- |
 | Terminal         | Terminal (zsh)      | PowerShell              |
-| Before you start | —                   | Git for Windows         |
+| Before you start | Claude Code and/or Codex | Git for Windows, then Claude Code and/or Codex |
 
 ---
 
 ### 🍎 macOS
 
-**Claude Code**
+**Step 1 · Claude Code / Codex themselves** — skip what you already have (`claude --version`, `codex --version`)
+
+```bash
+curl -fsSL https://claude.ai/install.sh | bash    # Claude Code
+brew install node                                  # Node.js, needed for Codex (skip if `node --version` works)
+npm install -g @openai/codex                       # Codex
+```
+
+➡️ Open a new terminal, then run `claude` and/or `codex` once to sign in. No Homebrew? Get Node.js from [nodejs.org](https://nodejs.org).
+
+**Step 2 · Alfred for Claude Code**
 
 ```bash
 claude plugin marketplace add ungbin-oh/alfred
@@ -65,7 +75,7 @@ claude
 
 ➡️ In the session, type `/alfred-init`. When it finishes, quit and run `claude` again.
 
-**Codex**
+**Step 2 · Alfred for Codex**
 
 ```bash
 codex plugin marketplace add ungbin-oh/alfred
@@ -94,9 +104,39 @@ The `features enable` line is needed only once — it turns on question windows 
 winget install --id Git.Git -e
 ```
 
-➡️ Close the terminal and open a new one.
+➡️ **Close PowerShell completely and open a new one** (a new tab is not enough) — otherwise `git` isn't found. Check: `git --version`
 
-**Step 2 · Claude Code**
+**Step 2 · Claude Code / Codex themselves** — skip what you already have (`claude --version`, `codex --version`)
+
+*Claude Code*
+
+```powershell
+irm https://claude.ai/install.ps1 | iex
+```
+
+➡️ **Close PowerShell and open a new one.** Check: `claude --version`, then run `claude` once to sign in
+
+*Codex* — needs Node.js first
+
+```powershell
+winget install --id OpenJS.NodeJS.LTS -e
+```
+
+➡️ **Close PowerShell and open a new one.** Check: `node --version`
+
+```powershell
+npm install -g @openai/codex
+```
+
+➡️ **Close PowerShell and open a new one.** Check: `codex --version`, then run `codex` once to sign in
+
+If something goes wrong:
+- `claude` not found, and the installer said `.local\bin` is not in your PATH:
+  `[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path','User') + ";$env:USERPROFILE\.local\bin", 'User')`, then reopen PowerShell
+- "running scripts is disabled on this system" (npm or codex): `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`, then try again
+- `git` still not found after reopening: Git is installed but not in PATH — add its `cmd` folder (e.g. `C:\Program Files\Git\cmd`) to your user PATH the same way, then reopen
+
+**Step 3 · Alfred for Claude Code**
 
 ```powershell
 claude plugin marketplace add ungbin-oh/alfred
@@ -108,7 +148,7 @@ claude
 
 ➡️ In the session, type `/alfred-init`. When it finishes, quit and run `claude` again.
 
-**Step 2 · Codex**
+**Step 3 · Alfred for Codex**
 
 ```powershell
 codex plugin marketplace add ungbin-oh/alfred

@@ -47,13 +47,23 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-06
 | | 🍎 [macOS](#-macos) | 🪟 [Windows](#-windows) |
 |---|---|---|
 | 터미널 | 터미널 (zsh) | PowerShell |
-| 먼저 설치할 것 | — | Git for Windows |
+| 먼저 설치할 것 | Claude Code 와/또는 Codex | Git for Windows, 그다음 Claude Code 와/또는 Codex |
 
 ---
 
 ### 🍎 macOS
 
-**Claude Code**
+**1단계 · Claude Code / Codex 자체** — 이미 있으시면 건너뛰십시오 (`claude --version`, `codex --version`)
+
+```bash
+curl -fsSL https://claude.ai/install.sh | bash    # Claude Code
+brew install node                                  # Codex 에 필요한 Node.js (`node --version` 이 되면 건너뜀)
+npm install -g @openai/codex                       # Codex
+```
+
+➡️ 터미널을 새로 여시고, `claude` · `codex` 를 한 번 실행해 로그인하십시오. Homebrew 가 없으시면 Node.js 는 [nodejs.org](https://nodejs.org) 에서 받으십시오.
+
+**2단계 · Claude Code 용 Alfred**
 
 ```bash
 claude plugin marketplace add ungbin-oh/alfred
@@ -65,7 +75,7 @@ claude
 
 ➡️ 세션에서 `/alfred-init` 을 입력하십시오. 끝나면 나갔다가 `claude` 를 다시 실행하십시오.
 
-**Codex**
+**2단계 · Codex 용 Alfred**
 
 ```bash
 codex plugin marketplace add ungbin-oh/alfred
@@ -94,9 +104,39 @@ codex
 winget install --id Git.Git -e
 ```
 
-➡️ 터미널을 닫고 새로 여십시오.
+➡️ **PowerShell 을 완전히 닫고 새로 여십시오** (새 탭으로는 부족합니다) — 그래야 `git` 이 잡힙니다. 확인: `git --version`
 
-**2단계 · Claude Code**
+**2단계 · Claude Code / Codex 자체** — 이미 있으시면 건너뛰십시오 (`claude --version`, `codex --version`)
+
+*Claude Code*
+
+```powershell
+irm https://claude.ai/install.ps1 | iex
+```
+
+➡️ **PowerShell 을 닫고 새로 여십시오.** 확인: `claude --version`, 그다음 `claude` 를 한 번 실행해 로그인
+
+*Codex* — Node.js 가 먼저 필요합니다
+
+```powershell
+winget install --id OpenJS.NodeJS.LTS -e
+```
+
+➡️ **PowerShell 을 닫고 새로 여십시오.** 확인: `node --version`
+
+```powershell
+npm install -g @openai/codex
+```
+
+➡️ **PowerShell 을 닫고 새로 여십시오.** 확인: `codex --version`, 그다음 `codex` 를 한 번 실행해 로그인
+
+막히면:
+- `claude` 를 찾을 수 없고 설치기가 `.local\bin` 이 PATH 에 없다고 했다면:
+  `[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path','User') + ";$env:USERPROFILE\.local\bin", 'User')` 후 PowerShell 다시 열기
+- "이 시스템에서 스크립트를 실행할 수 없으므로" (npm · codex): `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` 후 다시 실행
+- 다시 열어도 `git` 을 찾을 수 없다면: Git 은 깔렸는데 PATH 에 없는 것입니다 — Git 의 `cmd` 폴더(예: `C:\Program Files\Git\cmd`)를 같은 방법으로 사용자 PATH 에 넣고 다시 열기
+
+**3단계 · Claude Code 용 Alfred**
 
 ```powershell
 claude plugin marketplace add ungbin-oh/alfred
@@ -108,7 +148,7 @@ claude
 
 ➡️ 세션에서 `/alfred-init` 을 입력하십시오. 끝나면 나갔다가 `claude` 를 다시 실행하십시오.
 
-**2단계 · Codex**
+**3단계 · Codex 용 Alfred**
 
 ```powershell
 codex plugin marketplace add ungbin-oh/alfred
