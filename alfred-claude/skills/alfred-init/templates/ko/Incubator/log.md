@@ -22,4 +22,4 @@ aliases: [Incubator, 인큐베이터]
   workspace 는 `project-workspace/Incubator/<하위>/` 에 두고 git 을 따로 둔다
 - 하위 프로젝트가 자라면 진행할 카테고리로 폴더째 옮긴다 (log 쪽 · workspace 쪽 둘 다). 그만두면 Archive 로
 - 여기에는 decision.md 를 두지 않는다 — 목적이 한 갈래가 아니다. 하위 프로젝트의 "왜" 는 띄우기 전까지 open 항목에 둔다 (공통 규약 14절)
-- 미결: [[open]]
+- 열어둔 것 (아직 시작하지 않을 것): [[open]]

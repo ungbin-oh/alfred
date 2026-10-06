@@ -44,7 +44,7 @@ Higher wins. The common rules are the default; wherever the user changed somethi
 ├── project-logs/Incubator/       the incubator — a project of its own (code INC) and the home of sub-projects not yet launched elsewhere
 ├── project-logs/<category>/<project>/
 │   ├── log.md                decision summary (append-only)
-│   ├── open.md               open questions and options (decided items move to its Closed table)
+│   ├── open.md               parked: things you want but won't start yet (taken-up items move to its Closed table)
 │   ├── decision.md           judgments that set the project's direction (section 14)
 │   └── trace/YYYY-MM-DD.md   work ledger (written by the assistant)
 ├── project-workspace/<category>/<project>/   actual code and outputs (same tree as project-logs)
@@ -148,8 +148,8 @@ Higher wins. The common rules are the default; wherever the user changed somethi
   Short choices: permission to run, setting values, picking among options already on the table
 - 1–4 questions per window, 2–4 options per question. The window adds "Other" for free input automatically,
   so ask even free-form things like names through the window (put the default or a best guess as an option)
-- **Long text to confirm, such as a save draft, is shown in chat and confirmed in chat.** A window right after long text covers it
-- The option preview field may be used. But don't put in it long content the user must read in full to answer — only about 15 lines show and the rest is cut off
+- Long text, such as a save draft or an introduction, is written out in chat as usual; a question window may follow it — the text above stays readable
+- **Don't put long content in a window's option preview field.** Only about 15 lines show and the rest is cut off — keep anything the user must read in full in chat, above the window
 - Some setups show the user only the final message, not text written between tool calls. Put the facts the question needs inside the window.
   If the question is long, don't use the window — ask in chat
 - Options contain **only choices already on the table:** what the user said, what the rules set, what came up earlier in the conversation.
@@ -258,13 +258,14 @@ workspace_repo: ~/path         # optional. Only when code lives outside the mirr
 - When creating an output outside the repo (a web page, a shared doc), write its URL right there. Otherwise there's no way to find it
 - Not scanned at boot. Append-only
 
-## 9. open.md — open questions and options
+## 9. open.md — parked: wanted, not started yet
 
-- Location: next to log.md. Allowed regardless of the category's placement mode (it's decision scratch, not an output)
-- What isn't decided yet: candidate options, their grounds, the assistant's view, unresolved questions
+- Location: next to log.md. Allowed regardless of the category's placement mode (it's a parking spot, not an output)
+- What it holds: things the user is curious about or wants to do right now, **but won't start yet** — parked so they don't get lost.
+  Options, grounds and the assistant's view can be noted with an item. It is not a list of unresolved questions about current work
 - Why separate: it is a different kind of document from log, trace and decision
 - Each item gets a number, a one-line status and its source (the trace entry or log entry it came from). Don't make items up
-- **Once an item is decided or done, append it with the reason to log.md, remove its body, and move it to one line in the
+- **Once an item is taken up (it becomes work) or dropped, append it with the reason to log.md, remove its body, and move it to one line in the
   `## Closed` table near the top of the file** (`## 닫힌 것` in Korean workspaces) — item · closed date · where the conclusion went.
   Never delete the file
   - Write the item's title in the table. **Don't renumber the remaining items** — references by number would break

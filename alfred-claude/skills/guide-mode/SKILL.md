@@ -29,10 +29,10 @@ Writing and deleting the state file is done by the assistant (allowed even while
 
 ## The tour (when turned on)
 
-Short — about ten lines, one line per item, no tables. Plain words, no internal section numbers.
+Short — about ten lines, one line per item, no tables. Plain words, no internal section numbers. Write it out in full in chat, then the window.
 1. One line of what Alfred is: you decide, Alfred keeps the records
 2. **Boot briefing** — opening a session shows every project's status, last update and next action
-3. **Projects** — each has `log.md` (decisions and why), `trace/` (everything as it happens), `decision.md` (judgments that set direction), `open.md` (not decided yet)
+3. **Projects** — each has `log.md` (decisions and why), `trace/` (everything as it happens), `decision.md` (judgments that set direction), `open.md` (things you want but won't start yet)
 4. **Incubator** — ideas still taking shape and small questions go here; when one becomes real, it's launched and moved to a category
 5. **"Later" ideas** — just say so and they go into an `open.md` (Incubator's, if no project fits)
 6. **Saying "save"** — Alfred summarizes the day's work and decisions and writes the log after you confirm

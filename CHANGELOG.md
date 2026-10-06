@@ -7,6 +7,17 @@ Newest first. Hashes are commits in this repository. From 0.1.8 on there is one 
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
 
+## 0.3.3 — 2026-10-06
+
+**Bug fix.** Both plugins are now 0.3.3.
+
+- **[Both] Long text may come right before a question window** — the common rules said long text is confirmed in chat because a window
+  right after it covers it. That's not so: text written in chat stays readable above the window. Following that rule, Claude replaced
+  the ten-line guide-mode tour with one line before the first window. The rule is gone; what stays is the real limit — don't put long
+  content in a window's preview field (about 15 lines show). Found in a real Windows 11 test
+- **[Both] open.md is a parking spot** — rules, README, templates and the guide tour described open.md as "open questions / what
+  isn't decided yet". It is for things you're curious about or want to do but won't start yet; reworded everywhere
+
 ## 0.3.2 — 2026-10-06
 
 **Bug fix and guide-mode start.** Both plugins are now 0.3.2.

@@ -23,4 +23,4 @@ doubts that come up while working on something else. Where they came from doesn'
 - When a sub-project grows, its whole folder (log side and workspace side) moves to the category where it will continue.
   If I drop it, it goes to Archive
 - No decision.md here — Incubator has no single purpose. A sub-project's "why" waits in its open item until launch (common rules, section 14)
-- Open items: [[open]]
+- Parked (not started yet): [[open]]
