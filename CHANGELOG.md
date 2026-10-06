@@ -4,6 +4,18 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-06
 
 Newest first. Hashes are commits in this repository. From 0.1.8 on there is one version for the whole repository: both plugins (`alfred` for Claude Code, `alfred-codex` for Codex) carry the same number, and each item is tagged **[Claude]**, **[Codex]** or **[Both]**. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
 
+## 0.1.11 — 2026-10-06
+
+**Bug fix.** Both plugins are now 0.1.11.
+
+- **[Codex] `alfred-init` question windows open directly** — before the "create / redo settings / stop" confirmation the model wrote the
+  summary and options in chat first, and the window was queued behind them ("Queued follow-up inputs", answered only with shift+←).
+  The closing "use git?" question came as chat bullets and no window opened. The skill now states one rule for every question-window
+  step: the `request_user_input` call is the very next action, with no chat text before it. The git question is asked right after
+  creating, with options `use git` / `not now`, and the closing message comes after the answer. Seen in Codex on macOS and Windows
+- **[Codex] Reopen Codex with `--enable default_mode_request_user_input`** — the README and the closing message said to reopen Codex
+  without the flag, so question windows stopped appearing in later sessions
+
 ## 0.1.10 — 2026-10-06
 
 **Bug fix.** Both plugins are now 0.1.10.

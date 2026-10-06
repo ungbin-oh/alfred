@@ -13,6 +13,14 @@ The workspace `AGENTS.md` holds only the user's settings.
 (Codex needs it enabled, e.g. `codex --enable default_mode_request_user_input`). If it isn't, ask in chat,
 one question at a time, with the options listed.
 
+**One rule for every question-window step:** the `request_user_input` call is the very next action.
+- Write no chat text before it — no summary, no options, no "please answer in the window". The call itself carries the question and the options
+- Don't run other tools between deciding to ask and the call
+- Wait for the answer before writing anything else; what comes after the question is written after the answer
+
+Why: when the options were written in chat first, the window was queued behind them ("Queued follow-up inputs", answered only with shift+←),
+or never opened at all.
+
 Templates are in this skill directory's `templates/` (next to this SKILL.md), one set per language:
 `templates/en/` and `templates/ko/`. `templates/gitignore` is shared.
 
@@ -26,7 +34,7 @@ Templates are in this skill directory's `templates/` (next to this SKILL.md), on
 - If you're directly in the home directory (`~`), confirm once more (usually a dedicated folder is used)
 
 ### 2. Ask for settings
-**Ask via the question window** (see above).
+**Ask via the question window** (see above — the one rule applies to every window below).
 Put the default in the options and let the user answer freely too.
 
 **Window 1 — language, alone.** Everything after this is asked in the chosen language.
@@ -43,7 +51,7 @@ Put the default in the options and let the user answer freely too.
 5. Whether to turn on the author header, and if so, the name to put in it (off)
 
 ### 3. Show what will be created and confirm
-**Confirm through the question window** before creating: call `request_user_input` with one question (header e.g. "Create"), options exactly `create` / `redo settings` / `stop` (in the chosen language). Do not ask this in chat and do not write the summary or the options as chat text before the call — the call itself carries them. Put a short summary of what will be created **in the question text itself** — the file count and the top-level items, two or three lines (e.g. "15 files: AGENTS.md, .alfred/, project-logs · project-workspace for Work/Research/Life, daily/, Archive/"). Don't print the full list in chat before the window (the window covers it) and don't put it in an option preview (only about 15 lines show). If the user asks to see the full list, show it in chat and ask again.
+**Confirm through the question window** before creating (the one rule above): call `request_user_input` with one question (header e.g. "Create"), options exactly `create` / `redo settings` / `stop` (in the chosen language). Do not ask this in chat and do not write the summary or the options as chat text before the call — the call itself carries them. Put a short summary of what will be created **in the question text itself** — the file count and the top-level items, two or three lines (e.g. "15 files: AGENTS.md, .alfred/, project-logs · project-workspace for Work/Research/Life, daily/, Archive/"). Don't print the full list in chat before the window (the window covers it) and don't put it in an option preview (only about 15 lines show). If the user asks to see the full list, show it in chat and ask again.
 `<lang>` is `en` or `ko` per step 2.
 ```
 AGENTS.md                              ← templates/<lang>/AGENTS.md with settings filled in
@@ -67,7 +75,7 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` contents:
   ```
   alfred-workspace
-  version: 0.1.10
+  version: 0.1.11
   created: YYYY-MM-DD
   language: en
   ```
@@ -75,10 +83,15 @@ Archive/workspace-archive/.gitkeep
 - Copy templates as-is; don't add author headers (they're the user's files)
 
 ### 5. Wrap up
-- Tell the user they **must restart Codex in this folder** for the hook to recognize the workspace.
-  On the first start Codex asks them to review and trust the plugin's hooks; until they do, the rules are not loaded
-- Tell them the first project can start with "create a <name> project in <category>"
-- Only ask whether to use git — through the question window when it is available (use git / not now). Run `git init` only if the user says to
+First ask about git, then write the closing message.
+- **Ask whether to use git through the question window** (the one rule above): right after creating, call `request_user_input`
+  with one question (header e.g. "Git"), options exactly `use git` / `not now` (in the chosen language). Nothing in chat before the call —
+  not the result of creating, not the options. Run `git init` only if the user picks `use git`
+- After the answer, in one closing message:
+  - Tell the user they **must restart Codex in this folder** for the hook to recognize the workspace, with the same command
+    (`codex --enable default_mode_request_user_input` — without it the question windows don't appear).
+    On the first start Codex asks them to review and trust the plugin's hooks; until they do, the rules are not loaded
+  - Tell them the first project can start with "create a <name> project in <category>"
 
 ## Creating a new project (after init, when the user asks)
 Create `project-logs/<category>/<project>/log.md` with the frontmatter from section 7 of the common rules and the top section
