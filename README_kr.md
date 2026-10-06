@@ -42,28 +42,32 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-06
 
 ## 설치
 
-쓰시는 OS 를 고르시고, 그 아래에서 쓰시는 도구(Claude Code · Codex · 둘 다)를 따라 하십시오.
+OS 를 고르시고 번호를 따라가십시오. 단계마다 다음에 어디로 갈지 적어 두었습니다 — 이미 있는 것은 건너뛰십시오.
 
-| | 🍎 [macOS](#-macos) | 🪟 [Windows](#-windows) |
+|  | 🍎 [macOS](#-macos) | 🪟 [Windows](#-windows) |
 |---|---|---|
 | 터미널 | 터미널 (zsh) | PowerShell |
-| 먼저 설치할 것 | Claude Code 와/또는 Codex | Git for Windows, 그다음 Claude Code 와/또는 Codex |
+| Claude Code 를 쓰시면 | M1 → M2 → M3 | W1 → W2 → W3 → W4 |
+| Codex 를 쓰시면 | M1 → M4 → M5 → M6 | W1 → W2 → W5 → W6 → W7 |
 
 ---
 
 ### 🍎 macOS
 
-**1단계 · Claude Code / Codex 자체** — 이미 있으시면 건너뛰십시오 (`claude --version`, `codex --version`)
+**M1 · 어떤 도구를 쓰시나요?**
+- Claude Code → **M2**
+- Codex → **M4**
+- 둘 다 → M2 → M3 을 마친 뒤 M4 → M6
+
+**M2 · Claude Code 설치** — `claude --version` 이 이미 되면 → **M3** 으로
 
 ```bash
-curl -fsSL https://claude.ai/install.sh | bash    # Claude Code
-brew install node                                  # Codex 에 필요한 Node.js (`node --version` 이 되면 건너뜀)
-npm install -g @openai/codex                       # Codex
+curl -fsSL https://claude.ai/install.sh | bash
 ```
 
-➡️ 터미널을 새로 여시고, `claude` · `codex` 를 한 번 실행해 로그인하십시오. Homebrew 가 없으시면 Node.js 는 [nodejs.org](https://nodejs.org) 에서 받으십시오.
+➡️ 터미널을 새로 여시고 `claude` 를 한 번 실행해 로그인하신 뒤 → **M3**
 
-**2단계 · Claude Code 용 Alfred**
+**M3 · Claude Code 용 Alfred**
 
 ```bash
 claude plugin marketplace add ungbin-oh/alfred
@@ -73,9 +77,25 @@ cd ~/ALFRED
 claude
 ```
 
-➡️ 세션에서 `/alfred-init` 을 입력하십시오. 끝나면 나갔다가 `claude` 를 다시 실행하십시오.
+➡️ 세션에서 `/alfred-init` 을 입력하십시오. 끝나면 나갔다가 `claude` 를 다시 실행하십시오. ✅ 끝 (Codex 도 쓰시면 → **M4**)
 
-**2단계 · Codex 용 Alfred**
+**M4 · Node.js 설치** (Codex 에 필요) — `node --version` 이 이미 되면 → **M5** 로
+
+```bash
+brew install node
+```
+
+➡️ Homebrew 가 없으시면 [nodejs.org](https://nodejs.org) 에서 받으십시오. 그다음 → **M5**
+
+**M5 · Codex 설치** — `codex --version` 이 이미 되면 → **M6** 으로
+
+```bash
+npm install -g @openai/codex
+```
+
+➡️ `codex` 를 한 번 실행해 로그인하신 뒤 → **M6**
+
+**M6 · Codex 용 Alfred**
 
 ```bash
 codex plugin marketplace add ungbin-oh/alfred
@@ -86,7 +106,7 @@ cd ~/ALFRED
 codex
 ```
 
-➡️ 훅 신뢰를 물으면 신뢰하시고 `$alfred-init` 을 입력하십시오. 끝나면 나갔다가 `codex` 를 다시 실행하십시오.
+➡️ 훅 신뢰를 물으면 신뢰하시고 `$alfred-init` 을 입력하십시오. 끝나면 나갔다가 `codex` 를 다시 실행하십시오. ✅ 끝
 `features enable` 줄은 한 번만 치시면 됩니다 — 질문 창을 계속 켜 둡니다.
 
 ---
@@ -94,49 +114,35 @@ codex
 ### 🪟 Windows
 
 > [!IMPORTANT]
-> 제 훅이 Git Bash 로 돌기 때문에 **Git for Windows** 를 먼저 설치해 주십시오.
-> 이미 설치하셨어도 다시 치시면 괜찮습니다 — 이미 있다고 알리거나 새 버전으로 올립니다.
-> `winget` 을 찾을 수 없다고 나오면 [git-scm.com](https://git-scm.com/download/win) 에서 받아 설치해 주십시오.
+> 아래에서 무언가를 설치할 때마다 **PowerShell 을 완전히 닫고 새로 여십시오** — 새 탭으로는 부족합니다. 그 전에는 새 명령을 찾지 못합니다.
 
-**1단계 · Git for Windows**
+**W1 · Git for Windows** (제 훅이 그 안의 Git Bash 로 돕니다) — `git --version` 이 이미 되면 → **W2** 로
 
 ```powershell
 winget install --id Git.Git -e
 ```
 
-➡️ **PowerShell 을 완전히 닫고 새로 여십시오** (새 탭으로는 부족합니다) — 그래야 `git` 이 잡힙니다. 확인: `git --version`
+➡️ PowerShell 을 닫고 새로 여시고 `git --version` 확인 → **W2**. (이미 깔려 있어도 다시 치시면 괜찮습니다. `winget` 이 없으면 [git-scm.com](https://git-scm.com/download/win) 에서 받으십시오.)
 
-**2단계 · Claude Code / Codex 자체** — 이미 있으시면 건너뛰십시오 (`claude --version`, `codex --version`)
+**W2 · 어떤 도구를 쓰시나요?**
+- Claude Code → **W3**
+- Codex → **W5**
+- 둘 다 → W3 → W4 를 마친 뒤 W5 → W7
 
-*Claude Code*
+**W3 · Claude Code 설치** — `claude --version` 이 이미 되면 → **W4** 로
 
 ```powershell
 irm https://claude.ai/install.ps1 | iex
+$bin = "$env:USERPROFILE\.local\bin"
+$p = [Environment]::GetEnvironmentVariable('Path','User')
+if (($p -split ';') -notcontains $bin) { [Environment]::SetEnvironmentVariable('Path', "$p;$bin", 'User') }
 ```
 
-➡️ **PowerShell 을 닫고 새로 여십시오.** 확인: `claude --version`, 그다음 `claude` 를 한 번 실행해 로그인
+위 코드의 뒤 세 줄은 Claude Code 폴더(`.local\bin`)를 PATH 에 넣습니다 — 설치기가 늘 넣어 주지는 않습니다. 다시 실행해도 바뀌는 것이 없습니다.
 
-*Codex* — Node.js 가 먼저 필요합니다
+➡️ PowerShell 을 닫고 새로 여시고 `claude --version` 확인, `claude` 를 한 번 실행해 로그인 → **W4**
 
-```powershell
-winget install --id OpenJS.NodeJS.LTS -e
-```
-
-➡️ **PowerShell 을 닫고 새로 여십시오.** 확인: `node --version`
-
-```powershell
-npm install -g @openai/codex
-```
-
-➡️ **PowerShell 을 닫고 새로 여십시오.** 확인: `codex --version`, 그다음 `codex` 를 한 번 실행해 로그인
-
-막히면:
-- `claude` 를 찾을 수 없고 설치기가 `.local\bin` 이 PATH 에 없다고 했다면:
-  `[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path','User') + ";$env:USERPROFILE\.local\bin", 'User')` 후 PowerShell 다시 열기
-- "이 시스템에서 스크립트를 실행할 수 없으므로" (npm · codex): `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` 후 다시 실행
-- 다시 열어도 `git` 을 찾을 수 없다면: Git 은 깔렸는데 PATH 에 없는 것입니다 — Git 의 `cmd` 폴더(예: `C:\Program Files\Git\cmd`)를 같은 방법으로 사용자 PATH 에 넣고 다시 열기
-
-**3단계 · Claude Code 용 Alfred**
+**W4 · Claude Code 용 Alfred**
 
 ```powershell
 claude plugin marketplace add ungbin-oh/alfred
@@ -146,9 +152,25 @@ cd ~\ALFRED
 claude
 ```
 
-➡️ 세션에서 `/alfred-init` 을 입력하십시오. 끝나면 나갔다가 `claude` 를 다시 실행하십시오.
+➡️ 세션에서 `/alfred-init` 을 입력하십시오. 끝나면 나갔다가 `claude` 를 다시 실행하십시오. ✅ 끝 (Codex 도 쓰시면 → **W5**)
 
-**3단계 · Codex 용 Alfred**
+**W5 · Node.js 설치** (Codex 에 필요) — `node --version` 이 이미 되면 → **W6** 으로
+
+```powershell
+winget install --id OpenJS.NodeJS.LTS -e
+```
+
+➡️ PowerShell 을 닫고 새로 여시고 `node --version` 확인 → **W6**
+
+**W6 · Codex 설치** — `codex --version` 이 이미 되면 → **W7** 로
+
+```powershell
+npm install -g @openai/codex
+```
+
+➡️ PowerShell 을 닫고 새로 여시고 `codex --version` 확인, `codex` 를 한 번 실행해 로그인 → **W7**
+
+**W7 · Codex 용 Alfred**
 
 ```powershell
 codex plugin marketplace add ungbin-oh/alfred
@@ -159,8 +181,12 @@ cd ~\ALFRED
 codex
 ```
 
-➡️ 훅 신뢰를 물으면 신뢰하시고 `$alfred-init` 을 입력하십시오. 끝나면 나갔다가 `codex` 를 다시 실행하십시오.
+➡️ 훅 신뢰를 물으면 신뢰하시고 `$alfred-init` 을 입력하십시오. 끝나면 나갔다가 `codex` 를 다시 실행하십시오. ✅ 끝
 `features enable` 줄은 한 번만 치시면 됩니다 — 질문 창을 계속 켜 둡니다.
+
+**막히면 (Windows)**
+- "이 시스템에서 스크립트를 실행할 수 없으므로" (npm · codex): `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` 후 다시 실행
+- 다시 열어도 `git` 을 찾을 수 없다면: Git 은 깔렸는데 PATH 에 없는 것입니다 — Git 의 `cmd` 폴더(예: `C:\Program Files\Git\cmd`)를 같은 방법으로 사용자 PATH 에 넣고 다시 열기
 
 ## 새 버전을 받으시려면
 
