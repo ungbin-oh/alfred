@@ -1,6 +1,6 @@
 {
   "name": "alfred-codex",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Personal assistant workflow for Codex: boot briefing, decision-first project logs, work traces, daily notes. The user decides; Alfred organizes.",
   "author": {
     "name": "Ungbin_Oh"

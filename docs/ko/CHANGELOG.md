@@ -9,6 +9,22 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-10
 **번호 다시 매김 (2026-10-06):** 0.2.0–0.2.3 은 처음에 0.1.12–0.1.15 로 냈다. Codex 의 Windows 지원이 새 기능이라 거기서 부 번호를 올렸다.
 그날 커밋 메시지에는 옛 번호가 남아 있다.
 
+**`[Workspace]`** (0.4.2 부터) 는 사용자 파일을 바꿔야 하는 항목이다 — 플러그인은 직접 바꾸지 않고, 업데이트 뒤 비서가 항목마다
+질문 창으로 물어 예라고 할 때만 적용한다.
+
+## 0.4.2 — 2026-10-10
+
+**워크스페이스 변경은 제안만, 직접 하지 않는다.** 두 플러그인 모두 0.4.2. 세 판 연작(0.4.0 버전 알림, 0.4.1 rules.md 보호)의 마지막.
+
+- **[공통] 이 업데이트 내역의 `[Workspace]` 표시** — 사용자 파일(워크스페이스 폴더, 템플릿, `CLAUDE.md` / `AGENTS.md`, `~/.claude` 의
+  상태줄 복사본)을 바꿔야 하는 항목에 `[Workspace]` 를 붙이고, 무엇을 어떻게 바꾸는지 그대로 적는다. "Alfred 가 X → Y 로 바뀌었습니다"
+  알림(0.4.0)이 모델에게 X 와 Y 사이 절을 읽고 `[Workspace]` 항목마다 질문 창으로 묻게 한다 (적용 / 건너뜀). 예라고 할 때만 적용하고,
+  바꾼 것을 보여 주고, 있던 내용은 건드리지 않는다. 전에는 옛 판에서 만든 워크스페이스가 0.3.0 인큐베이터 같은 구조 변경을 받을 길이 없었다
+- 0.3.0 인큐베이터 항목에 `[Workspace]` 를 소급해 붙이고, 0.3.0 전에 만든 워크스페이스가 할 일을 적었다
+- **[Claude] 오래된 상태줄 배지 복사본** — `alfred-init` 은 플러그인 캐시 경로가 업데이트마다 바뀌어서 `hooks/statusline.sh` 를
+  `~/.claude/alfred-statusline.sh` 로 복사해 둔다. 세션 시작 훅이 둘을 비교해 다르면 모델이 새 복사본을 제안한다 (바꿈 / 그대로).
+  `settings.json` 은 건드리지 않는다
+
 ## 0.4.1 — 2026-10-10
 
 **`.alfred/rules.md` 의 사용자 편집 보호.** 두 플러그인 모두 0.4.1 (번호는 하나, 변경은 Claude 쪽만).
@@ -89,8 +105,11 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-10
   무언가를 하게 되면 사용자가 하위 프로젝트 `Incubator/<하위>/` 로 띄우고(status incubating, workspace 에 git 따로), 자라면 폴더째 카테고리로,
   그만두면 Archive 로 옮긴다. 부팅 브리핑에 Incubator 표(첫 행 본체, 아래 하위)가 생긴다. 본체에는 decision.md 가 없다 — 하위 프로젝트의 "왜" 는
   open 항목에 두었다가 띄울 때 그 decision.md 의 출발점으로 옮긴다. 공통 규약 2 · 3 · 9 · 13 · 14절
-- **[공통] `alfred-init` 이 인큐베이터 뼈대를 늘 만든다** — `project-logs/Incubator/` 의 log.md · open.md · trace/ 와 `project-workspace/Incubator/`,
-  설정 파일 카테고리 표의 Incubator 행. 묻지 않고, 카테고리 질문에 그렇다고 적는다
+- **[공통] [Workspace] `alfred-init` 이 인큐베이터 뼈대를 늘 만든다** — `project-logs/Incubator/` 의 log.md · open.md · trace/ 와 `project-workspace/Incubator/`,
+  설정 파일 카테고리 표의 Incubator 행. 묻지 않고, 카테고리 질문에 그렇다고 적는다.
+  *0.3.0 전에 만든 워크스페이스:* 플러그인의 `skills/alfred-init/templates/<lang>/Incubator/` 로 `project-logs/Incubator/log.md` · `open.md` 를 만들고
+  (`{{TODAY}}` → 오늘 날짜), 빈 `project-logs/Incubator/trace/` 와 `project-workspace/Incubator/` 를 만들고, `CLAUDE.md` / `AGENTS.md` 카테고리 표에
+  Incubator 행을 더한다 (0.4.2 에서 소급해 표시)
 - 실제 세션에서는 아직 써 보지 않았다
 - **[공통] `alfred-init` 끝에 Incubator 를 소개한다** — 셋업이 끝나면, 구상 중인 것과 간단한 궁금증은 Incubator 에서 키우고
   지금 당장 하지 않을 아이디어는 말만 하면 Incubator open 에 적어 둔다고 알린다

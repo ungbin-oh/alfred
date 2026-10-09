@@ -204,7 +204,7 @@ codex plugin marketplace upgrade alfred
 codex plugin add alfred-codex@alfred
 ```
 
-Your logs and settings stay as they are.
+Your logs and settings stay as they are. When an update needs a change in your own files (a new folder, a template), I say so at the next session start and ask before touching anything — see `[Workspace]` in the changelog.
 
 ## What I provide
 
@@ -284,7 +284,8 @@ Both plugins share one version number. Every change is in [CHANGELOG.md](CHANGEL
 
 | Version | Date | What changed |
 |---|---|---|
-| **0.4.1** | 2026-10-10 | Your edits to `.alfred/rules.md` are no longer overwritten: the plugin keeps a hash of what it last wrote (`.alfred/rules.sha`), notices a changed file and asks — move the edits into `CLAUDE.md` or keep the file as your own (`.alfred/rules.local`) |
+| **0.4.2** | 2026-10-10 | Workspace changes are offered, never made: changelog items tagged `[Workspace]` are asked one by one after an update (apply / skip); a stale statusline badge copy in `~/.claude` is offered a fresh copy |
+| 0.4.1 | 2026-10-10 | Your edits to `.alfred/rules.md` are no longer overwritten: the plugin keeps a hash of what it last wrote (`.alfred/rules.sha`), notices a changed file and asks — move the edits into `CLAUDE.md` or keep the file as your own (`.alfred/rules.local`) |
 | 0.4.0 | 2026-10-10 | Version notices at session start: "Alfred was updated X → Y" once, in the first session on a new version (the marker's `version:` line is kept current); "a newer Alfred is available" with the update commands whenever GitHub has a newer one |
 | 0.3.5 | 2026-10-06 | Guide mode: the tour ends with the Incubator recommendation — no question window after it |
 | 0.3.4 | 2026-10-06 | Bug fix (Claude): guide mode really shows the ten-line tour; the rule assuming text between tool calls is hidden is gone |

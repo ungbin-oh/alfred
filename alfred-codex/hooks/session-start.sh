@@ -16,7 +16,9 @@
 #      workspace just moved to a new Alfred (first session on it) — the hook says so, points at the
 #      changelog and rewrites the marker line. And when GitHub has a newer version than the one installed,
 #      the hook says an update is available and gives the update commands. The remote check is one
-#      curl with a 3-second cap (Codex itself needs the network; a slow or failed fetch just prints nothing)
+#      curl with a 3-second cap (Codex itself needs the network; a slow or failed fetch just prints nothing).
+#      Changelog items tagged [Workspace] are changes to the user's files that the plugin never makes by
+#      itself — the model offers each one (question window)
 #   5. The full common rules (rules/core.md)
 #
 # Codex has no import in AGENTS.md, so the rules are printed here. Codex caps hook output at about
@@ -101,6 +103,9 @@ if [ -n "$UPDATED_FROM" ]; then
   echo "NOTICE — Alfred was updated: $UPDATED_FROM → $PLUGIN_VERSION. This is the first session on the new version."
   echo "In the boot briefing, tell the user in one line (workspace language) that Alfred is now $PLUGIN_VERSION and what changed."
   echo "Read the changelog sections newer than $UPDATED_FROM, up to $PLUGIN_VERSION: $CHANGELOG"
+  echo "Items tagged [Workspace] in those sections describe a change to the user's files (workspace or ~/.codex) that the plugin"
+  echo "does not make by itself. For each one, say what it would change and ask through the question window (apply / skip)."
+  echo "Apply only on yes, show what you changed, and never touch the user's existing content. Untagged items need nothing."
 fi
 
 if [ -n "$REMOTE_VERSION" ] && [ -n "$PLUGIN_VERSION" ] && ver_gt "$REMOTE_VERSION" "$PLUGIN_VERSION"; then

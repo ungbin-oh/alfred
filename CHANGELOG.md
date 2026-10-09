@@ -4,8 +4,26 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-10
 
 Newest first. Hashes are commits in this repository. From 0.1.8 on there is one version for the whole repository: both plugins (`alfred` for Claude Code, `alfred-codex` for Codex) carry the same number, and each item is tagged **[Claude]**, **[Codex]** or **[Both]**. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
 
+**`[Workspace]`** (from 0.4.2) marks an item that needs a change in the user's own files — the plugin never makes it; after an update
+the assistant offers each such item through the question window and applies it only on yes.
+
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
+
+## 0.4.2 — 2026-10-10
+
+**Workspace changes are offered, never made.** Both plugins are now 0.4.2. Last of the three-part series (0.4.0 version notices,
+0.4.1 rules.md guard).
+
+- **[Both] `[Workspace]` tag in this changelog** — an item that needs a change in the user's files (workspace folders, templates,
+  `CLAUDE.md` / `AGENTS.md`, the statusline copy in `~/.claude`) now carries `[Workspace]` and says exactly what to change.
+  The "Alfred was updated X → Y" notice (0.4.0) tells the model to read the sections between X and Y, offer each `[Workspace]`
+  item through the question window (apply / skip), apply only on yes, show what changed, and leave existing content alone.
+  Before this, a workspace made on an older version had no way to receive structural changes such as the 0.3.0 Incubator
+- The 0.3.0 Incubator entry is tagged `[Workspace]` after the fact, with the steps for a workspace made before 0.3.0
+- **[Claude] Stale statusline badge copy** — `alfred-init` copies `hooks/statusline.sh` to `~/.claude/alfred-statusline.sh` because
+  the plugin cache path changes with every update. The session-start hook now compares the two and, when they differ, has the
+  model offer a fresh copy (replace / keep). `settings.json` is not touched
 
 ## 0.4.1 — 2026-10-10
 
@@ -96,8 +114,11 @@ minor number goes up from there. Commit messages from that day keep the old numb
   (status incubating, workspace with its own git); when it grows, the whole folder moves to its category, and if dropped, to Archive.
   The boot briefing shows an Incubator table (body first, subs below). The Incubator body has no decision.md — a sub-project's "why" waits
   in its open item and moves into the sub-project's decision.md starting point on launch. Common rules: sections 2, 3, 9, 13, 14
-- **[Both] `alfred-init` always creates the Incubator skeleton** — `project-logs/Incubator/` log.md · open.md · trace/ and
-  `project-workspace/Incubator/`, plus an Incubator row in the settings file's category table. It's not asked; the category question says so
+- **[Both] [Workspace] `alfred-init` always creates the Incubator skeleton** — `project-logs/Incubator/` log.md · open.md · trace/ and
+  `project-workspace/Incubator/`, plus an Incubator row in the settings file's category table. It's not asked; the category question says so.
+  *Workspace made before 0.3.0:* create `project-logs/Incubator/log.md` and `open.md` from the plugin's `skills/alfred-init/templates/<lang>/Incubator/`
+  (`{{TODAY}}` → today's date), an empty `project-logs/Incubator/trace/`, `project-workspace/Incubator/`, and add the Incubator row to the
+  category table in `CLAUDE.md` / `AGENTS.md` (tagged after the fact, in 0.4.2)
 - Not yet tried in a real session
 - **[Both] `alfred-init` introduces Incubator at the end** — after setup, Alfred tells the user to bring ideas still taking shape and
   small questions to Incubator, and to say "later" ideas so they go into Incubator's open.md
