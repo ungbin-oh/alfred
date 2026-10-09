@@ -284,7 +284,8 @@ Both plugins share one version number. Every change is in [CHANGELOG.md](CHANGEL
 
 | Version | Date | What changed |
 |---|---|---|
-| **0.3.5** | 2026-10-06 | Guide mode: the tour ends with the Incubator recommendation — no question window after it |
+| **0.4.0** | 2026-10-10 | Version notices at session start: "Alfred was updated X → Y" once, in the first session on a new version (the marker's `version:` line is kept current); "a newer Alfred is available" with the update commands whenever GitHub has a newer one |
+| 0.3.5 | 2026-10-06 | Guide mode: the tour ends with the Incubator recommendation — no question window after it |
 | 0.3.4 | 2026-10-06 | Bug fix (Claude): guide mode really shows the ten-line tour; the rule assuming text between tool calls is hidden is gone |
 | 0.3.3 | 2026-10-06 | Bug fix: long text may come right before a question window (the rule against it made the Claude guide tour shrink to one line); only the preview field is kept short; `open.md` described as a parking spot for things not started yet |
 | 0.3.2 | 2026-10-06 | `alfred-init` puts "restart now" last, in bold, with guide mode for after the restart; guide mode recommends starting in the Incubator |

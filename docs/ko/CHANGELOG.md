@@ -1,6 +1,6 @@
 # 업데이트 히스토리
 
-written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-06
+written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-10
 
 > **한국어 번역본이다.** 정본은 레포 루트의 `CHANGELOG.md` (영어). 정본이 바뀌면 같은 커밋에서 맞춘다.
 
@@ -8,6 +8,20 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-06
 
 **번호 다시 매김 (2026-10-06):** 0.2.0–0.2.3 은 처음에 0.1.12–0.1.15 로 냈다. Codex 의 Windows 지원이 새 기능이라 거기서 부 번호를 올렸다.
 그날 커밋 메시지에는 옛 번호가 남아 있다.
+
+## 0.4.0 — 2026-10-10
+
+**버전 알림.** 두 플러그인 모두 0.4.0. Alfred 의 영역과 사용자의 영역을 가르는 연작의 첫 판
+(다음: `.alfred/rules.md` 사용자 편집 보호, 그다음 업데이트 때 워크스페이스 변경 제안).
+
+- **[공통] "Alfred 가 X → Y 로 바뀌었습니다"** — 세션 시작 훅이 플러그인 버전과 `.alfred/workspace` 의 `version:` 줄을 비교한다.
+  다르면 새 판의 첫 세션에 한 번 알리고, 업데이트 내역(마켓플레이스 클론의 `CHANGELOG.md`, 없으면 GitHub)을 가리키고, 마커 줄을
+  새 버전으로 고쳐 쓴다. 전에는 마커가 `alfred-init` 때 버전을 영영 갖고 있었고, 업데이트가 들어온 것을 아무도 알리지 않았다
+- **[공통] "업데이트가 있습니다"** — 같은 훅이 GitHub main 의 `plugin.json` 을 받아(`curl` 한 번, 3초 제한) 설치본보다 새 판이면
+  업데이트 명령 둘을 모델이 전하게 출력한다 (`claude plugin marketplace update alfred` · `claude plugin update alfred@alfred`;
+  Codex 는 `codex plugin marketplace upgrade alfred` · `codex plugin add alfred-codex@alfred`). 모델이 직접 실행하지 않는다.
+  느리거나 실패하면 아무것도 출력하지 않는다
+- 버전은 자리별 숫자로 비교한다 (0.4.0 > 0.3.12). `sort -V` 와 `timeout` 은 macOS 에 없어 쓰지 않았다
 
 ## 0.3.5 — 2026-10-06
 

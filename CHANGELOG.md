@@ -1,11 +1,26 @@
 # Changelog
 
-written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-06
+written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-10
 
 Newest first. Hashes are commits in this repository. From 0.1.8 on there is one version for the whole repository: both plugins (`alfred` for Claude Code, `alfred-codex` for Codex) carry the same number, and each item is tagged **[Claude]**, **[Codex]** or **[Both]**. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
 
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
+
+## 0.4.0 — 2026-10-10
+
+**Version notices.** Both plugins are now 0.4.0. First of a series that separates what Alfred owns from what the user owns
+(next: a guard for user edits in `.alfred/rules.md`, then workspace changes offered on update).
+
+- **[Both] "Alfred was updated X → Y"** — the session-start hook compares the plugin version with the `version:` line of
+  `.alfred/workspace`. When they differ, the hook says so once, in the first session on the new version, points at the
+  changelog (the marketplace clone's `CHANGELOG.md`, or GitHub) and rewrites the marker line. Before this the marker kept
+  the version from `alfred-init` forever, and nothing told the user that an update had landed
+- **[Both] "A newer Alfred is available"** — the same hook fetches `plugin.json` from GitHub main (one `curl`, 3-second cap)
+  and, when that version is newer than the installed one, prints the two update commands for the model to pass on
+  (`claude plugin marketplace update alfred` · `claude plugin update alfred@alfred`; Codex: `codex plugin marketplace upgrade alfred`
+  · `codex plugin add alfred-codex@alfred`). The model never runs them. A slow or failed fetch prints nothing
+- Versions are compared part by part (0.4.0 > 0.3.12), without `sort -V` (not on macOS) or `timeout` (same)
 
 ## 0.3.5 — 2026-10-06
 
