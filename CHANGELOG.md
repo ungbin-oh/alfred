@@ -10,6 +10,16 @@ the assistant offers each such item through the question window and applies it o
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
 
+## 0.4.3 — 2026-10-10
+
+**Numbered session names.** Both plugins are now 0.4.3 (Claude-only change).
+
+- **[Claude] [Workspace] Sessions opened on the same day are numbered** — a new session in a workspace is now named `YYYY-MM-DD #1`, the next
+  one that day `#2`, and so on (0.2.2 named every one plainly by the date, so several sessions a day were indistinguishable).
+  The count is one line in `.alfred/session-count` (date and number; a new day starts again at 1, the file is in the
+  `.gitignore` template). Resumed sessions and sessions already named (`--name`) are left alone, as before.
+  *Workspace made before 0.4.3 that uses git:* add the line `.alfred/session-count` to its `.gitignore`
+
 ## 0.4.2 — 2026-10-10
 
 **Workspace changes are offered, never made.** Both plugins are now 0.4.2. Last of the three-part series (0.4.0 version notices,

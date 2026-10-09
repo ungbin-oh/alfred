@@ -4,8 +4,9 @@ project-workspace/
 # Archived outputs (can be large). Archived records under Archive/log-archive/ stay tracked
 Archive/workspace-archive/
 
-# Alfred state files (session modes, etc.)
+# Alfred state files (session modes, counters)
 .alfred/manual-mode
+.alfred/session-count
 
 # Editor / OS
 .claude/

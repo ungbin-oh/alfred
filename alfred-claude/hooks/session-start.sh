@@ -34,7 +34,9 @@
 # model to read the file. The hook never edits the user's CLAUDE.md.
 #
 # Session name: on a fresh start (source "startup") with no name set yet (no --name / -n), the hook also
-# names the session with today's date (YYYY-MM-DD) through `sessionTitle` — same effect as /rename.
+# names the session with today's date and a number — "YYYY-MM-DD #1", "#2" … for each session opened that day in
+# this workspace — through `sessionTitle` (same effect as /rename). The count lives in .alfred/session-count
+# (one line: date and number; a new day starts at 1). Resumed sessions keep their name.
 # Then everything above goes out as JSON (additionalContext + sessionTitle) instead of plain text.
 #
 # On Windows, Claude Code runs this on Git Bash (Git for Windows is required).
@@ -183,10 +185,19 @@ HAS_TITLE=no
 printf '%s' "$INPUT" | tr -d '\r\n' | grep -q '"session_title"[[:space:]]*:[[:space:]]*"[^"]' && HAS_TITLE=yes
 
 if [ "$SOURCE" = "startup" ] && [ "$HAS_TITLE" = "no" ]; then
+  # Nth session of the day in this workspace: .alfred/session-count holds "YYYY-MM-DD N"
+  TODAY=$(date '+%Y-%m-%d')
+  COUNT_FILE="$ROOT/.alfred/session-count"
+  N=1
+  if [ -f "$COUNT_FILE" ]; then
+    read -r LAST_DAY LAST_N < "$COUNT_FILE" || true
+    [ "${LAST_DAY:-}" = "$TODAY" ] && N=$(( ${LAST_N:-0} + 1 ))
+  fi
+  printf '%s %s\n' "$TODAY" "$N" > "$COUNT_FILE"
   # JSON string escape: backslash (Windows paths), double quote, CR dropped, newline as \n
   CTX=$(context | tr -d '\r' | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g' | awk 'BEGIN{ORS=""} NR>1{print "\\n"} {print}')
   printf '{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"%s","sessionTitle":"%s"}}\n' \
-    "$CTX" "$(date '+%Y-%m-%d')"
+    "$CTX" "$TODAY #$N"
 else
   context
 fi
