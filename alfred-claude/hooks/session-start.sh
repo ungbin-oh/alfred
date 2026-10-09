@@ -12,7 +12,9 @@
 #   1. Current date, time and weekday (the model has no clock)
 #   2. Workspace root path
 #   3. Workspace language (the `language:` line in the marker; en if missing)
-#   4. A notice only when something needs the model's attention (see below)
+#   4. A notice only when something needs the model's attention (see below). One case: sync-rules.sh found that
+#      the user edited .alfred/rules.md — the plugin did not overwrite it, and the model asks the user whether to
+#      move the edits into CLAUDE.md or keep the file as their own (.alfred/rules.local)
 #   5. Version notices: when the plugin version differs from the `version:` line in the marker, the
 #      workspace just moved to a new Alfred (first session on it) — the hook says so, points at the
 #      changelog and rewrites the marker line. And when GitHub has a newer version than the one installed,
@@ -123,6 +125,18 @@ elif [ "$HAS_IMPORT" = "no" ]; then
   echo "Before anything else: read $ROOT/.alfred/rules.md in full and follow it for this session."
   echo "Then ask the user through the question window whether to add the line \`@.alfred/rules.md\` on its own line"
   echo "near the top of CLAUDE.md (add it / leave CLAUDE.md as it is). Never edit CLAUDE.md without that answer."
+elif [ "$SYNC" = "user-edited" ]; then
+  echo
+  echo "NOTICE — .alfred/rules.md was edited by hand (it no longer matches what the plugin last wrote), so the plugin did NOT"
+  echo "overwrite it. The installed rules are v$PLUGIN_VERSION ($PLUGIN_ROOT/rules/core.md); the file in the workspace may be older."
+  echo "Tell the user in one line, show them the difference (diff the file against the plugin's core.md, ignoring the header lines),"
+  echo "and ask through the question window which they want:"
+  echo "  (a) move their edits into the \"My rules\" section of CLAUDE.md (section 0 of the rules: CLAUDE.md wins anyway), then"
+  echo "      delete .alfred/rules.md and run: bash \"$PLUGIN_ROOT/hooks/sync-rules.sh\" \"$ROOT\"  — a fresh copy is written"
+  echo "  (b) keep .alfred/rules.md as their own: create the empty file $ROOT/.alfred/rules.local — the plugin leaves it alone from then on"
+  echo "Do neither without the answer."
+elif [ "$SYNC" = "kept" ]; then
+  echo "Note: .alfred/rules.local exists — the user manages .alfred/rules.md themselves; the plugin's v$PLUGIN_VERSION rules are not applied to it."
 elif [ "$SYNC" = "created" ] || [ "$SYNC" = "updated" ]; then
   echo
   echo "NOTICE — the plugin just $SYNC .alfred/rules.md. The copy loaded into this session is older or missing."

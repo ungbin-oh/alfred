@@ -39,7 +39,8 @@ Higher wins. The common rules are the default; wherever the user changed somethi
 <workspace>/
 ├── CLAUDE.md                 user settings and user rules
 ├── .alfred/workspace         workspace marker (delete it and Alfred turns off). Holds the language setting
-├── .alfred/rules.md          copy of these common rules, kept by the plugin (don't edit)
+├── .alfred/rules.md          copy of these common rules, kept by the plugin (don't edit — if you do, the plugin
+│                             notices, leaves it alone and asks; .alfred/rules.sha is its record of what it last wrote)
 ├── .alfred/guide-mode        exists while guide mode is on (/guide-mode)
 ├── project-logs/Incubator/       the incubator — a project of its own (code INC) and the home of sub-projects not yet launched elsewhere
 ├── project-logs/<category>/<project>/

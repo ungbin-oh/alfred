@@ -7,6 +7,19 @@ Newest first. Hashes are commits in this repository. From 0.1.8 on there is one 
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
 
+## 0.4.1 — 2026-10-10
+
+**User edits in `.alfred/rules.md` are protected.** Both plugins are now 0.4.1 (one version number; the change is Claude-only).
+
+- **[Claude] The plugin no longer overwrites a rules file the user changed** — `sync-rules.sh` records the hash of what it last
+  wrote in `.alfred/rules.sha`. When `.alfred/rules.md` no longer matches that hash, the user edited it: the file is left alone
+  and the session-start hook asks (question window) whether to move the edits into the "My rules" section of `CLAUDE.md` and
+  take a fresh copy, or to keep the file as the user's own — then an empty `.alfred/rules.local` tells the plugin to stay away
+  (one short note per session that the plugin's rules aren't applied). Before this, any edit was silently replaced at the next
+  session start
+- A workspace made before 0.4.1 has no `rules.sha` yet, so its file is written once as before and the hash is kept from then on
+- `sync-rules.sh` now prints `created` / `updated` / `unchanged` / `user-edited` / `kept` / `missing-rules`
+
 ## 0.4.0 — 2026-10-10
 
 **Version notices.** Both plugins are now 0.4.0. First of a series that separates what Alfred owns from what the user owns

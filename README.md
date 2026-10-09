@@ -237,7 +237,7 @@ Your logs and settings stay as they are.
 ~/ALFRED/
 ├── CLAUDE.md              your settings and rules
 ├── .alfred/workspace      the marker that this is my room (also holds the language)
-├── .alfred/rules.md       copy of the common rules, kept by the plugin — don't edit
+├── .alfred/rules.md       copy of the common rules, kept by the plugin — don't edit (if you do, I notice and ask instead of overwriting)
 ├── project-logs/          per project: log.md · decision.md · open.md · trace/
 │   └── Incubator/            questions and half-ideas; sub-projects before they launch
 ├── project-workspace/     actual code and outputs
@@ -284,7 +284,8 @@ Both plugins share one version number. Every change is in [CHANGELOG.md](CHANGEL
 
 | Version | Date | What changed |
 |---|---|---|
-| **0.4.0** | 2026-10-10 | Version notices at session start: "Alfred was updated X → Y" once, in the first session on a new version (the marker's `version:` line is kept current); "a newer Alfred is available" with the update commands whenever GitHub has a newer one |
+| **0.4.1** | 2026-10-10 | Your edits to `.alfred/rules.md` are no longer overwritten: the plugin keeps a hash of what it last wrote (`.alfred/rules.sha`), notices a changed file and asks — move the edits into `CLAUDE.md` or keep the file as your own (`.alfred/rules.local`) |
+| 0.4.0 | 2026-10-10 | Version notices at session start: "Alfred was updated X → Y" once, in the first session on a new version (the marker's `version:` line is kept current); "a newer Alfred is available" with the update commands whenever GitHub has a newer one |
 | 0.3.5 | 2026-10-06 | Guide mode: the tour ends with the Incubator recommendation — no question window after it |
 | 0.3.4 | 2026-10-06 | Bug fix (Claude): guide mode really shows the ten-line tour; the rule assuming text between tool calls is hidden is gone |
 | 0.3.3 | 2026-10-06 | Bug fix: long text may come right before a question window (the rule against it made the Claude guide tour shrink to one line); only the preview field is kept short; `open.md` described as a parking spot for things not started yet |

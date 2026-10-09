@@ -1,6 +1,6 @@
 # Alfred 공통 규약
 
-written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-06
+written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-10
 
 > **한국어 번역본이다.** 정본은 `alfred-claude/rules/core.md` (영어) 이고 Alfred 는 이 파일을 읽지 않는다.
 > 정본이 바뀌면 이 파일도 같은 커밋에서 맞춘다.
@@ -44,7 +44,8 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-06
 <워크스페이스>/
 ├── CLAUDE.md                 사용자 설정·사용자 규칙
 ├── .alfred/workspace         워크스페이스 표시 (지우면 Alfred 가 꺼진다). 언어 설정도 여기에
-├── .alfred/rules.md          이 공통 규약의 복사본. 플러그인이 관리한다 (고치지 않는다)
+├── .alfred/rules.md          이 공통 규약의 복사본. 플러그인이 관리한다 (고치지 않는다 — 고치면 플러그인이 알아채고
+│                             덮지 않고 묻는다. .alfred/rules.sha 는 플러그인이 마지막에 쓴 내용의 기록)
 ├── .alfred/guide-mode        가이드 모드가 켜져 있는 동안 있다 (/guide-mode)
 ├── project-logs/Incubator/       인큐베이터 — 그 자체로 프로젝트(code INC)이자, 아직 다른 곳으로 띄우지 않은 하위 프로젝트의 자리
 ├── project-logs/<카테고리>/<프로젝트>/
