@@ -25,7 +25,7 @@
   <a href="README_kr.md">한국어</a>
 </p>
 
-written by Ungbin_Oh · created 2026-09-27 · updated 2026-10-06
+written by Ungbin_Oh · created 2026-09-27 · updated 2026-10-12
 
 ---
 
@@ -39,172 +39,6 @@ what you did, what you decided, and **why** — so you can switch freely and pic
 - 🧭 **You decide. Alfred organizes.** — no unasked suggestions, nothing runs without your OK
 
 Your multitasking, finally under control.
-
-## Install
-
-Pick your OS and follow the numbered steps. Each step says where to go next — skip what you already have.
-
-|  | 🍎 [macOS](#-macos) | 🪟 [Windows](#-windows) |
-|---|---|---|
-| Terminal | Terminal (zsh) | PowerShell |
-| Claude Code users | MAC-Step1 → MAC-Step2 → MAC-Step3 | Windows-Step1 → Windows-Step2 → Windows-Step3 → Windows-Step4 |
-| Codex users | MAC-Step1 → MAC-Step4 → MAC-Step5 → MAC-Step6 | Windows-Step1 → Windows-Step2 → Windows-Step5 → Windows-Step6 → Windows-Step7 |
-
----
-
-### 🍎 macOS
-
-**MAC-Step1 · Which tool?**
-- Claude Code → **MAC-Step2**
-- Codex → **MAC-Step4**
-- Both → do MAC-Step2 → MAC-Step3, then MAC-Step4 → MAC-Step6
-
-**MAC-Step2 · Install Claude Code** — `claude --version` already works? → skip to **MAC-Step3**
-
-```bash
-curl -fsSL https://claude.ai/install.sh | bash
-```
-
-➡️ Open a new terminal, run `claude` once to sign in, then go to **MAC-Step3**
-
-**MAC-Step3 · Alfred for Claude Code**
-
-```bash
-claude plugin marketplace add ungbin-oh/alfred
-claude plugin install alfred@alfred
-mkdir ~/ALFRED
-cd ~/ALFRED
-claude
-```
-
-➡️ In the session, type `/alfred-init`. When it finishes, quit and run `claude` again. ✅ Done (using Codex too? → **MAC-Step4**)
-
-**MAC-Step4 · Install Node.js** (Codex needs it) — `node --version` already works? → skip to **MAC-Step5**
-
-```bash
-brew install node
-```
-
-➡️ No Homebrew? Get Node.js from [nodejs.org](https://nodejs.org). Then go to **MAC-Step5**
-
-**MAC-Step5 · Install Codex** — `codex --version` already works? → skip to **MAC-Step6**
-
-```bash
-npm install -g @openai/codex
-```
-
-➡️ Run `codex` once to sign in, then go to **MAC-Step6**
-
-**MAC-Step6 · Alfred for Codex**
-
-```bash
-codex plugin marketplace add ungbin-oh/alfred
-codex plugin add alfred-codex@alfred
-codex features enable default_mode_request_user_input
-mkdir ~/ALFRED
-cd ~/ALFRED
-codex
-```
-
-➡️ Trust the hooks when asked, then type `$alfred-init`. When it finishes, quit and run `codex` again. ✅ Done
-The `features enable` line is needed only once — it turns on question windows for good.
-
----
-
-### 🪟 Windows
-
-> [!IMPORTANT]
-> After every install below, **close PowerShell completely and open a new one** — a new tab is not enough. Until you do, the new command isn't found.
-
-**Windows-Step1 · Git for Windows** (Alfred's hooks run on its Git Bash) — `git --version` already works? → skip to **Windows-Step2**
-
-```powershell
-winget install --id Git.Git -e
-```
-
-➡️ Close and reopen PowerShell, check `git --version`, then go to **Windows-Step2**. (Already installed? Running it again is harmless. No `winget`? Get Git from [git-scm.com](https://git-scm.com/download/win).)
-
-**Windows-Step2 · Which tool?**
-- Claude Code → **Windows-Step3**
-- Codex → **Windows-Step5**
-- Both → do Windows-Step3 → Windows-Step4, then Windows-Step5 → Windows-Step7
-
-**Windows-Step3 · Install Claude Code** — `claude --version` already works? → skip to **Windows-Step4**
-
-```powershell
-irm https://claude.ai/install.ps1 | iex
-$bin = "$env:USERPROFILE\.local\bin"
-$p = [Environment]::GetEnvironmentVariable('Path','User')
-if (($p -split ';') -notcontains $bin) { [Environment]::SetEnvironmentVariable('Path', "$p;$bin", 'User') }
-```
-
-The last three lines add Claude Code's folder (`.local\bin`) to your PATH — the installer doesn't always do it. Running them again changes nothing.
-
-➡️ Close and reopen PowerShell, check `claude --version`, run `claude` once to sign in, then go to **Windows-Step4**
-
-**Windows-Step4 · Alfred for Claude Code**
-
-```powershell
-claude plugin marketplace add ungbin-oh/alfred
-claude plugin install alfred@alfred
-mkdir ~\ALFRED
-cd ~\ALFRED
-claude
-```
-
-➡️ In the session, type `/alfred-init`. When it finishes, quit and run `claude` again. ✅ Done (using Codex too? → **Windows-Step5**)
-
-**Windows-Step5 · Install Node.js** (Codex needs it) — `node --version` already works? → skip to **Windows-Step6**
-
-```powershell
-winget install --id OpenJS.NodeJS.LTS -e
-```
-
-➡️ Close and reopen PowerShell, check `node --version`, then go to **Windows-Step6**
-
-**Windows-Step6 · Install Codex** — `codex --version` already works? → skip to **Windows-Step7**
-
-```powershell
-npm install -g @openai/codex
-```
-
-➡️ Close and reopen PowerShell, check `codex --version`, run `codex` once to sign in, then go to **Windows-Step7**
-
-**Windows-Step7 · Alfred for Codex**
-
-```powershell
-codex plugin marketplace add ungbin-oh/alfred
-codex plugin add alfred-codex@alfred
-codex features enable default_mode_request_user_input
-mkdir ~\ALFRED
-cd ~\ALFRED
-codex
-```
-
-➡️ Trust the hooks when asked, then type `$alfred-init`. When it finishes, quit and run `codex` again. ✅ Done
-The `features enable` line is needed only once — it turns on question windows for good.
-
-**If a step gets stuck (Windows)**
-- "running scripts is disabled on this system" (npm or codex): `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`, then try again
-- `git` still not found after reopening: Git is installed but not in PATH — add its `cmd` folder (e.g. `C:\Program Files\Git\cmd`) to your user PATH the same way, then reopen
-
-## Updating
-
-**Claude Code**
-
-```
-claude plugin marketplace update alfred
-claude plugin update alfred@alfred
-```
-
-**Codex**
-
-```
-codex plugin marketplace upgrade alfred
-codex plugin add alfred-codex@alfred
-```
-
-Your logs and settings stay as they are. When an update needs a change in your own files (a new folder, a template), I say so at the next session start and ask before touching anything — see `[Workspace]` in the changelog.
 
 ## What I provide
 
@@ -273,6 +107,194 @@ The rules and skills have one English source (`alfred-claude/`; `alfred-codex/` 
 
 - Claude Code (a version with plugin support), or Codex CLI with plugins (checked with 0.160)
 - macOS, Linux or Windows. On Windows, Git for Windows (Git Bash) — the hooks are bash scripts
+
+## Install
+
+Pick the one case that matches you and follow its steps top to bottom. Each case is complete on its own — a step you've already done (say, Claude Code is already installed) can simply be skipped.
+Using both Claude Code and Codex? Do the Claude Code case first, then the Codex case for the same OS, skipping what's already there.
+
+<details>
+<summary>🍎 <strong>macOS · Claude Code</strong></summary>
+
+Terminal: Terminal (zsh)
+
+**Step 1 · Install Claude Code** — already works (`claude --version`)? Skip this step.
+
+```bash
+curl -fsSL https://claude.ai/install.sh | bash
+```
+
+**Step 2 · Sign in** — open a new terminal and run `claude` once to sign in. Quit when you're in.
+
+**Step 3 · Install Alfred and open a workspace**
+
+```bash
+claude plugin marketplace add ungbin-oh/alfred
+claude plugin install alfred@alfred
+mkdir ~/ALFRED
+cd ~/ALFRED
+claude
+```
+
+**Step 4 · Set up the workspace** — in the session, type `/alfred-init`. When it finishes, quit and run `claude` again. ✅ Done
+
+</details>
+
+<details>
+<summary>🍎 <strong>macOS · Codex</strong></summary>
+
+Terminal: Terminal (zsh)
+
+**Step 1 · Install Node.js** (Codex needs it) — already works (`node --version`)? Skip this step.
+
+```bash
+brew install node
+```
+
+No Homebrew? Get Node.js from [nodejs.org](https://nodejs.org) instead.
+
+**Step 2 · Install Codex** — already works (`codex --version`)? Skip this step.
+
+```bash
+npm install -g @openai/codex
+```
+
+**Step 3 · Sign in** — run `codex` once to sign in. Quit when you're in.
+
+**Step 4 · Install Alfred and open a workspace**
+
+```bash
+codex plugin marketplace add ungbin-oh/alfred
+codex plugin add alfred-codex@alfred
+codex features enable default_mode_request_user_input
+mkdir ~/ALFRED
+cd ~/ALFRED
+codex
+```
+
+The `features enable` line is needed only once — it turns on question windows for good.
+
+**Step 5 · Set up the workspace** — trust the hooks when asked, then type `$alfred-init`. When it finishes, quit and run `codex` again. ✅ Done
+
+</details>
+
+<details>
+<summary>🪟 <strong>Windows · Claude Code</strong></summary>
+
+Terminal: PowerShell
+
+> [!IMPORTANT]
+> After every install below, **close PowerShell completely and open a new one** — a new tab is not enough. Until you do, the new command isn't found.
+
+**Step 1 · Install Git for Windows** (Alfred's hooks run on its Git Bash) — already works (`git --version`)? Skip this step.
+
+```powershell
+winget install --id Git.Git -e
+```
+
+Close and reopen PowerShell, then check `git --version`. (Already installed? Running it again is harmless. No `winget`? Get Git from [git-scm.com](https://git-scm.com/download/win).)
+
+**Step 2 · Install Claude Code** — already works (`claude --version`)? Skip this step.
+
+```powershell
+irm https://claude.ai/install.ps1 | iex
+$bin = "$env:USERPROFILE\.local\bin"
+$p = [Environment]::GetEnvironmentVariable('Path','User')
+if (($p -split ';') -notcontains $bin) { [Environment]::SetEnvironmentVariable('Path', "$p;$bin", 'User') }
+```
+
+The last three lines add Claude Code's folder (`.local\bin`) to your PATH — the installer doesn't always do it. Running them again changes nothing.
+
+**Step 3 · Sign in** — close and reopen PowerShell, check `claude --version`, then run `claude` once to sign in. Quit when you're in.
+
+**Step 4 · Install Alfred and open a workspace**
+
+```powershell
+claude plugin marketplace add ungbin-oh/alfred
+claude plugin install alfred@alfred
+mkdir ~\ALFRED
+cd ~\ALFRED
+claude
+```
+
+**Step 5 · Set up the workspace** — in the session, type `/alfred-init`. When it finishes, quit and run `claude` again. ✅ Done
+
+**If a step gets stuck**
+- "running scripts is disabled on this system": `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`, then try again
+- `git` still not found after reopening: Git is installed but not in PATH — add its `cmd` folder (e.g. `C:\Program Files\Git\cmd`) to your user PATH the same way, then reopen
+
+</details>
+
+<details>
+<summary>🪟 <strong>Windows · Codex</strong></summary>
+
+Terminal: PowerShell
+
+> [!IMPORTANT]
+> After every install below, **close PowerShell completely and open a new one** — a new tab is not enough. Until you do, the new command isn't found.
+
+**Step 1 · Install Git for Windows** (Alfred's hooks run on its Git Bash) — already works (`git --version`)? Skip this step.
+
+```powershell
+winget install --id Git.Git -e
+```
+
+Close and reopen PowerShell, then check `git --version`. (Already installed? Running it again is harmless. No `winget`? Get Git from [git-scm.com](https://git-scm.com/download/win).)
+
+**Step 2 · Install Node.js** (Codex needs it) — already works (`node --version`)? Skip this step.
+
+```powershell
+winget install --id OpenJS.NodeJS.LTS -e
+```
+
+Close and reopen PowerShell, then check `node --version`.
+
+**Step 3 · Install Codex** — already works (`codex --version`)? Skip this step.
+
+```powershell
+npm install -g @openai/codex
+```
+
+**Step 4 · Sign in** — close and reopen PowerShell, check `codex --version`, then run `codex` once to sign in. Quit when you're in.
+
+**Step 5 · Install Alfred and open a workspace**
+
+```powershell
+codex plugin marketplace add ungbin-oh/alfred
+codex plugin add alfred-codex@alfred
+codex features enable default_mode_request_user_input
+mkdir ~\ALFRED
+cd ~\ALFRED
+codex
+```
+
+The `features enable` line is needed only once — it turns on question windows for good.
+
+**Step 6 · Set up the workspace** — trust the hooks when asked, then type `$alfred-init`. When it finishes, quit and run `codex` again. ✅ Done
+
+**If a step gets stuck**
+- "running scripts is disabled on this system" (npm or codex): `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`, then try again
+- `git` still not found after reopening: Git is installed but not in PATH — add its `cmd` folder (e.g. `C:\Program Files\Git\cmd`) to your user PATH the same way, then reopen
+
+</details>
+
+## Updating
+
+**Claude Code**
+
+```
+claude plugin marketplace update alfred
+claude plugin update alfred@alfred
+```
+
+**Codex**
+
+```
+codex plugin marketplace upgrade alfred
+codex plugin add alfred-codex@alfred
+```
+
+Your logs and settings stay as they are. When an update needs a change in your own files (a new folder, a template), I say so at the next session start and ask before touching anything — see `[Workspace]` in the changelog.
 
 ## License
 
