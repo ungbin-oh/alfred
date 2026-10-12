@@ -110,42 +110,108 @@ codex plugin remove alfred-codex@alfred    # Codex
 
 ## 설치
 
-주인님 경우에 맞는 하나를 고르시고, 그 안의 단계를 위에서 아래로 따라가십시오. 각 경우는 그것만 보면 되게 적었습니다 — 이미 하신 단계(예: Claude Code 가 이미 깔려 있음)는 그냥 건너뛰십시오.
-Claude Code 와 Codex 를 둘 다 쓰시면, 같은 OS 의 Claude Code 경우를 먼저 마치신 뒤 Codex 경우를 이어서 하시고, 이미 있는 것은 건너뛰십시오.
+주인님 경우에 맞는 하나를 고르시고, 그 안의 단계를 위에서 아래로 따라가십시오.
+**네모 칸은 전부 치는 것입니다** — 복사해서 터미널에 붙이고 Enter 를 누르십시오.
+**칸 사이의 ⚠️ 안내도 단계입니다** (나가기, 다시 열기, 질문에 답하기). 이것을 건너뛰어 막히는 경우가 가장 많습니다.
+Claude Code 와 Codex 를 둘 다 쓰시면, 같은 OS 의 Claude Code 경우를 먼저 마치신 뒤 Codex 경우를 이어서 하시고, 이미 깔린 것은 건너뛰십시오.
 
+|  | 🍎 macOS | 🪟 Windows |
+|---|---|---|
+| **Claude Code** | [macOS · Claude Code](#install-macos-claude-code) | [Windows · Claude Code](#install-windows-claude-code) |
+| **Codex** | [macOS · Codex](#install-macos-codex) | [Windows · Codex](#install-windows-codex) |
+
+<a id="install-macos-claude-code"></a>
 <details>
 <summary>🍎 <strong>macOS · Claude Code</strong></summary>
 
-터미널: 터미널 (zsh)
+터미널: **터미널** (zsh)
 
-**Step 1 · Claude Code 설치** — `claude --version` 이 이미 되면 이 단계는 건너뛰십시오.
+**Step 1 · Claude Code 설치** (`claude --version` 이 이미 되면 건너뛰십시오)
 
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
 ```
 
-**Step 2 · 로그인** — 터미널을 새로 여시고 `claude` 를 한 번 실행해 로그인하십시오. 들어가셨으면 나오십시오.
+> [!IMPORTANT]
+> ⚠️ **터미널을 끄고 새로 여십시오.** 그 다음 됐는지 확인하십시오:
 
-**Step 3 · Alfred 설치와 워크스페이스 열기**
+```bash
+claude --version
+```
+
+**Step 2 · 로그인**
+
+Claude Code 가 열립니다. 터미널에 나오는 로그인 안내를 따르십시오.
+
+```bash
+claude
+```
+
+로그인이 되셨으면 나오십시오:
+
+```
+/exit
+```
+
+**Step 3 · Alfred 설치**
 
 ```bash
 claude plugin marketplace add ungbin-oh/alfred
 claude plugin install alfred@alfred
+```
+
+**Step 4 · 워크스페이스 폴더를 만들고 거기서 Claude Code 열기**
+
+```bash
 mkdir ~/ALFRED
 cd ~/ALFRED
 claude
 ```
 
-**Step 4 · 워크스페이스 셋업** — 세션에서 `/alfred-init` 을 입력하십시오. 끝나면 나갔다가 `claude` 를 다시 실행하십시오. ✅ 끝
+**Step 5 · 워크스페이스 셋업**
+
+세션 안에서 이것을 치십시오:
+
+```
+/alfred-init
+```
+
+> [!IMPORTANT]
+> ⚠️ **이제 Alfred 가 셋업 질문을 여러 개 합니다** — 언어, 이름, 호칭, 폴더. **하나도 빼지 말고 모두 답하십시오.** Alfred 가 끝났다고 말할 때까지가 셋업입니다.
+
+**Step 6 · 같은 폴더에서 Claude Code 다시 열기**
+
+다시 열기 전에는 Alfred 의 어떤 것도 동작하지 않습니다. 나갔다가 Claude Code 를 다시 여십시오:
+
+```
+/exit
+```
+
+```bash
+claude
+```
+
+**Step 7 · 가이드 모드 켜기 (처음 며칠은 켜 두시길 권합니다)**
+
+제가 일하는 방식을 짧게 소개하고, 그 뒤로 가끔 사용법 팁을 하나씩 드립니다. 세션 안에서 치십시오:
+
+```
+/guide-mode on
+```
+
+언제든 `/guide-mode off` 로 끄실 수 있습니다.
+
+✅ **끝.** Alfred 가 켜져 있습니다 — 지금 하고 계신 프로젝트 하나를 말씀해 주시는 것부터 시작하십시오.
 
 </details>
 
+<a id="install-macos-codex"></a>
 <details>
 <summary>🍎 <strong>macOS · Codex</strong></summary>
 
-터미널: 터미널 (zsh)
+터미널: **터미널** (zsh)
 
-**Step 1 · Node.js 설치** (Codex 에 필요) — `node --version` 이 이미 되면 이 단계는 건너뛰십시오.
+**Step 1 · Node.js 설치 (Codex 에 필요)** (`node --version` 이 이미 되면 건너뛰십시오)
 
 ```bash
 brew install node
@@ -153,48 +219,123 @@ brew install node
 
 Homebrew 가 없으시면 [nodejs.org](https://nodejs.org) 에서 받으십시오.
 
-**Step 2 · Codex 설치** — `codex --version` 이 이미 되면 이 단계는 건너뛰십시오.
+> [!IMPORTANT]
+> ⚠️ **터미널을 끄고 새로 여십시오.** 그 다음 됐는지 확인하십시오:
+
+```bash
+node --version
+```
+
+**Step 2 · Codex 설치** (`codex --version` 이 이미 되면 건너뛰십시오)
 
 ```bash
 npm install -g @openai/codex
 ```
 
-**Step 3 · 로그인** — `codex` 를 한 번 실행해 로그인하십시오. 들어가셨으면 나오십시오.
+> [!IMPORTANT]
+> ⚠️ **터미널을 끄고 새로 여십시오.** 그 다음 됐는지 확인하십시오:
 
-**Step 4 · Alfred 설치와 워크스페이스 열기**
+```bash
+codex --version
+```
+
+**Step 3 · 로그인**
+
+Codex 가 열립니다. 터미널에 나오는 로그인 안내를 따르십시오.
+
+```bash
+codex
+```
+
+로그인이 되셨으면 나오십시오:
+
+```
+/quit
+```
+
+**Step 4 · Alfred 설치**
 
 ```bash
 codex plugin marketplace add ungbin-oh/alfred
 codex plugin add alfred-codex@alfred
 codex features enable default_mode_request_user_input
+```
+
+`features enable` 줄은 한 번만 치시면 됩니다 — 질문 창을 계속 켜 둡니다.
+
+**Step 5 · 워크스페이스 폴더를 만들고 거기서 Codex 열기**
+
+```bash
 mkdir ~/ALFRED
 cd ~/ALFRED
 codex
 ```
 
-`features enable` 줄은 한 번만 치시면 됩니다 — 질문 창을 계속 켜 둡니다.
+> [!IMPORTANT]
+> ⚠️ 이 첫 실행에서 Codex 가 **플러그인 훅을 검토하고 신뢰할지 묻습니다. 신뢰하십시오.** 그 전에는 Alfred 가 로드되지 않습니다.
 
-**Step 5 · 워크스페이스 셋업** — 훅 신뢰를 물으면 신뢰하시고 `$alfred-init` 을 입력하십시오. 끝나면 나갔다가 `codex` 를 다시 실행하십시오. ✅ 끝
+**Step 6 · 워크스페이스 셋업**
+
+세션 안에서 이것을 치십시오:
+
+```
+$alfred-init
+```
+
+> [!IMPORTANT]
+> ⚠️ **이제 Alfred 가 셋업 질문을 여러 개 합니다** — 언어, 이름, 호칭, 폴더. **하나도 빼지 말고 모두 답하십시오.** Alfred 가 끝났다고 말할 때까지가 셋업입니다.
+
+**Step 7 · 같은 폴더에서 Codex 다시 열기**
+
+다시 열기 전에는 Alfred 의 어떤 것도 동작하지 않습니다. 나갔다가 Codex 를 다시 여십시오:
+
+```
+/quit
+```
+
+```bash
+codex
+```
+
+**Step 8 · 가이드 모드 켜기 (처음 며칠은 켜 두시길 권합니다)**
+
+제가 일하는 방식을 짧게 소개하고, 그 뒤로 가끔 사용법 팁을 하나씩 드립니다. 세션 안에서 치십시오:
+
+```
+$guide-mode on
+```
+
+언제든 `$guide-mode off` 로 끄실 수 있습니다.
+
+✅ **끝.** Alfred 가 켜져 있습니다 — 지금 하고 계신 프로젝트 하나를 말씀해 주시는 것부터 시작하십시오.
 
 </details>
 
+<a id="install-windows-claude-code"></a>
 <details>
 <summary>🪟 <strong>Windows · Claude Code</strong></summary>
 
-터미널: PowerShell
+터미널: **PowerShell**
 
 > [!IMPORTANT]
 > 아래에서 무언가를 설치할 때마다 **PowerShell 을 완전히 닫고 새로 여십시오** — 새 탭으로는 부족합니다. 그 전에는 새 명령을 찾지 못합니다.
 
-**Step 1 · Git for Windows 설치** (제 훅이 그 안의 Git Bash 로 돕니다) — `git --version` 이 이미 되면 이 단계는 건너뛰십시오.
+**Step 1 · Git for Windows 설치 (제 훅이 그 안의 Git Bash 로 돕니다)** (`git --version` 이 이미 되면 건너뛰십시오)
 
 ```powershell
 winget install --id Git.Git -e
 ```
 
-PowerShell 을 닫고 새로 여시고 `git --version` 을 확인하십시오. (이미 깔려 있어도 다시 치시면 괜찮습니다. `winget` 이 없으면 [git-scm.com](https://git-scm.com/download/win) 에서 받으십시오.)
+`winget` 이 없으면 [git-scm.com](https://git-scm.com/download/win) 에서 받으십시오.
 
-**Step 2 · Claude Code 설치** — `claude --version` 이 이미 되면 이 단계는 건너뛰십시오.
+> [!IMPORTANT]
+> ⚠️ **PowerShell 을 완전히 닫고 새로 여십시오.** 그 다음 됐는지 확인하십시오:
+
+```powershell
+git --version
+```
+
+**Step 2 · Claude Code 설치** (`claude --version` 이 이미 되면 건너뛰십시오)
 
 ```powershell
 irm https://claude.ai/install.ps1 | iex
@@ -203,78 +344,218 @@ $p = [Environment]::GetEnvironmentVariable('Path','User')
 if (($p -split ';') -notcontains $bin) { [Environment]::SetEnvironmentVariable('Path', "$p;$bin", 'User') }
 ```
 
-위 코드의 뒤 세 줄은 Claude Code 폴더(`.local\bin`)를 PATH 에 넣습니다 — 설치기가 늘 넣어 주지는 않습니다. 다시 실행해도 바뀌는 것이 없습니다.
+뒤 세 줄은 Claude Code 폴더(`.local\bin`)를 PATH 에 넣습니다 — 설치기가 늘 넣어 주지는 않습니다. 다시 실행해도 바뀌는 것이 없습니다.
 
-**Step 3 · 로그인** — PowerShell 을 닫고 새로 여시고 `claude --version` 을 확인한 뒤, `claude` 를 한 번 실행해 로그인하십시오. 들어가셨으면 나오십시오.
+> [!IMPORTANT]
+> ⚠️ **PowerShell 을 완전히 닫고 새로 여십시오.** 그 다음 됐는지 확인하십시오:
 
-**Step 4 · Alfred 설치와 워크스페이스 열기**
+```powershell
+claude --version
+```
+
+**Step 3 · 로그인**
+
+Claude Code 가 열립니다. 터미널에 나오는 로그인 안내를 따르십시오.
+
+```powershell
+claude
+```
+
+로그인이 되셨으면 나오십시오:
+
+```
+/exit
+```
+
+**Step 4 · Alfred 설치**
 
 ```powershell
 claude plugin marketplace add ungbin-oh/alfred
 claude plugin install alfred@alfred
+```
+
+**Step 5 · 워크스페이스 폴더를 만들고 거기서 Claude Code 열기**
+
+```powershell
 mkdir ~\ALFRED
 cd ~\ALFRED
 claude
 ```
 
-**Step 5 · 워크스페이스 셋업** — 세션에서 `/alfred-init` 을 입력하십시오. 끝나면 나갔다가 `claude` 를 다시 실행하십시오. ✅ 끝
+**Step 6 · 워크스페이스 셋업**
+
+세션 안에서 이것을 치십시오:
+
+```
+/alfred-init
+```
+
+> [!IMPORTANT]
+> ⚠️ **이제 Alfred 가 셋업 질문을 여러 개 합니다** — 언어, 이름, 호칭, 폴더. **하나도 빼지 말고 모두 답하십시오.** Alfred 가 끝났다고 말할 때까지가 셋업입니다.
+
+**Step 7 · 같은 폴더에서 Claude Code 다시 열기**
+
+다시 열기 전에는 Alfred 의 어떤 것도 동작하지 않습니다. 나갔다가 Claude Code 를 다시 여십시오:
+
+```
+/exit
+```
+
+```powershell
+claude
+```
+
+**Step 8 · 가이드 모드 켜기 (처음 며칠은 켜 두시길 권합니다)**
+
+제가 일하는 방식을 짧게 소개하고, 그 뒤로 가끔 사용법 팁을 하나씩 드립니다. 세션 안에서 치십시오:
+
+```
+/guide-mode on
+```
+
+언제든 `/guide-mode off` 로 끄실 수 있습니다.
+
+✅ **끝.** Alfred 가 켜져 있습니다 — 지금 하고 계신 프로젝트 하나를 말씀해 주시는 것부터 시작하십시오.
 
 **막히면**
-- "이 시스템에서 스크립트를 실행할 수 없으므로": `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` 후 다시 실행
-- 다시 열어도 `git` 을 찾을 수 없다면: Git 은 깔렸는데 PATH 에 없는 것입니다 — Git 의 `cmd` 폴더(예: `C:\Program Files\Git\cmd`)를 같은 방법으로 사용자 PATH 에 넣고 다시 열기
+- "이 시스템에서 스크립트를 실행할 수 없으므로" (npm · codex): 이것을 치고 다시 시도
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
+
+- 다시 열어도 `git` 을 찾을 수 없다면: Git 은 깔렸는데 PATH 에 없는 것입니다 — Git 의 `cmd` 폴더(예: `C:\Program Files\Git\cmd`)를 사용자 PATH 에 넣고 PowerShell 을 다시 여십시오
 
 </details>
 
+<a id="install-windows-codex"></a>
 <details>
 <summary>🪟 <strong>Windows · Codex</strong></summary>
 
-터미널: PowerShell
+터미널: **PowerShell**
 
 > [!IMPORTANT]
 > 아래에서 무언가를 설치할 때마다 **PowerShell 을 완전히 닫고 새로 여십시오** — 새 탭으로는 부족합니다. 그 전에는 새 명령을 찾지 못합니다.
 
-**Step 1 · Git for Windows 설치** (제 훅이 그 안의 Git Bash 로 돕니다) — `git --version` 이 이미 되면 이 단계는 건너뛰십시오.
+**Step 1 · Git for Windows 설치 (제 훅이 그 안의 Git Bash 로 돕니다)** (`git --version` 이 이미 되면 건너뛰십시오)
 
 ```powershell
 winget install --id Git.Git -e
 ```
 
-PowerShell 을 닫고 새로 여시고 `git --version` 을 확인하십시오. (이미 깔려 있어도 다시 치시면 괜찮습니다. `winget` 이 없으면 [git-scm.com](https://git-scm.com/download/win) 에서 받으십시오.)
+`winget` 이 없으면 [git-scm.com](https://git-scm.com/download/win) 에서 받으십시오.
 
-**Step 2 · Node.js 설치** (Codex 에 필요) — `node --version` 이 이미 되면 이 단계는 건너뛰십시오.
+> [!IMPORTANT]
+> ⚠️ **PowerShell 을 완전히 닫고 새로 여십시오.** 그 다음 됐는지 확인하십시오:
+
+```powershell
+git --version
+```
+
+**Step 2 · Node.js 설치 (Codex 에 필요)** (`node --version` 이 이미 되면 건너뛰십시오)
 
 ```powershell
 winget install --id OpenJS.NodeJS.LTS -e
 ```
 
-PowerShell 을 닫고 새로 여시고 `node --version` 을 확인하십시오.
+> [!IMPORTANT]
+> ⚠️ **PowerShell 을 완전히 닫고 새로 여십시오.** 그 다음 됐는지 확인하십시오:
 
-**Step 3 · Codex 설치** — `codex --version` 이 이미 되면 이 단계는 건너뛰십시오.
+```powershell
+node --version
+```
+
+**Step 3 · Codex 설치** (`codex --version` 이 이미 되면 건너뛰십시오)
 
 ```powershell
 npm install -g @openai/codex
 ```
 
-**Step 4 · 로그인** — PowerShell 을 닫고 새로 여시고 `codex --version` 을 확인한 뒤, `codex` 를 한 번 실행해 로그인하십시오. 들어가셨으면 나오십시오.
+> [!IMPORTANT]
+> ⚠️ **PowerShell 을 완전히 닫고 새로 여십시오.** 그 다음 됐는지 확인하십시오:
 
-**Step 5 · Alfred 설치와 워크스페이스 열기**
+```powershell
+codex --version
+```
+
+**Step 4 · 로그인**
+
+Codex 가 열립니다. 터미널에 나오는 로그인 안내를 따르십시오.
+
+```powershell
+codex
+```
+
+로그인이 되셨으면 나오십시오:
+
+```
+/quit
+```
+
+**Step 5 · Alfred 설치**
 
 ```powershell
 codex plugin marketplace add ungbin-oh/alfred
 codex plugin add alfred-codex@alfred
 codex features enable default_mode_request_user_input
+```
+
+`features enable` 줄은 한 번만 치시면 됩니다 — 질문 창을 계속 켜 둡니다.
+
+**Step 6 · 워크스페이스 폴더를 만들고 거기서 Codex 열기**
+
+```powershell
 mkdir ~\ALFRED
 cd ~\ALFRED
 codex
 ```
 
-`features enable` 줄은 한 번만 치시면 됩니다 — 질문 창을 계속 켜 둡니다.
+> [!IMPORTANT]
+> ⚠️ 이 첫 실행에서 Codex 가 **플러그인 훅을 검토하고 신뢰할지 묻습니다. 신뢰하십시오.** 그 전에는 Alfred 가 로드되지 않습니다.
 
-**Step 6 · 워크스페이스 셋업** — 훅 신뢰를 물으면 신뢰하시고 `$alfred-init` 을 입력하십시오. 끝나면 나갔다가 `codex` 를 다시 실행하십시오. ✅ 끝
+**Step 7 · 워크스페이스 셋업**
+
+세션 안에서 이것을 치십시오:
+
+```
+$alfred-init
+```
+
+> [!IMPORTANT]
+> ⚠️ **이제 Alfred 가 셋업 질문을 여러 개 합니다** — 언어, 이름, 호칭, 폴더. **하나도 빼지 말고 모두 답하십시오.** Alfred 가 끝났다고 말할 때까지가 셋업입니다.
+
+**Step 8 · 같은 폴더에서 Codex 다시 열기**
+
+다시 열기 전에는 Alfred 의 어떤 것도 동작하지 않습니다. 나갔다가 Codex 를 다시 여십시오:
+
+```
+/quit
+```
+
+```powershell
+codex
+```
+
+**Step 9 · 가이드 모드 켜기 (처음 며칠은 켜 두시길 권합니다)**
+
+제가 일하는 방식을 짧게 소개하고, 그 뒤로 가끔 사용법 팁을 하나씩 드립니다. 세션 안에서 치십시오:
+
+```
+$guide-mode on
+```
+
+언제든 `$guide-mode off` 로 끄실 수 있습니다.
+
+✅ **끝.** Alfred 가 켜져 있습니다 — 지금 하고 계신 프로젝트 하나를 말씀해 주시는 것부터 시작하십시오.
 
 **막히면**
-- "이 시스템에서 스크립트를 실행할 수 없으므로" (npm · codex): `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` 후 다시 실행
-- 다시 열어도 `git` 을 찾을 수 없다면: Git 은 깔렸는데 PATH 에 없는 것입니다 — Git 의 `cmd` 폴더(예: `C:\Program Files\Git\cmd`)를 같은 방법으로 사용자 PATH 에 넣고 다시 열기
+- "이 시스템에서 스크립트를 실행할 수 없으므로" (npm · codex): 이것을 치고 다시 시도
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
+
+- 다시 열어도 `git` 을 찾을 수 없다면: Git 은 깔렸는데 PATH 에 없는 것입니다 — Git 의 `cmd` 폴더(예: `C:\Program Files\Git\cmd`)를 사용자 PATH 에 넣고 PowerShell 을 다시 여십시오
 
 </details>
 

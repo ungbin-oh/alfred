@@ -110,42 +110,108 @@ The rules and skills have one English source (`alfred-claude/`; `alfred-codex/` 
 
 ## Install
 
-Pick the one case that matches you and follow its steps top to bottom. Each case is complete on its own — a step you've already done (say, Claude Code is already installed) can simply be skipped.
-Using both Claude Code and Codex? Do the Claude Code case first, then the Codex case for the same OS, skipping what's already there.
+Pick the one case that matches you and follow its steps top to bottom.
+**Every box is something to type** — copy it, paste it into your terminal, press Enter.
+**The ⚠️ notes between the boxes are steps too** (quit, reopen, answer questions). Skipping one is the most common way to get stuck.
+Using both Claude Code and Codex? Do the Claude Code case first, then the Codex case for the same OS, skipping what's already installed.
 
+|  | 🍎 macOS | 🪟 Windows |
+|---|---|---|
+| **Claude Code** | [macOS · Claude Code](#install-macos-claude-code) | [Windows · Claude Code](#install-windows-claude-code) |
+| **Codex** | [macOS · Codex](#install-macos-codex) | [Windows · Codex](#install-windows-codex) |
+
+<a id="install-macos-claude-code"></a>
 <details>
 <summary>🍎 <strong>macOS · Claude Code</strong></summary>
 
-Terminal: Terminal (zsh)
+Terminal: **Terminal** (zsh)
 
-**Step 1 · Install Claude Code** — already works (`claude --version`)? Skip this step.
+**Step 1 · Install Claude Code** (skip if `claude --version` already works)
 
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
 ```
 
-**Step 2 · Sign in** — open a new terminal and run `claude` once to sign in. Quit when you're in.
+> [!IMPORTANT]
+> ⚠️ **Quit Terminal and open a new one.** Then check that it worked:
 
-**Step 3 · Install Alfred and open a workspace**
+```bash
+claude --version
+```
+
+**Step 2 · Sign in**
+
+This opens Claude Code. Follow the sign-in prompts in the terminal.
+
+```bash
+claude
+```
+
+Once you're signed in, quit:
+
+```
+/exit
+```
+
+**Step 3 · Install Alfred**
 
 ```bash
 claude plugin marketplace add ungbin-oh/alfred
 claude plugin install alfred@alfred
+```
+
+**Step 4 · Make a workspace folder and open Claude Code there**
+
+```bash
 mkdir ~/ALFRED
 cd ~/ALFRED
 claude
 ```
 
-**Step 4 · Set up the workspace** — in the session, type `/alfred-init`. When it finishes, quit and run `claude` again. ✅ Done
+**Step 5 · Set up the workspace**
+
+Type this inside the session:
+
+```
+/alfred-init
+```
+
+> [!IMPORTANT]
+> ⚠️ **Alfred now asks you several setup questions** — language, your name, how to address you, folders. **Answer every one.** Setup is finished only when Alfred says so.
+
+**Step 6 · Restart Claude Code in the same folder**
+
+Nothing in Alfred works until this restart. Quit, then open Claude Code again:
+
+```
+/exit
+```
+
+```bash
+claude
+```
+
+**Step 7 · Turn on guide mode (recommended for your first days)**
+
+A short tour of how Alfred works, then a usage tip now and then. Type this inside the session:
+
+```
+/guide-mode on
+```
+
+`/guide-mode off` turns it off whenever you like.
+
+✅ **Done.** Alfred is running — start by telling it about a project you're working on.
 
 </details>
 
+<a id="install-macos-codex"></a>
 <details>
 <summary>🍎 <strong>macOS · Codex</strong></summary>
 
-Terminal: Terminal (zsh)
+Terminal: **Terminal** (zsh)
 
-**Step 1 · Install Node.js** (Codex needs it) — already works (`node --version`)? Skip this step.
+**Step 1 · Install Node.js (Codex needs it)** (skip if `node --version` already works)
 
 ```bash
 brew install node
@@ -153,48 +219,123 @@ brew install node
 
 No Homebrew? Get Node.js from [nodejs.org](https://nodejs.org) instead.
 
-**Step 2 · Install Codex** — already works (`codex --version`)? Skip this step.
+> [!IMPORTANT]
+> ⚠️ **Quit Terminal and open a new one.** Then check that it worked:
+
+```bash
+node --version
+```
+
+**Step 2 · Install Codex** (skip if `codex --version` already works)
 
 ```bash
 npm install -g @openai/codex
 ```
 
-**Step 3 · Sign in** — run `codex` once to sign in. Quit when you're in.
+> [!IMPORTANT]
+> ⚠️ **Quit Terminal and open a new one.** Then check that it worked:
 
-**Step 4 · Install Alfred and open a workspace**
+```bash
+codex --version
+```
+
+**Step 3 · Sign in**
+
+This opens Codex. Follow the sign-in prompts in the terminal.
+
+```bash
+codex
+```
+
+Once you're signed in, quit:
+
+```
+/quit
+```
+
+**Step 4 · Install Alfred**
 
 ```bash
 codex plugin marketplace add ungbin-oh/alfred
 codex plugin add alfred-codex@alfred
 codex features enable default_mode_request_user_input
+```
+
+The `features enable` line is needed only once — it turns on question windows for good.
+
+**Step 5 · Make a workspace folder and open Codex there**
+
+```bash
 mkdir ~/ALFRED
 cd ~/ALFRED
 codex
 ```
 
-The `features enable` line is needed only once — it turns on question windows for good.
+> [!IMPORTANT]
+> ⚠️ On this first start Codex asks you to **review and trust the plugin's hooks. Trust them.** Until you do, Alfred isn't loaded.
 
-**Step 5 · Set up the workspace** — trust the hooks when asked, then type `$alfred-init`. When it finishes, quit and run `codex` again. ✅ Done
+**Step 6 · Set up the workspace**
+
+Type this inside the session:
+
+```
+$alfred-init
+```
+
+> [!IMPORTANT]
+> ⚠️ **Alfred now asks you several setup questions** — language, your name, how to address you, folders. **Answer every one.** Setup is finished only when Alfred says so.
+
+**Step 7 · Restart Codex in the same folder**
+
+Nothing in Alfred works until this restart. Quit, then open Codex again:
+
+```
+/quit
+```
+
+```bash
+codex
+```
+
+**Step 8 · Turn on guide mode (recommended for your first days)**
+
+A short tour of how Alfred works, then a usage tip now and then. Type this inside the session:
+
+```
+$guide-mode on
+```
+
+`$guide-mode off` turns it off whenever you like.
+
+✅ **Done.** Alfred is running — start by telling it about a project you're working on.
 
 </details>
 
+<a id="install-windows-claude-code"></a>
 <details>
 <summary>🪟 <strong>Windows · Claude Code</strong></summary>
 
-Terminal: PowerShell
+Terminal: **PowerShell**
 
 > [!IMPORTANT]
-> After every install below, **close PowerShell completely and open a new one** — a new tab is not enough. Until you do, the new command isn't found.
+> After **every** install below, **close PowerShell completely and open a new one** — a new tab is not enough. Until you do, the new command isn't found.
 
-**Step 1 · Install Git for Windows** (Alfred's hooks run on its Git Bash) — already works (`git --version`)? Skip this step.
+**Step 1 · Install Git for Windows (Alfred's hooks run on its Git Bash)** (skip if `git --version` already works)
 
 ```powershell
 winget install --id Git.Git -e
 ```
 
-Close and reopen PowerShell, then check `git --version`. (Already installed? Running it again is harmless. No `winget`? Get Git from [git-scm.com](https://git-scm.com/download/win).)
+No `winget`? Get Git from [git-scm.com](https://git-scm.com/download/win) instead.
 
-**Step 2 · Install Claude Code** — already works (`claude --version`)? Skip this step.
+> [!IMPORTANT]
+> ⚠️ **Close PowerShell completely and open a new one.** Then check that it worked:
+
+```powershell
+git --version
+```
+
+**Step 2 · Install Claude Code** (skip if `claude --version` already works)
 
 ```powershell
 irm https://claude.ai/install.ps1 | iex
@@ -205,76 +346,216 @@ if (($p -split ';') -notcontains $bin) { [Environment]::SetEnvironmentVariable('
 
 The last three lines add Claude Code's folder (`.local\bin`) to your PATH — the installer doesn't always do it. Running them again changes nothing.
 
-**Step 3 · Sign in** — close and reopen PowerShell, check `claude --version`, then run `claude` once to sign in. Quit when you're in.
+> [!IMPORTANT]
+> ⚠️ **Close PowerShell completely and open a new one.** Then check that it worked:
 
-**Step 4 · Install Alfred and open a workspace**
+```powershell
+claude --version
+```
+
+**Step 3 · Sign in**
+
+This opens Claude Code. Follow the sign-in prompts in the terminal.
+
+```powershell
+claude
+```
+
+Once you're signed in, quit:
+
+```
+/exit
+```
+
+**Step 4 · Install Alfred**
 
 ```powershell
 claude plugin marketplace add ungbin-oh/alfred
 claude plugin install alfred@alfred
+```
+
+**Step 5 · Make a workspace folder and open Claude Code there**
+
+```powershell
 mkdir ~\ALFRED
 cd ~\ALFRED
 claude
 ```
 
-**Step 5 · Set up the workspace** — in the session, type `/alfred-init`. When it finishes, quit and run `claude` again. ✅ Done
+**Step 6 · Set up the workspace**
+
+Type this inside the session:
+
+```
+/alfred-init
+```
+
+> [!IMPORTANT]
+> ⚠️ **Alfred now asks you several setup questions** — language, your name, how to address you, folders. **Answer every one.** Setup is finished only when Alfred says so.
+
+**Step 7 · Restart Claude Code in the same folder**
+
+Nothing in Alfred works until this restart. Quit, then open Claude Code again:
+
+```
+/exit
+```
+
+```powershell
+claude
+```
+
+**Step 8 · Turn on guide mode (recommended for your first days)**
+
+A short tour of how Alfred works, then a usage tip now and then. Type this inside the session:
+
+```
+/guide-mode on
+```
+
+`/guide-mode off` turns it off whenever you like.
+
+✅ **Done.** Alfred is running — start by telling it about a project you're working on.
 
 **If a step gets stuck**
-- "running scripts is disabled on this system": `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`, then try again
-- `git` still not found after reopening: Git is installed but not in PATH — add its `cmd` folder (e.g. `C:\Program Files\Git\cmd`) to your user PATH the same way, then reopen
+- "running scripts is disabled on this system" (npm or codex): run this, then try again
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
+
+- `git` still not found after reopening: Git is installed but not in PATH — add its `cmd` folder (e.g. `C:\Program Files\Git\cmd`) to your user PATH, then reopen PowerShell
 
 </details>
 
+<a id="install-windows-codex"></a>
 <details>
 <summary>🪟 <strong>Windows · Codex</strong></summary>
 
-Terminal: PowerShell
+Terminal: **PowerShell**
 
 > [!IMPORTANT]
-> After every install below, **close PowerShell completely and open a new one** — a new tab is not enough. Until you do, the new command isn't found.
+> After **every** install below, **close PowerShell completely and open a new one** — a new tab is not enough. Until you do, the new command isn't found.
 
-**Step 1 · Install Git for Windows** (Alfred's hooks run on its Git Bash) — already works (`git --version`)? Skip this step.
+**Step 1 · Install Git for Windows (Alfred's hooks run on its Git Bash)** (skip if `git --version` already works)
 
 ```powershell
 winget install --id Git.Git -e
 ```
 
-Close and reopen PowerShell, then check `git --version`. (Already installed? Running it again is harmless. No `winget`? Get Git from [git-scm.com](https://git-scm.com/download/win).)
+No `winget`? Get Git from [git-scm.com](https://git-scm.com/download/win) instead.
 
-**Step 2 · Install Node.js** (Codex needs it) — already works (`node --version`)? Skip this step.
+> [!IMPORTANT]
+> ⚠️ **Close PowerShell completely and open a new one.** Then check that it worked:
+
+```powershell
+git --version
+```
+
+**Step 2 · Install Node.js (Codex needs it)** (skip if `node --version` already works)
 
 ```powershell
 winget install --id OpenJS.NodeJS.LTS -e
 ```
 
-Close and reopen PowerShell, then check `node --version`.
+> [!IMPORTANT]
+> ⚠️ **Close PowerShell completely and open a new one.** Then check that it worked:
 
-**Step 3 · Install Codex** — already works (`codex --version`)? Skip this step.
+```powershell
+node --version
+```
+
+**Step 3 · Install Codex** (skip if `codex --version` already works)
 
 ```powershell
 npm install -g @openai/codex
 ```
 
-**Step 4 · Sign in** — close and reopen PowerShell, check `codex --version`, then run `codex` once to sign in. Quit when you're in.
+> [!IMPORTANT]
+> ⚠️ **Close PowerShell completely and open a new one.** Then check that it worked:
 
-**Step 5 · Install Alfred and open a workspace**
+```powershell
+codex --version
+```
+
+**Step 4 · Sign in**
+
+This opens Codex. Follow the sign-in prompts in the terminal.
+
+```powershell
+codex
+```
+
+Once you're signed in, quit:
+
+```
+/quit
+```
+
+**Step 5 · Install Alfred**
 
 ```powershell
 codex plugin marketplace add ungbin-oh/alfred
 codex plugin add alfred-codex@alfred
 codex features enable default_mode_request_user_input
+```
+
+The `features enable` line is needed only once — it turns on question windows for good.
+
+**Step 6 · Make a workspace folder and open Codex there**
+
+```powershell
 mkdir ~\ALFRED
 cd ~\ALFRED
 codex
 ```
 
-The `features enable` line is needed only once — it turns on question windows for good.
+> [!IMPORTANT]
+> ⚠️ On this first start Codex asks you to **review and trust the plugin's hooks. Trust them.** Until you do, Alfred isn't loaded.
 
-**Step 6 · Set up the workspace** — trust the hooks when asked, then type `$alfred-init`. When it finishes, quit and run `codex` again. ✅ Done
+**Step 7 · Set up the workspace**
+
+Type this inside the session:
+
+```
+$alfred-init
+```
+
+> [!IMPORTANT]
+> ⚠️ **Alfred now asks you several setup questions** — language, your name, how to address you, folders. **Answer every one.** Setup is finished only when Alfred says so.
+
+**Step 8 · Restart Codex in the same folder**
+
+Nothing in Alfred works until this restart. Quit, then open Codex again:
+
+```
+/quit
+```
+
+```powershell
+codex
+```
+
+**Step 9 · Turn on guide mode (recommended for your first days)**
+
+A short tour of how Alfred works, then a usage tip now and then. Type this inside the session:
+
+```
+$guide-mode on
+```
+
+`$guide-mode off` turns it off whenever you like.
+
+✅ **Done.** Alfred is running — start by telling it about a project you're working on.
 
 **If a step gets stuck**
-- "running scripts is disabled on this system" (npm or codex): `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`, then try again
-- `git` still not found after reopening: Git is installed but not in PATH — add its `cmd` folder (e.g. `C:\Program Files\Git\cmd`) to your user PATH the same way, then reopen
+- "running scripts is disabled on this system" (npm or codex): run this, then try again
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
+
+- `git` still not found after reopening: Git is installed but not in PATH — add its `cmd` folder (e.g. `C:\Program Files\Git\cmd`) to your user PATH, then reopen PowerShell
 
 </details>
 
