@@ -1,44 +1,32 @@
-<p align="center">
-  <img src="https://em-content.zobj.net/source/apple/391/top-hat_1f3a9.png" width="110" />
-</p>
-
-<h1 align="center">Alfred</h1>
+<p align="center"><img src="docs/images/banner.png" width="880" alt="Alfred. You make the calls. I keep things in order."></p>
 
 <p align="center">
-  <strong>You make the calls. I keep things in order.</strong>
-</p>
-
-<p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat" alt="License"></a>
-  <img src="https://img.shields.io/badge/Claude%20Code-plugin-D97757?style=flat" alt="Claude Code plugin">
-  <img src="https://img.shields.io/badge/Codex-plugin-10A37F?style=flat" alt="Codex plugin">
-  <a href="https://github.com/ungbin-oh/alfred/stargazers"><img src="https://img.shields.io/github/stars/ungbin-oh/alfred?style=flat&color=yellow" alt="Stars"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-14202E?style=flat-square" alt="License"></a>
+  <img src="https://img.shields.io/badge/Claude%20Code-plugin-14202E?style=flat-square" alt="Claude Code plugin">
+  <img src="https://img.shields.io/badge/Codex-plugin-14202E?style=flat-square" alt="Codex plugin">
+  <a href="https://github.com/ungbin-oh/alfred/stargazers"><img src="https://img.shields.io/github/stars/ungbin-oh/alfred?style=flat-square&color=B8893B" alt="Stars"></a>
 </p>
 
 <p align="center">
-  <a href="#install">Install</a> •
-  <a href="#updating">Updating</a> •
-  <a href="#what-i-provide">What I provide</a> •
-  <a href="#how-i-work">How I work</a> •
-  <a href="#things-you-can-say">Things you can say</a> •
-  <a href="#update-history">Update history</a> •
-  <a href="README_kr.md">한국어</a>
+  <a href="#install">Install</a> &nbsp;&nbsp; <a href="#updating">Updating</a> &nbsp;&nbsp; <a href="#what-i-provide">What I provide</a> &nbsp;&nbsp; <a href="#how-i-work">How I work</a> &nbsp;&nbsp; <a href="#things-you-can-say">Things you can say</a> &nbsp;&nbsp; <a href="#update-history">Update history</a> &nbsp;&nbsp; <a href="README_kr.md">한국어</a>
 </p>
 
 written by Ungbin_Oh · created 2026-09-27 · updated 2026-10-17
 
----
+Juggling several projects at once? Alfred keeps each one on track: what you did, what you decided, and **why**.
+Switch freely and pick up exactly where you left off.
 
-### Record everything. Track everything. Lose nothing.
+- **Open a session, see every project.** Status, last touched and what's next, in one table
+- **Every decision keeps its reason.** Written down as you work, not pieced together later
+- **You decide, Alfred keeps order.** No unasked suggestions, and nothing runs without your OK
 
-Juggling five projects at once? Alfred keeps every one of them on track —
-what you did, what you decided, and **why** — so you can switch freely and pick up exactly where you left off.
+## What it looks like
 
-- 🎩 **Open a session, see every project** — status, last touched, what's next, in one table
-- 📝 **Every decision, with its reason** — written down as you work, not reconstructed later
-- 🧭 **You decide. Alfred organizes.** — no unasked suggestions, nothing runs without your OK
+<p align="center"><img src="docs/images/before-after.png" width="880" alt="Left: a new Claude Code session without Alfred, where the assistant has no notes and the user can't remember last week's decisions. Right: the same session with Alfred, opening with a status briefing: one table per folder with status, days idle and next action, a neglected project flagged, yesterday's summary and the unchecked items from yesterday's lists."></p>
 
-Your multitasking, finally under control.
+<p align="center"><img src="docs/images/decision-window.png" width="880" alt="Left: how records narrow, from trace (everything as it happens) to log.md (what was decided and why) to decision.md (the few calls that set direction). Right: a decision.md opened in Obsidian with the starting point and one judgment."></p>
+
+<sub>Screens use a made-up example workspace.</sub>
 
 ## Install
 
@@ -49,7 +37,7 @@ Before you start, have **Claude Code or Codex installed and signed in** (Windows
 Using both Claude Code and Codex? Do the Claude Code case, then the Codex case.
 
 <details>
-<summary>🍎 <strong>macOS · Claude Code</strong></summary>
+<summary><strong>macOS, Claude Code</strong></summary>
 
 Terminal: **Terminal** (zsh)
 
@@ -106,7 +94,7 @@ A short tour of how Alfred works, then a usage tip now and then. Type this insid
 </details>
 
 <details>
-<summary>🍎 <strong>macOS · Codex</strong></summary>
+<summary><strong>macOS, Codex</strong></summary>
 
 Terminal: **Terminal** (zsh)
 
@@ -169,7 +157,7 @@ $guide-mode on
 </details>
 
 <details>
-<summary>🪟 <strong>Windows · Claude Code</strong></summary>
+<summary><strong>Windows, Claude Code</strong></summary>
 
 Terminal: **PowerShell**
 
@@ -233,7 +221,7 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 </details>
 
 <details>
-<summary>🪟 <strong>Windows · Codex</strong></summary>
+<summary><strong>Windows, Codex</strong></summary>
 
 Terminal: **PowerShell**
 
@@ -322,22 +310,29 @@ Your logs and settings stay as they are. When an update needs a change in your o
 
 ## What I provide
 
-| What | What it does |
+### Records
+
+| File | What it holds |
 |---|---|
-| **Boot briefing** | When you open a session, a table of projects per category — status · last updated · days idle · next action. Active projects idle over 14 days are flagged 🔴 neglected (display only) |
-| **Decision log** `log.md` | Not results, but **"why it was decided that way at the time"**. Each entry records who decided (you / me) |
-| **Work ledger** `trace/` | Commands, raw errors, hypotheses and why they were ruled out — written down as you work. When you save, I distill it into the log |
-| **Decision record** `decision.md` | Only the judgments that set a project's direction — situation, trigger, your thoughts in your words, what you decided, and how it measures against the goal. I interview you to write it, so you can see whether you've strayed from where you started |
-| **Parked** `open.md` | Things you're curious about or want to do, but won't start right now — kept so they don't get lost. When you take one up or drop it, it's recorded in the log and listed in the file's Closed table |
-| **Incubator** `project-logs/Incubator/` | A place for questions, study notes and stray thoughts that don't belong to any current project. When one turns into real work, launch it as a sub-project there; once it grows, move it to its category |
-| **Archive** `Archive/` | Finished things you want to keep — outputs and records — out of the briefing's way. Moved only when you say so |
-| **Daily notes** `daily/` | The story of each day and stray thoughts. Say "let's wrap up the day" and I write a timeline from the trace |
-| **Question windows** | For short choices I use a multiple-choice window instead of text, so one answer stays per question. Long drafts I confirm with you in chat |
+| `trace/` | Everything as it happens: commands, raw errors, hypotheses and why they were ruled out. I write it while we work |
+| `log.md` | What was decided and **why**, distilled from the trace when you say save. Each entry notes who decided (you or me) |
+| `decision.md` | Only the judgments that set a project's direction, in your words, measured against the goal you started with. I interview you to write it |
+| `open.md` | Things you want to do but won't start yet. Taking one up or dropping it goes into the log |
+| `project-logs/Incubator/` | Questions, study notes and stray thoughts that belong to no project yet. Ideas grow into sub-projects here |
+| `daily/` | The story of each day. Say "let's wrap up the day" and I write its timeline from the trace |
+| `Archive/` | Finished work you want to keep, out of the briefing's way. Moved only when you say so |
+
+### In the session
+
+| | What it does |
+|---|---|
+| **Boot briefing** | One table of projects per folder when you open a session: status, last updated, days idle, next action. Active projects idle for 14 days are flagged 🔴 neglected (display only) |
+| **Question windows** | Short choices come as a multiple-choice window, so every question gets one answer. Long drafts are confirmed in chat |
 | **Two languages** | English or Korean, chosen at `/alfred-init`. One rulebook either way |
+| `[ALFRED]` badge | Shows in the statusline inside an Alfred workspace only |
 | `/alfred-init` | Sets up the workspace. Every file it creates is yours |
-| `/manual-mode lite\|medium\|full` | Manual mode that ties my hands — you type the commands and code yourself |
-| `/guide-mode on\|off` | For your first days: a short tour of how I work, then one usage tip now and then (`$guide-mode` in Codex) |
-| `[ALFRED]` badge | Shows in the statusline only inside an Alfred workspace |
+| `/manual-mode lite\|medium\|full` | Ties my hands: you type the commands and code yourself |
+| `/guide-mode on\|off` | A short tour for your first days, then a usage tip now and then (`$guide-mode` in Codex) |
 
 ## How I work
 
@@ -402,6 +397,12 @@ Both plugins share one version number. Every change is in [CHANGELOG.md](CHANGEL
 | 0.4.4 | 2026-10-17 | Shorter setup: `/alfred-init` asks only language, then your name and how to address you; the rest takes defaults you can change later by asking |
 | 0.4.3 | 2026-10-10 | Claude Code: sessions opened on the same day are named `YYYY-MM-DD #1`, `#2` … (count in `.alfred/session-count`) |
 | 0.4.2 | 2026-10-10 | Workspace changes are offered, never made: changelog items tagged `[Workspace]` are asked one by one after an update (apply / skip); a stale statusline badge copy in `~/.claude` is offered a fresh copy |
+
+<details>
+<summary>Older versions</summary>
+
+| Version | Date | What changed |
+|---|---|---|
 | 0.4.1 | 2026-10-10 | Your edits to `.alfred/rules.md` are no longer overwritten: the plugin keeps a hash of what it last wrote (`.alfred/rules.sha`), notices a changed file and asks — move the edits into `CLAUDE.md` or keep the file as your own (`.alfred/rules.local`) |
 | 0.4.0 | 2026-10-10 | Version notices at session start: "Alfred was updated X → Y" once, in the first session on a new version (the marker's `version:` line is kept current); "a newer Alfred is available" with the update commands whenever GitHub has a newer one |
 | 0.3.5 | 2026-10-06 | Guide mode: the tour ends with the Incubator recommendation — no question window after it |
@@ -416,5 +417,7 @@ Both plugins share one version number. Every change is in [CHANGELOG.md](CHANGEL
 | 0.2.0 | 2026-10-06 | Windows (Codex): hooks run through Git Bash; Git for Windows is required on Windows; question windows are turned on once at setup |
 | 0.1.10 – 0.1.11 | 2026-10-06 | Bug fixes: hooks no longer hang on Windows outside a workspace; Codex question windows |
 | 0.1.5 – 0.1.9 | 2026-10-05 | Plainer rules, Codex plugin and repo split, `alfred-init` fixes |
+
+</details>
 
 **Status: v0.3.5** — tested on macOS and Windows 11, in Claude Code and Codex (up to 0.2.3). Incubator (0.3.0) and guide mode (0.3.1) not yet tried in a real session. Linux not yet tested.

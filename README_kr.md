@@ -1,44 +1,32 @@
-<p align="center">
-  <img src="https://em-content.zobj.net/source/apple/391/top-hat_1f3a9.png" width="110" />
-</p>
-
-<h1 align="center">Alfred</h1>
+<p align="center"><img src="docs/images/banner-ko.png" width="880" alt="Alfred. 판단은 주인님께, 정리는 제게."></p>
 
 <p align="center">
-  <strong>판단은 주인님께, 정리는 제게.</strong>
-</p>
-
-<p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat" alt="License"></a>
-  <img src="https://img.shields.io/badge/Claude%20Code-plugin-D97757?style=flat" alt="Claude Code plugin">
-  <img src="https://img.shields.io/badge/Codex-plugin-10A37F?style=flat" alt="Codex plugin">
-  <a href="https://github.com/ungbin-oh/alfred/stargazers"><img src="https://img.shields.io/github/stars/ungbin-oh/alfred?style=flat&color=yellow" alt="Stars"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-14202E?style=flat-square" alt="License"></a>
+  <img src="https://img.shields.io/badge/Claude%20Code-plugin-14202E?style=flat-square" alt="Claude Code plugin">
+  <img src="https://img.shields.io/badge/Codex-plugin-14202E?style=flat-square" alt="Codex plugin">
+  <a href="https://github.com/ungbin-oh/alfred/stargazers"><img src="https://img.shields.io/github/stars/ungbin-oh/alfred?style=flat-square&color=B8893B" alt="Stars"></a>
 </p>
 
 <p align="center">
-  <a href="#설치">설치</a> •
-  <a href="#새-버전을-받으시려면">새 버전 받기</a> •
-  <a href="#제가-드리는-것">제가 드리는 것</a> •
-  <a href="#일하는-방식">일하는 방식</a> •
-  <a href="#자주-쓰시는-말씀">자주 쓰시는 말씀</a> •
-  <a href="#업데이트-히스토리">업데이트 히스토리</a> •
-  <a href="README.md">English</a>
+  <a href="#설치">설치</a> &nbsp;&nbsp; <a href="#새-버전을-받으시려면">새 버전 받기</a> &nbsp;&nbsp; <a href="#제가-드리는-것">제가 드리는 것</a> &nbsp;&nbsp; <a href="#일하는-방식">일하는 방식</a> &nbsp;&nbsp; <a href="#자주-쓰시는-말씀">자주 쓰시는 말씀</a> &nbsp;&nbsp; <a href="#업데이트-히스토리">업데이트 히스토리</a> &nbsp;&nbsp; <a href="README.md">English</a>
 </p>
 
 written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-17
 
----
+프로젝트 여럿을 동시에 굴리고 계신가요? Alfred 가 하나하나 붙잡아 둡니다. 무엇을 했고, 무엇을 정했고, **왜** 그렇게 정했는지.
+언제 돌아오셔도 멈춘 그 자리에서 이어 가실 수 있습니다.
 
-### 당신의 모든 일을 기록하고, 추적하세요.
+- **세션을 열면 모든 프로젝트가 한눈에.** 상태, 마지막 작업, 다음 할 일을 표 하나로
+- **모든 결정에 이유가 남습니다.** 나중에 떠올려 적는 게 아니라 일하는 그 순간에
+- **결정은 주인님이, 정리는 Alfred 가.** 묻지 않은 제안은 없고, 허락 없이는 아무것도 실행하지 않습니다
 
-프로젝트 다섯 개를 동시에 굴리고 계신가요? Alfred 가 하나하나 놓치지 않고 붙잡아 둡니다.
-무엇을 했고, 무엇을 정했고, **왜** 그렇게 정했는지 — 언제 돌아와도 멈춘 그 자리에서 바로 이어 가세요.
+## 실제로 쓰는 모습
 
-- 🎩 **세션을 열면 모든 프로젝트가 한눈에** — 상태 · 마지막 작업 · 다음 할 일을 표 하나로
-- 📝 **모든 결정을, 그 이유와 함께** — 나중에 떠올리는 게 아니라 일하는 그 순간에 기록
-- 🧭 **결정은 당신이, 정리는 Alfred 가** — 묻지 않은 제안 없이, 허락 없이는 아무것도 실행하지 않습니다
+<p align="center"><img src="docs/images/before-after.png" width="880" alt="왼쪽: Alfred 없이 연 새 세션. 비서는 지난 기록이 없고 사용자도 지난주 결정을 기억하지 못한다. 오른쪽: 같은 세션을 Alfred 와 열면 현황 브리핑이 먼저 나온다. 폴더마다 상태 · 방치 일수 · 다음 할 일 표, 방치된 프로젝트 표시, 어제 요약과 어제 목록에서 체크 안 된 항목."></p>
 
-멀티태스킹을 도와, 당신이 일하는 방식을 완전히 바꿔 드리겠습니다.
+<p align="center"><img src="docs/images/decision-window.png" width="880" alt="왼쪽: 기록이 trace(일어난 그대로 전부) → log.md(무엇을 왜 정했나) → decision.md(방향을 정한 몇 안 되는 판단)로 좁아지는 흐름. 오른쪽: 옵시디언에서 연 decision.md, 출발점과 판단 하나."></p>
+
+<sub>화면은 지어낸 예시 워크스페이스입니다 (영어 설정).</sub>
 
 ## 설치
 
@@ -49,7 +37,7 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-17
 Claude Code 와 Codex 를 둘 다 쓰시면, Claude Code 경우를 마치신 뒤 Codex 경우를 이어서 하십시오.
 
 <details>
-<summary>🍎 <strong>macOS · Claude Code</strong></summary>
+<summary><strong>macOS, Claude Code</strong></summary>
 
 터미널: **터미널** (zsh)
 
@@ -106,7 +94,7 @@ claude
 </details>
 
 <details>
-<summary>🍎 <strong>macOS · Codex</strong></summary>
+<summary><strong>macOS, Codex</strong></summary>
 
 터미널: **터미널** (zsh)
 
@@ -169,7 +157,7 @@ $guide-mode on
 </details>
 
 <details>
-<summary>🪟 <strong>Windows · Claude Code</strong></summary>
+<summary><strong>Windows, Claude Code</strong></summary>
 
 터미널: **PowerShell**
 
@@ -233,7 +221,7 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 </details>
 
 <details>
-<summary>🪟 <strong>Windows · Codex</strong></summary>
+<summary><strong>Windows, Codex</strong></summary>
 
 터미널: **PowerShell**
 
@@ -322,22 +310,29 @@ codex plugin add alfred-codex@alfred
 
 ## 제가 드리는 것
 
-| 무엇 | 하는 일 |
+### 기록
+
+| 파일 | 담는 것 |
 |---|---|
-| **부팅 브리핑** | 세션을 여시면 카테고리별 프로젝트 표 — 상태 · 마지막 갱신 · 방치 일수 · 다음 할 일. 14일 넘게 손대지 않은 active 프로젝트는 🔴 neglected 로 표시만 합니다 |
-| **결정 로그** `log.md` | 결과보다 **"그때 왜 그렇게 판단했는가"**. 판단 주체(주인님 / 저)를 항목마다 적습니다 |
-| **작업 원장** `trace/` | 명령 · 에러 원문 · 가설과 배제 근거를 작업 도중 제가 바로 적습니다. 저장하실 때 이것을 추려 log 로 올립니다 |
-| **판단 문서** `decision.md` | 프로젝트의 방향을 정한 판단만 — 이전 상황 · 계기 · 주인님 말씀 그대로의 생각 · 정하신 방향 · 목적과의 비교. 제가 여쭈어 받아 적습니다. 처음 목적에서 벗어나지 않았는지 스스로 보실 수 있게 |
-| **열어둔 것** `open.md` | 지금 궁금하거나 하고 싶지만 아직 시작하지 않으실 것 — 잊히지 않게 담아 둡니다. 시작하시거나 접으시면 log 에 기록하고 파일 위쪽 '닫힌 것' 표로 옮깁니다 |
-| **인큐베이터** `project-logs/Incubator/` | 지금 어느 프로젝트에도 속하지 않는 질문 · 공부 · 잡생각을 두는 곳. 실제로 하게 되면 그 아래 하위 프로젝트로 띄우고, 자라면 카테고리로 옮깁니다 |
-| **보관함** `Archive/` | 끝났지만 버리지 않을 산출물과 기록을 브리핑 밖으로. 말씀하실 때만 옮깁니다 |
-| **일기** `daily/` | 날짜별 서사와 잡생각. "하루를 정리하자" 하시면 trace 로 타임라인을 씁니다 |
-| **질문 창** | 짧게 고르실 것은 텍스트 대신 객관식 질문 창으로 여쭙니다. 답이 질문마다 하나씩 남습니다. 긴 초안은 채팅으로 확인받습니다 |
-| **두 언어** | `/alfred-init` 에서 English 또는 한국어를 고르십니다. 규약은 어느 쪽이든 한 벌입니다 |
-| `/alfred-init` | 워크스페이스를 차립니다. 만들어지는 파일은 전부 주인님 것입니다 |
-| `/manual-mode lite\|medium\|full` | 제 손을 묶는 수동 모드 — 명령 · 코드를 주인님께서 직접 치십니다 |
-| `/guide-mode on\|off` | 처음 쓰실 때: 제가 일하는 방식을 짧게 소개하고, 그 뒤로 가끔 사용법 팁을 하나씩 드립니다 (Codex 는 `$guide-mode`) |
+| `trace/` | 일어난 그대로 전부: 명령, 에러 원문, 가설과 배제 근거. 작업하는 동안 제가 적습니다 |
+| `log.md` | 무엇을 정했고 **왜** 그랬는지. 저장하실 때 trace 에서 추려 올립니다. 판단 주체(주인님 / 저)를 항목마다 적습니다 |
+| `decision.md` | 프로젝트의 방향을 정한 판단만, 주인님 말씀 그대로, 처음 목표와 비교해서. 제가 여쭈어 받아 적습니다 |
+| `open.md` | 하고 싶지만 아직 시작하지 않으실 것. 시작하시거나 접으시면 log 에 남깁니다 |
+| `project-logs/Incubator/` | 아직 어느 프로젝트에도 속하지 않는 질문 · 공부 · 잡생각. 아이디어가 여기서 하위 프로젝트로 자랍니다 |
+| `daily/` | 날마다의 이야기. "하루를 정리하자" 하시면 trace 로 그날 타임라인을 씁니다 |
+| `Archive/` | 끝났지만 버리지 않을 것을 브리핑 밖으로. 말씀하실 때만 옮깁니다 |
+
+### 세션에서
+
+| | 하는 일 |
+|---|---|
+| **부팅 브리핑** | 세션을 여시면 폴더마다 프로젝트 표: 상태, 마지막 갱신, 방치 일수, 다음 할 일. 14일 넘게 손대지 않은 active 프로젝트는 🔴 neglected 로 표시만 합니다 |
+| **질문 창** | 짧게 고르실 것은 객관식 질문 창으로 여쭙니다. 질문마다 답이 하나씩 남습니다. 긴 초안은 채팅으로 확인받습니다 |
+| **두 언어** | `/alfred-init` 에서 English 또는 한국어. 규약은 어느 쪽이든 한 벌입니다 |
 | `[ALFRED]` 배지 | Alfred 워크스페이스에서만 상태줄에 뜹니다 |
+| `/alfred-init` | 워크스페이스를 차립니다. 만들어지는 파일은 전부 주인님 것입니다 |
+| `/manual-mode lite\|medium\|full` | 제 손을 묶습니다: 명령과 코드를 주인님께서 직접 치십니다 |
+| `/guide-mode on\|off` | 처음 며칠은 짧은 소개, 그 뒤로 가끔 사용법 팁 하나 (Codex 는 `$guide-mode`) |
 
 ## 일하는 방식
 
@@ -402,6 +397,12 @@ codex plugin remove alfred-codex@alfred    # Codex
 | 0.4.4 | 2026-10-17 | 셋업이 짧아짐: `/alfred-init` 이 언어, 이름 · 호칭만 묻고 나머지는 기본값 (나중에 말하면 바꿈) |
 | 0.4.3 | 2026-10-10 | Claude Code: 같은 날 연 세션에 `YYYY-MM-DD #1`, `#2` … 로 번호가 붙습니다 (`.alfred/session-count` 로 셉니다) |
 | 0.4.2 | 2026-10-10 | 워크스페이스 변경은 제안만: 업데이트 내역에 `[Workspace]` 가 붙은 항목은 업데이트 뒤 하나씩 여쭙습니다 (적용 / 건너뜀). `~/.claude` 의 상태줄 배지 복사본이 오래되면 새 복사본을 제안합니다 |
+
+<details>
+<summary>이전 버전</summary>
+
+| 버전 | 날짜 | 바뀐 것 |
+|---|---|---|
 | 0.4.1 | 2026-10-10 | `.alfred/rules.md` 를 고치셔도 더 이상 덮어쓰지 않습니다: 플러그인이 마지막에 쓴 내용의 해시(`.alfred/rules.sha`)를 두고, 달라진 파일을 알아채면 여쭙니다 — 고친 것을 `CLAUDE.md` 로 옮기거나, 파일을 주인님 것으로 두거나(`.alfred/rules.local`) |
 | 0.4.0 | 2026-10-10 | 세션 시작 버전 알림: 새 판의 첫 세션에 "Alfred 가 X → Y 로 바뀌었습니다" 한 번 (마커의 `version:` 줄을 최신으로 맞춤), GitHub 에 더 새 판이 있으면 "업데이트가 있습니다" 와 업데이트 명령 |
 | 0.3.5 | 2026-10-06 | 가이드 모드: 소개를 Incubator 추천 줄로 끝냅니다 — 뒤에 질문 창 없음 |
@@ -416,5 +417,7 @@ codex plugin remove alfred-codex@alfred    # Codex
 | 0.2.0 | 2026-10-06 | Windows (Codex): 훅을 Git Bash 로 돌립니다. Windows 에서는 Git for Windows 가 필요하고, 질문 창은 셋업 때 한 번 켭니다 |
 | 0.1.10 – 0.1.11 | 2026-10-06 | 버그 수정: Windows 에서 워크스페이스 밖 훅 멈춤, Codex 질문 창 |
 | 0.1.5 – 0.1.9 | 2026-10-05 | 규약 문장 정리, Codex 플러그인 · 레포 분리, `alfred-init` 수정 |
+
+</details>
 
 **상태: v0.3.5** — macOS · Windows 11 의 Claude Code · Codex 에서 시험했습니다 (0.2.3 까지). 인큐베이터(0.3.0)과 가이드 모드(0.3.1)는 실제 세션에서 아직 써 보지 않았습니다. Linux 는 아직입니다.

@@ -1,0 +1,101 @@
+<!doctype html>
+<!-- written by Ungbin_Oh · project: [AWP] AI-Assistant-Workflow-Publishing · created 2026-10-17 · updated 2026-10-17
+     README hero image. Render with render.sh (headless Chrome, 2x). All project content is made up. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* layout: two unequal panes on cool paper — a small fading "forgotten" chat, a large remembered briefing */
+  :root {
+    --paper: #F5F7FA; --ink: #14202E; --ink-soft: #4A5A6C;
+    --term: #162231; --term-bar: #1D2B3D; --rule: #33445A; --text: #D8E0EA; --dim: #8496AA;
+    --sky: #87D7FF; --brass: #B8893B; --warn: #FF7A7A;
+    --serif: "Newsreader", Georgia, serif;
+    --mono: "JetBrains Mono", "SF Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1600px; height: 720px; }
+  body { background: var(--paper); color: var(--ink); padding: 56px 64px; }
+  .row { display: grid; grid-template-columns: 470px 1fr; gap: 56px; align-items: start; }
+  h2 { font: 600 30px/1.2 var(--serif); letter-spacing: -0.01em; margin-bottom: 8px; }
+  .sub { font: 500 19px/1.45 var(--serif); color: var(--ink-soft); margin-bottom: 22px; max-width: 60ch; }
+  .win { background: var(--term); border-radius: 14px; overflow: hidden; }
+  .after .win { box-shadow: 0 30px 60px -20px rgba(20,32,46,.45), 0 0 0 1px rgba(184,137,59,.55); }
+  .before .win { background: #E6EBF1; box-shadow: none; }
+  .bar { height: 36px; background: var(--term-bar); display: flex; align-items: center; gap: 8px; padding: 0 16px; }
+  .before .bar { background: #DCE2E9; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; background: #3B4C61; }
+  .before .dot { background: #C3CCD6; }
+  .t { margin-left: 10px; font: 13px var(--mono); color: var(--dim); }
+  .before .t { color: #8A97A6; }
+  .body { padding: 22px 28px 26px; font: 15.5px/1.6 var(--mono); color: var(--text); }
+  .before .body { color: #4A5A6C; font-size: 14.5px; }
+  .you { margin: 0 -28px 12px; padding: 6px 28px; background: rgba(255,255,255,.04); color: #F3F6FA; }
+  .before .you { background: rgba(20,32,46,.05); color: #2B3A4B; }
+  .you::before { content: "> "; color: var(--dim); }
+  .ai { margin-bottom: 12px; }
+  .ai::before { content: "● "; }
+  /* the forgetting: older lines fade out */
+  .fade1 { opacity: .28 } .fade2 { opacity: .45 } .fade3 { opacity: .7 }
+  h4 { font: 700 15.5px var(--mono); color: #F3F6FA; margin: 14px 0 8px; }
+  table { border-collapse: collapse; font: 14.5px var(--mono); }
+  th, td { border: 1px solid var(--rule); padding: 5px 12px; text-align: left; white-space: nowrap; }
+  th { color: var(--dim); font-weight: 400; }
+  .warn { color: var(--warn); }
+  .notes { margin-top: 16px; }
+  .notes div { margin: 2px 0; }
+  .notes b { color: #F3F6FA; font-weight: 700; }
+  .status { margin: 18px -28px -26px; padding: 7px 28px; border-top: 1px solid var(--rule); font: 500 14px var(--mono); color: var(--sky); background: #13202E; }
+</style>
+</head>
+<body>
+<div class="row">
+
+  <section class="before">
+    <h2>A new session, without Alfred</h2>
+    <p class="sub">Last week's decisions are gone, and so are the reasons.</p>
+    <div class="win">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="t">claude ~/work</span></div>
+      <div class="body">
+        <div class="you fade1">where did we leave the checkout redesign?</div>
+        <div class="ai fade1">I don't have notes from earlier sessions. What was decided?</div>
+        <div class="you fade2">one screen or three? why did we drop billing?</div>
+        <div class="ai fade3">We can work it out again. What did the funnel show?</div>
+        <div class="you">I don't remember.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="after">
+    <h2>The same session, with Alfred</h2>
+    <p class="sub">Every project is where you left it, reasons included.</p>
+    <div class="win">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="t">claude ~/ALFRED</span></div>
+      <div class="body">
+        <div class="you">Hi Alfred!</div>
+        <div class="ai">Good afternoon, sir. Here is where things stand.</div>
+        <h4>Work, done: 1</h4>
+        <table>
+          <tr><th>project</th><th>status</th><th>days idle</th><th>next_action</th></tr>
+          <tr><td>Checkout-Redesign (CKO)</td><td>active</td><td>1</td><td>Walk the data team through the A/B test plan</td></tr>
+        </table>
+        <h4>Research</h4>
+        <table>
+          <tr><th>project</th><th>status</th><th>days idle</th><th>next_action</th></tr>
+          <tr><td>Coffee-Extraction-Study (CES)</td><td>active</td><td>3</td><td>undecided, see [[open]]</td></tr>
+          <tr><td>Sleep-Tracker-Analysis (SLP)</td><td class="warn">● neglected</td><td>21</td><td>Export the last 90 days from the watch</td></tr>
+        </table>
+        <div class="notes">
+          <div><b>Yesterday:</b> you wrote the A/B test plan and chose two places to stay in Kyoto.</div>
+          <div>- From your Tomorrow list: <b>Book the ryokan for night 2.</b></div>
+          <div>- "Reply to the Arashiyama ryokan" is still unchecked. Did you get to it?</div>
+        </div>
+        <div class="status">[ALFRED]</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
