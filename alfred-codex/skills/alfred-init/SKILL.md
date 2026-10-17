@@ -20,14 +20,14 @@ and meanwhile ask in chat, one question at a time, with the options listed.
 - Wait for the answer before writing anything else; what comes after the question is written after the answer
 
 **Chat gates — the questions Codex won't put in a window.** Codex's own instructions forbid `request_user_input` for permission
-requests and for answers needed before work can go on, and tell it to ask those in chat instead. So three steps are asked in chat,
-never in a window: existing `AGENTS.md` (step 1), the create confirmation (step 3) and git (step 5). For each chat gate:
+requests and for answers needed before work can go on, and tell it to ask those in chat instead. So one step is asked in chat,
+never in a window: existing `AGENTS.md` (step 1). For the chat gate:
 - Write the question as one **bold** line, then one **bold** line saying exactly what to type — not "choose" or "select", since there is
-  no window to choose in. ko: **"아래 입력창에 `생성` · `설정 다시 하기` · `중단` 중 하나를 입력해 주세요."**
-  en: **"Type `create`, `redo settings` or `stop` in the chat box below."**
+  no window to choose in. ko: **"아래 입력창에 `덧붙이기` · `중단` 중 하나를 입력해 주세요."**
+  en: **"Type `append` or `stop` in the chat box below."**
 - End the turn right there. Nothing after the bold lines
-- If the next message isn't one of the answers (or a plain equivalent such as "yes" for create): don't act on it and don't answer it.
-  Say in bold that **setup isn't finished yet** — what is still missing (step 3: nothing has been created yet / step 5: git is not decided yet) —
+- If the next message isn't one of the answers (or a plain equivalent such as "yes" for append): don't act on it and don't answer it.
+  Say in bold that **setup isn't finished yet** — nothing has been created yet —
   that their question can be asked again after setup, and repeat the bold "type …" line. Do this every time until an answer comes
 - "stop" / "cancel" always ends the setup at that point
 
@@ -50,23 +50,20 @@ Put the default in the options and let the user answer freely too.
 **Window 1 — language, alone.** Everything after this is asked in the chosen language.
 - Language: `English` (default) / `한국어`
 
-**Window 2** (up to 3 questions per window in Codex)
+**Window 2 — two questions, nothing more**
 1. User name (used to mark who decided in logs). If `git config user.name` is set, offer it as an option
 2. How the assistant addresses the user (en e.g. "sir", the user's name / ko e.g. "OO님", "주인님")
-3. Assistant name — options: en `Alfred` (default) / `Alf` · ko `Alfred` (default) / `알프레드`. Every question needs at least two options
 
-**Window 3**
-4. Category folders — names and output placement (strict/relaxed)
-   (default: `Work` strict · `Research` strict · `Life` relaxed). `Incubator` is always added on top of these (strict) — don't ask about it;
-   say so in the question text
-5. Whether to turn on the author header, and if so, the name to put in it (off)
+**Everything else takes its default — don't ask:**
+- Assistant name: `Alfred`
+- Category folders: `Work` strict · `Research` strict · `Life` relaxed, plus `Incubator` (strict)
+- Author header: off
+- git: not initialized (run `git init` only when the user asks)
 
-### 3. Show what will be created and confirm
-**Confirm as a chat gate** before creating (see above — Codex won't open a window for this): first a short summary of the settings and
-of what will be created — the file count and the top-level items, two or three lines (e.g. "19 files: AGENTS.md, .alfred/,
-project-logs · project-workspace for Work/Research/Life + Incubator, daily/, Archive/") — then the bold question and the bold "type `create`,
-`redo settings` or `stop`" line (in the chosen language). Don't print the full list unless the user asks for it; if they do, show it and
-repeat the gate.
+The closing message lists these defaults in one line and says any of them can be changed by just asking (step 5).
+
+### 3. What will be created
+No confirmation — create right after step 2. If the user asks to see the full list, show it in chat.
 `<lang>` is `en` or `ko` per step 2.
 ```
 AGENTS.md                              ← templates/<lang>/AGENTS.md with settings filled in
@@ -94,7 +91,7 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` contents:
   ```
   alfred-workspace
-  version: 0.4.3
+  version: 0.4.4
   created: YYYY-MM-DD
   language: en
   ```
@@ -102,10 +99,8 @@ Archive/workspace-archive/.gitkeep
 - Copy templates as-is; don't add author headers (they're the user's files). In `Incubator/log.md`, replace `{{TODAY}}` with today's date
 
 ### 5. Wrap up
-First ask about git, then write the closing message.
-- **Ask whether to use git as a chat gate** (see above): one line that the files were created, then the bold question and the bold
-  "type `use git` or `not now`" line (ko: `git 사용` · `지금은 안 함`). Run `git init` only if the user answers `use git`
-- After the answer, in one closing message. Write the closing message in this order, and put the restart **last**, in bold, on its own line — the user acts on the last thing they read. Nothing else in Alfred works until the restart, guide mode included.
+Don't ask about git. Run `git init` only if the user asks for it later.
+- One closing message. Write it in this order, and put the restart **last**, in bold, on its own line — the user acts on the last thing they read. Nothing else in Alfred works until the restart, guide mode included.
   - Tell them the first project can start with "create a <name> project in <category>"
   - Then introduce Incubator, in the chosen language and with the chosen form of address. Say it in your own words, close to this
     (ko): "아직 무엇을 구상 중이시라면 편하게 말씀해 주세요. Incubator 에서 그 내용을 추적하고 키웠다가, 실제 프로젝트로 띄울 때
@@ -114,6 +109,10 @@ First ask about git, then write the closing message.
     (en): "If you're still shaping an idea, just tell me. Incubator tracks it and lets it grow; when it becomes a real project, you move it
     to the folder you want. Even small questions go into Incubator so no idea slips away. Ideas you won't act on right now — just say so
     and I'll put them in Incubator's open.md. Make good use of open!"
+  - Then one line on the defaults taken in step 2, and that any can be changed by just asking — e.g. (en) "I used the defaults for the rest:
+    assistant name Alfred, folders Work · Research · Life (+ Incubator), author header off, no git. Want any of these changed? Just tell me."
+    (ko) "나머지는 기본값으로 했습니다: 비서 이름 Alfred, 폴더 Work · Research · Life (+ Incubator), 저작 헤더 끔, git 안 함.
+    바꾸고 싶은 게 있으면 말씀만 해 주세요."
   - Then one line for first-timers: **after the restart**, `$guide-mode on` gives a short tour of Alfred and a usage tip now and then (`$guide-mode off` stops it)
   - Last, in bold: they **must restart Codex in this folder now** (quit, then plain `codex`) for the hook to recognize the workspace.
     On the first start Codex asks them to review and trust the plugin's hooks; until they do, the rules are not loaded

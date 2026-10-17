@@ -1,6 +1,6 @@
 # Changelog
 
-written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-10
+written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-17
 
 Newest first. Hashes are commits in this repository. From 0.1.8 on there is one version for the whole repository: both plugins (`alfred` for Claude Code, `alfred-codex` for Codex) carry the same number, and each item is tagged **[Claude]**, **[Codex]** or **[Both]**. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
 
@@ -9,6 +9,16 @@ the assistant offers each such item through the question window and applies it o
 
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
+
+## 0.4.4 — 2026-10-17
+
+**A shorter setup.** Both plugins are now 0.4.4.
+
+- **[Both] `/alfred-init` asks two windows instead of six** — language, then your name and how to address you. Everything else takes
+  its default without asking: assistant name `Alfred`, folders `Work` · `Research` · `Life` (+ `Incubator`), author header off, no git
+  (and, in Claude Code, no statusline badge). The closing message lists these defaults in one line; any of them can be changed later by
+  just asking. The create confirmation is gone — setup creates right after the two windows. Asking about an existing `CLAUDE.md` /
+  `AGENTS.md` and the home-directory check stay as they were
 
 ## 0.4.3 — 2026-10-10
 

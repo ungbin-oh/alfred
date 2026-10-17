@@ -25,7 +25,7 @@
   <a href="README_kr.md">한국어</a>
 </p>
 
-written by Ungbin_Oh · created 2026-09-27 · updated 2026-10-12
+written by Ungbin_Oh · created 2026-09-27 · updated 2026-10-17
 
 ---
 
@@ -77,7 +77,7 @@ Type this inside the session:
 ```
 
 > [!IMPORTANT]
-> ⚠️ **Alfred now asks you several setup questions** — language, your name, how to address you, folders. **Answer every one.** Setup is finished only when Alfred says so.
+> ⚠️ **Alfred now asks two short questions** — your language, then your name and how to address you. **Answer both.** Everything else starts with sensible defaults you can change later by just asking. Setup is finished only when Alfred says so.
 
 **Step 4 · Restart Claude Code in the same folder**
 
@@ -140,7 +140,7 @@ $alfred-init
 ```
 
 > [!IMPORTANT]
-> ⚠️ **Alfred now asks you several setup questions** — language, your name, how to address you, folders. **Answer every one.** Setup is finished only when Alfred says so.
+> ⚠️ **Alfred now asks two short questions** — your language, then your name and how to address you. **Answer both.** Everything else starts with sensible defaults you can change later by just asking. Setup is finished only when Alfred says so.
 
 **Step 4 · Restart Codex in the same folder**
 
@@ -197,7 +197,7 @@ Type this inside the session:
 ```
 
 > [!IMPORTANT]
-> ⚠️ **Alfred now asks you several setup questions** — language, your name, how to address you, folders. **Answer every one.** Setup is finished only when Alfred says so.
+> ⚠️ **Alfred now asks two short questions** — your language, then your name and how to address you. **Answer both.** Everything else starts with sensible defaults you can change later by just asking. Setup is finished only when Alfred says so.
 
 **Step 4 · Restart Claude Code in the same folder**
 
@@ -267,7 +267,7 @@ $alfred-init
 ```
 
 > [!IMPORTANT]
-> ⚠️ **Alfred now asks you several setup questions** — language, your name, how to address you, folders. **Answer every one.** Setup is finished only when Alfred says so.
+> ⚠️ **Alfred now asks two short questions** — your language, then your name and how to address you. **Answer both.** Everything else starts with sensible defaults you can change later by just asking. Setup is finished only when Alfred says so.
 
 **Step 4 · Restart Codex in the same folder**
 
@@ -398,7 +398,8 @@ Both plugins share one version number. Every change is in [CHANGELOG.md](CHANGEL
 
 | Version | Date | What changed |
 |---|---|---|
-| **0.4.3** | 2026-10-10 | Claude Code: sessions opened on the same day are named `YYYY-MM-DD #1`, `#2` … (count in `.alfred/session-count`) |
+| **0.4.4** | 2026-10-17 | Shorter setup: `/alfred-init` asks only language, then your name and how to address you; the rest takes defaults you can change later by asking |
+| 0.4.3 | 2026-10-10 | Claude Code: sessions opened on the same day are named `YYYY-MM-DD #1`, `#2` … (count in `.alfred/session-count`) |
 | 0.4.2 | 2026-10-10 | Workspace changes are offered, never made: changelog items tagged `[Workspace]` are asked one by one after an update (apply / skip); a stale statusline badge copy in `~/.claude` is offered a fresh copy |
 | 0.4.1 | 2026-10-10 | Your edits to `.alfred/rules.md` are no longer overwritten: the plugin keeps a hash of what it last wrote (`.alfred/rules.sha`), notices a changed file and asks — move the edits into `CLAUDE.md` or keep the file as your own (`.alfred/rules.local`) |
 | 0.4.0 | 2026-10-10 | Version notices at session start: "Alfred was updated X → Y" once, in the first session on a new version (the marker's `version:` line is kept current); "a newer Alfred is available" with the update commands whenever GitHub has a newer one |

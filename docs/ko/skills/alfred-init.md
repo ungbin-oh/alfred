@@ -1,6 +1,6 @@
 # alfred-init
 
-written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-06
+written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-17
 
 > **한국어 번역본이다.** 정본은 `alfred-claude/skills/alfred-init/SKILL.md` (영어) 이고 Claude Code 는 이 파일을 읽지 않는다.
 > 정본이 바뀌면 이 파일도 같은 커밋에서 맞춘다.
@@ -31,18 +31,21 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-06
 **창 1 — 언어 하나만.** 이후는 전부 고른 언어로 묻는다.
 - 언어: `English` (기본) / `한국어`
 
-**창 2** (창 하나에 질문 4개까지)
+**창 2 — 질문 둘, 더 묻지 않는다**
 1. 사용자 이름 (로그의 판단 주체 표기에 쓴다). `git config user.name` 이 있으면 그 값을 선택지로 둔다
 2. 비서가 부를 호칭 (영어 예: "sir", 사용자 이름 / 한국어 예: "OO님", "주인님")
-3. 비서 이름 — 선택지: en `Alfred`(기본) / `Alf` · ko `Alfred`(기본) / `알프레드`. 질문마다 선택지는 둘 이상 (하나뿐이면 창이 거절한다)
-4. 카테고리 폴더 — 이름과 산출물 배치 방식(엄격/완화)
-   (기본: `Work` 엄격 · `Research` 엄격 · `Life` 완화). `Incubator` 는 이와 별도로 늘 더한다(엄격) — 묻지 않고, 질문 문장에 그렇다고 적는다
 
-**창 3**
-5. 저작 헤더를 켤지, 켠다면 헤더에 쓸 이름 (끔)
+**나머지는 기본값 — 묻지 않는다:**
+- 비서 이름: `Alfred`
+- 카테고리 폴더: `Work` 엄격 · `Research` 엄격 · `Life` 완화, 그리고 `Incubator` (엄격)
+- 저작 헤더: 끔
+- 상태줄 배지: 없음 (5단계는 나중에 사용자가 원할 때만)
+- git: 안 함 (`git init` 은 나중에 사용자가 원할 때만, 6단계)
 
-### 3. 만들 것 보여 주고 확인받기
-**질문 창으로 확인받고** 만든다 (만들기 / 설정 다시 / 중단). 만들 것의 요약을 **질문 문장 안에** 두세 줄로 넣는다 — 파일 수와 맨 위 항목 (예: "파일 20개: CLAUDE.md, .alfred/, Work · Research · Life + Incubator 의 project-logs · project-workspace, daily/, Archive/"). 창 앞에 전체 목록을 채팅으로 찍지 않고(창이 가린다), 선택지 미리보기에도 넣지 않는다(15줄 안팎만 보인다). 사용자가 전체 목록을 보자고 하면 채팅으로 보여 주고 다시 묻는다.
+마무리 안내에서 이 기본값을 한 줄로 알리고, 말만 하면 바꿀 수 있다고 한다 (6단계).
+
+### 3. 만들 것
+확인 창 없이 2단계 뒤 바로 만든다. 사용자가 전체 목록을 보자고 하면 채팅으로 보여 준다.
 `<lang>` 은 2단계에서 고른 `en` 또는 `ko`.
 ```
 CLAUDE.md                              ← templates/<lang>/CLAUDE.md 에 설정값을 채움
@@ -71,7 +74,7 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` 내용:
   ```
   alfred-workspace
-  version: 0.4.3
+  version: 0.4.4
   created: YYYY-MM-DD
   language: en
   ```
@@ -80,9 +83,9 @@ Archive/workspace-archive/.gitkeep
 - 공통 규약 복사: `bash "<이 스킬 폴더>/../../hooks/sync-rules.sh" "<워크스페이스 루트>"`. `created` 가 찍힌다.
   `CLAUDE.md` 에 `@.alfred/rules.md` 가 한 줄로 들어 있는지 확인한다. `.alfred/rules.md` 는 고치지 않는다 — 플러그인이 덮어쓴다
 
-### 5. 상태줄 배지 (선택)
-Alfred 워크스페이스에서 상태줄에 하늘색 `[ALFRED]` 배지를 띄운다. **전역 설정(`~/.claude/settings.json`)을 고치는 일이라
-질문 창으로 먼저 묻는다.** 기존 `statusLine` 이 있는지 읽어 보고 선택지를 고른다:
+### 5. 상태줄 배지 (셋업 중이든 뒤든 사용자가 원할 때만)
+Alfred 워크스페이스에서 상태줄에 하늘색 `[ALFRED]` 배지를 띄운다. 기본 셋업에는 들어가지 않는다.
+**전역 설정(`~/.claude/settings.json`)을 고치는 일이라 사용자가 원하면 질문 창으로 먼저 확인받는다.** 기존 `statusLine` 이 있는지 읽어 보고 선택지를 고른다:
 - 기존 `statusLine` 이 없으면: 켜기 / 건너뛰기
 - 있으면: 같이 띄우기(기존 것 옆에 붙임) / Alfred 로 바꾸기 / 건너뛰기
 
@@ -102,9 +105,11 @@ Alfred 워크스페이스에서 상태줄에 하늘색 `[ALFRED]` 배지를 띄�
   Incubator 에서 그 내용을 추적하고 키웠다가, 실제 프로젝트로 띄울 때 원하시는 디렉토리로 옮기시면 됩니다. Incubator 에는 간단한 궁금증도 기록해
   아이디어가 날아가지 않게 해 드립니다. 떠오른 아이디어 중 지금 당장 하지 않으실 것은 말씀만 해 주시면 Incubator open 에 적어 두겠습니다.
   open 을 적극적으로 써 보세요!"
+- 이어서 2단계의 기본값을 한 줄로 알리고, 말만 하면 바꿀 수 있다고 한다 — 예: "나머지는 기본값으로 했습니다: 비서 이름 Alfred,
+  폴더 Work · Research · Life (+ Incubator), 저작 헤더 끔, 상태줄 배지 없음, git 안 함. 바꾸고 싶은 게 있으면 말씀만 해 주세요."
 - 이어서 처음 쓰는 사람에게 한 줄: **다시 시작한 뒤** `/guide-mode on` 을 치면 Alfred 를 짧게 소개하고 쓰는 동안 가끔 사용법 팁을 준다 (`/guide-mode off` 로 끔)
 - 맨 끝에 굵게: **지금 이 폴더에서 Claude Code 를 다시 시작해야** (나갔다가 `claude`) 훅이 워크스페이스를 알아본다
-- git 을 쓸지는 질문 창으로 묻기만 한다 (쓴다 / 나중에). `git init` 은 사용자가 하겠다고 할 때만 실행한다
+- git 은 묻지 않는다. `git init` 은 나중에 사용자가 원할 때만 실행한다
 
 ## 새 프로젝트를 만들 때 (init 이후, 사용자가 요청하면)
 `project-logs/<카테고리>/<프로젝트>/log.md` 를 공통 규약 7절의 frontmatter 와 상단 구성(목표 · 전제 · 왜 지금 이 방식인가)으로 만든다.

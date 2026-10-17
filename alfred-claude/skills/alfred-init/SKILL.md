@@ -29,19 +29,21 @@ Put the default in the options and take free input through the "Other" the windo
 **Window 1 — language, alone.** Everything after this is asked in the chosen language.
 - Language: `English` (default) / `한국어`
 
-**Window 2** (up to 4 questions per window)
+**Window 2 — two questions, nothing more**
 1. User name (used to mark who decided in logs). If `git config user.name` is set, offer it as an option
 2. How the assistant addresses the user (en e.g. "sir", the user's name / ko e.g. "OO님", "주인님")
-3. Assistant name — options: en `Alfred` (default) / `Alf` · ko `Alfred` (default) / `알프레드`. Every question needs at least two options (the window rejects a question with one)
-4. Category folders — names and output placement (strict/relaxed)
-   (default: `Work` strict · `Research` strict · `Life` relaxed). `Incubator` is always added on top of these (strict) — don't ask about it;
-   say so in the question text
 
-**Window 3**
-5. Whether to turn on the author header, and if so, the name to put in it (off)
+**Everything else takes its default — don't ask:**
+- Assistant name: `Alfred`
+- Category folders: `Work` strict · `Research` strict · `Life` relaxed, plus `Incubator` (strict)
+- Author header: off
+- Statusline badge: off (step 5 runs only when the user asks for it later)
+- git: not initialized (step 6 runs `git init` only when the user asks)
 
-### 3. Show what will be created and confirm
-**Confirm through the question window** before creating (create / redo settings / stop). Put a short summary of what will be created **in the question text itself** — the file count and the top-level items, two or three lines (e.g. "20 files: CLAUDE.md, .alfred/, project-logs · project-workspace for Work/Research/Life + Incubator, daily/, Archive/"). Don't print the full list in chat before the window (the window covers it) and don't put it in an option preview (only about 15 lines show). If the user asks to see the full list, show it in chat and ask again.
+The closing message lists these defaults in one line and says any of them can be changed by just asking (step 6).
+
+### 3. What will be created
+No confirmation window — create right after step 2. If the user asks to see the full list, show it in chat.
 `<lang>` is `en` or `ko` per step 2.
 ```
 CLAUDE.md                              ← templates/<lang>/CLAUDE.md with settings filled in
@@ -70,7 +72,7 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` contents:
   ```
   alfred-workspace
-  version: 0.4.3
+  version: 0.4.4
   created: YYYY-MM-DD
   language: en
   ```
@@ -79,9 +81,10 @@ Archive/workspace-archive/.gitkeep
 - Copy the common rules: `bash "<this skill dir>/../../hooks/sync-rules.sh" "<workspace root>"`. It prints `created`.
   Check that `CLAUDE.md` has the line `@.alfred/rules.md` on its own line. Don't edit `.alfred/rules.md` — the plugin overwrites it
 
-### 5. Statusline badge (optional)
-Shows a sky-blue `[ALFRED]` badge in the statusline inside Alfred workspaces. **This edits global settings (`~/.claude/settings.json`),
-so ask through the question window first.** Read whether a `statusLine` already exists and pick the options:
+### 5. Statusline badge (only when the user asks, during or after setup)
+Shows a sky-blue `[ALFRED]` badge in the statusline inside Alfred workspaces. Not part of the default setup.
+**This edits global settings (`~/.claude/settings.json`), so when the user asks for it, confirm through the question window first.**
+Read whether a `statusLine` already exists and pick the options:
 - No existing `statusLine`: turn on / skip
 - One exists: show both (appended next to the existing one) / replace with Alfred / skip
 
@@ -104,9 +107,13 @@ Write the closing message in this order, and put the restart **last**, in bold, 
     (en): "If you're still shaping an idea, just tell me. Incubator tracks it and lets it grow; when it becomes a real project, you move it
     to the folder you want. Even small questions go into Incubator so no idea slips away. Ideas you won't act on right now — just say so
     and I'll put them in Incubator's open.md. Make good use of open!"
+  - Then one line on the defaults taken in step 2, and that any can be changed by just asking — e.g. (en) "I used the defaults for the rest:
+    assistant name Alfred, folders Work · Research · Life (+ Incubator), author header off, no statusline badge, no git. Want any of these
+    changed? Just tell me." (ko) "나머지는 기본값으로 했습니다: 비서 이름 Alfred, 폴더 Work · Research · Life (+ Incubator), 저작 헤더 끔,
+    상태줄 배지 없음, git 안 함. 바꾸고 싶은 게 있으면 말씀만 해 주세요."
   - Then one line for first-timers: **after the restart**, `/guide-mode on` gives a short tour of Alfred and a usage tip now and then (`/guide-mode off` stops it)
   - Last, in bold: they **must restart Claude Code in this folder now** (quit, then `claude`) for the hook to recognize the workspace
-- Only ask whether to use git — through the question window (use git / not now). Run `git init` only if the user says to
+- Don't ask about git. Run `git init` only if the user asks for it later
 
 ## Creating a new project (after init, when the user asks)
 Create `project-logs/<category>/<project>/log.md` with the frontmatter from section 7 of the common rules and the top section
