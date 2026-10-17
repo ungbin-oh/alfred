@@ -10,6 +10,19 @@ the assistant offers each such item through the question window and applies it o
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
 
+## 0.4.5 — 2026-10-17
+
+**The statusline badge is back, in the workspace only.** Both plugins are now 0.4.5 (Claude-only change).
+
+- **[Claude] `/alfred-init` turns the `[ALFRED]` badge on by default, for this workspace only** — 0.4.4 left it off, so a fresh
+  workspace had no badge. It is now written to the workspace's own `.claude/settings.local.json` (pointing at `.alfred/statusline.sh`),
+  so the global `~/.claude/settings.json` is never touched and other folders keep their own statusline. If a global statusline exists,
+  its command is saved to `.alfred/statusline-chain` and shown next to the badge. The session-start hook keeps `.alfred/statusline.sh`
+  current after updates. The older global setup (`~/.claude/alfred-statusline.sh`) is still honored.
+  *[Workspace] Workspaces made before 0.4.5 without a badge:* copy the plugin's `hooks/statusline.sh` to `.alfred/statusline.sh`,
+  save the global `statusLine.command` (if any) to `.alfred/statusline-chain`, and set `statusLine` in `.claude/settings.local.json`
+  to `bash "<workspace root>/.alfred/statusline.sh"`
+
 ## 0.4.4 — 2026-10-17
 
 **A shorter setup.** Both plugins are now 0.4.4.

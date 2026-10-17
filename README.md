@@ -377,7 +377,7 @@ claude plugin uninstall alfred@alfred      # Claude Code
 codex plugin remove alfred-codex@alfred    # Codex
 ```
 
-Your logs and notes stay — they're yours. If you turned on the statusline badge, remove `statusLine` from `~/.claude/settings.json`.
+Your logs and notes stay — they're yours. The statusline badge lives in the workspace's `.claude/settings.local.json` and goes away with the folder (older setups: remove `statusLine` from `~/.claude/settings.json`).
 
 ## Korean translation
 
@@ -398,7 +398,8 @@ Both plugins share one version number. Every change is in [CHANGELOG.md](CHANGEL
 
 | Version | Date | What changed |
 |---|---|---|
-| **0.4.4** | 2026-10-17 | Shorter setup: `/alfred-init` asks only language, then your name and how to address you; the rest takes defaults you can change later by asking |
+| **0.4.5** | 2026-10-17 | The `[ALFRED]` statusline badge is on by default again — set in the workspace's own settings, never the global ones |
+| 0.4.4 | 2026-10-17 | Shorter setup: `/alfred-init` asks only language, then your name and how to address you; the rest takes defaults you can change later by asking |
 | 0.4.3 | 2026-10-10 | Claude Code: sessions opened on the same day are named `YYYY-MM-DD #1`, `#2` … (count in `.alfred/session-count`) |
 | 0.4.2 | 2026-10-10 | Workspace changes are offered, never made: changelog items tagged `[Workspace]` are asked one by one after an update (apply / skip); a stale statusline badge copy in `~/.claude` is offered a fresh copy |
 | 0.4.1 | 2026-10-10 | Your edits to `.alfred/rules.md` are no longer overwritten: the plugin keeps a hash of what it last wrote (`.alfred/rules.sha`), notices a changed file and asks — move the edits into `CLAUDE.md` or keep the file as your own (`.alfred/rules.local`) |

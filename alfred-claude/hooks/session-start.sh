@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # written by Ungbin_Oh
 # created : 2026-09-26
-# updated : 2026-10-10
+# updated : 2026-10-17
 #
 # Alfred — SessionStart hook
 #
@@ -24,6 +24,8 @@
 #      to the user's files that the plugin never makes by itself — the model offers each one (question window)
 #   6. A notice when the statusline badge copy in ~/.claude is older than the plugin's hooks/statusline.sh
 #      (the copy exists because the cache path changes with every update) — the model offers a fresh copy
+#      (older global setup only). The workspace copy .alfred/statusline.sh (0.4.5 on) is plugin-owned like
+#      .alfred/rules.md, so it is refreshed silently when it differs
 #
 # The common rules themselves are NOT printed here. Hook output is capped at 10,000 characters
 # and the rules are longer. Instead sync-rules.sh keeps a copy in .alfred/rules.md, and the
@@ -160,6 +162,12 @@ if [ -n "$UPDATED_FROM" ]; then
 fi
 
 # The statusline badge is a copy in ~/.claude (the plugin cache path changes with every update). Offer a fresh copy when it is stale
+# Workspace badge copy (0.4.5 on): plugin-owned, refreshed silently. Never created here — only alfred-init creates it.
+WS_SL="$ROOT/.alfred/statusline.sh"
+if [ -f "$WS_SL" ] && [ ! -L "$WS_SL" ] && [ -f "$PLUGIN_ROOT/hooks/statusline.sh" ] && ! cmp -s "$WS_SL" "$PLUGIN_ROOT/hooks/statusline.sh"; then
+  cat "$PLUGIN_ROOT/hooks/statusline.sh" > "$WS_SL" 2>/dev/null
+fi
+
 SL_COPY="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/alfred-statusline.sh"
 if [ -f "$SL_COPY" ] && [ -f "$PLUGIN_ROOT/hooks/statusline.sh" ] && ! cmp -s "$SL_COPY" "$PLUGIN_ROOT/hooks/statusline.sh"; then
   echo

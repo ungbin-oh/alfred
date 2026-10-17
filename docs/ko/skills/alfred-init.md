@@ -39,7 +39,7 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-17
 - 비서 이름: `Alfred`
 - 카테고리 폴더: `Work` 엄격 · `Research` 엄격 · `Life` 완화, 그리고 `Incubator` (엄격)
 - 저작 헤더: 끔
-- 상태줄 배지: 없음 (5단계는 나중에 사용자가 원할 때만)
+- 상태줄 배지: 켬, 이 워크스페이스에서만 (5단계 — 전역 `~/.claude/settings.json` 은 건드리지 않는다)
 - git: 안 함 (`git init` 은 나중에 사용자가 원할 때만, 6단계)
 
 마무리 안내에서 이 기본값을 한 줄로 알리고, 말만 하면 바꿀 수 있다고 한다 (6단계).
@@ -51,6 +51,9 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-17
 CLAUDE.md                              ← templates/<lang>/CLAUDE.md 에 설정값을 채움
 .alfred/workspace                      ← 마커 (버전·생성일·언어)
 .alfred/rules.md                       ← 공통 규약 복사본, ../../hooks/sync-rules.sh 가 씀
+.alfred/statusline.sh                  ← 배지 스크립트, ../../hooks/statusline.sh 복사본 (5단계)
+.alfred/statusline-chain               ← 전역 statusLine 이 있을 때만 (5단계)
+.claude/settings.local.json            ← 이 워크스페이스만의 statusLine (5단계)
 .gitignore                             ← templates/gitignore
 project-logs/<카테고리>/.gitkeep        ← 카테고리마다
 project-workspace/<카테고리>/.gitkeep
@@ -74,7 +77,7 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` 내용:
   ```
   alfred-workspace
-  version: 0.4.4
+  version: 0.4.5
   created: YYYY-MM-DD
   language: en
   ```
@@ -83,20 +86,22 @@ Archive/workspace-archive/.gitkeep
 - 공통 규약 복사: `bash "<이 스킬 폴더>/../../hooks/sync-rules.sh" "<워크스페이스 루트>"`. `created` 가 찍힌다.
   `CLAUDE.md` 에 `@.alfred/rules.md` 가 한 줄로 들어 있는지 확인한다. `.alfred/rules.md` 는 고치지 않는다 — 플러그인이 덮어쓴다
 
-### 5. 상태줄 배지 (셋업 중이든 뒤든 사용자가 원할 때만)
-Alfred 워크스페이스에서 상태줄에 하늘색 `[ALFRED]` 배지를 띄운다. 기본 셋업에는 들어가지 않는다.
-**전역 설정(`~/.claude/settings.json`)을 고치는 일이라 사용자가 원하면 질문 창으로 먼저 확인받는다.** 기존 `statusLine` 이 있는지 읽어 보고 선택지를 고른다:
-- 기존 `statusLine` 이 없으면: 켜기 / 건너뛰기
-- 있으면: 같이 띄우기(기존 것 옆에 붙임) / Alfred 로 바꾸기 / 건너뛰기
-
-켜는 경우:
-1. 이 스킬 기준 `../../hooks/statusline.sh` 를 `~/.claude/alfred-statusline.sh` 로 복사하고 실행 권한을 준다
-   (플러그인 캐시 경로는 업데이트마다 바뀌어 settings.json 에 직접 적을 수 없다)
-2. "같이 띄우기" 면 기존 `statusLine.command` 문자열을 `~/.claude/.alfred-statusline-chain` 에 저장한다
-3. `settings.json` 의 `statusLine` 을 `{"type": "command", "command": "bash ~/.claude/alfred-statusline.sh"}` 로 바꾼다.
-   **다른 키는 건드리지 않는다.** 고치기 전 내용을 보여 주고, 고친 뒤 diff 를 보여 준다
+### 5. 상태줄 배지 (기본 — 이 워크스페이스에서만)
+상태줄에 하늘색 `[ALFRED]` 배지를 띄운다. **워크스페이스 자체의 `.claude/settings.local.json`** 에 두므로 이 워크스페이스에서만 뜨고,
+**전역 `~/.claude/settings.json` 은 건드리지 않는다.** 기본값이라 묻지 않는다.
+1. 이 스킬 기준 `../../hooks/statusline.sh` 를 `<워크스페이스 루트>/.alfred/statusline.sh` 로 복사한다
+   (업데이트 뒤에는 세션 시작 훅이 `.alfred/rules.md` 처럼 최신으로 맞춘다)
+2. 워크스페이스의 `statusLine` 은 이 워크스페이스 안에서 전역 것을 대신한다. 그래서 전역 `~/.claude/settings.json` (읽기만)에
+   `statusLine.command` 가 있으면 그 문자열을 그대로 `<워크스페이스 루트>/.alfred/statusline-chain` 에 저장한다 — 배지 스크립트가
+   그것을 먼저 돌려 둘을 나란히 띄운다. 없거나 이미 Alfred 배지 스크립트를 가리키면 건너뛴다
+3. `<워크스페이스 루트>/.claude/settings.local.json` 에
+   `"statusLine": {"type": "command", "command": "bash \"<워크스페이스 루트>/.alfred/statusline.sh\""}` 를 절대 경로로 넣는다.
+   파일이 있으면 이 키만 더하고, 이미 `statusLine` 이 있으면 그대로 두고 마무리 안내에서 알린다.
+   `.claude/` 는 `.gitignore` 템플릿에 들어 있어 커밋되지 않는다
 - 색은 환경변수 `ALFRED_COLOR` 로 바꿀 수 있다 (256색 코드. 기본 117 하늘색, 114 초록)
-- 되돌리기: `~/.claude/.alfred-statusline-chain` 에 저장된 명령을 `statusLine.command` 로 되돌리거나 `statusLine` 을 지운다
+- 끄기: `.claude/settings.local.json` 에서 `statusLine` 을 지운다
+- 0.4.5 전에 만든 워크스페이스는 예전 전역 방식(`~/.claude/alfred-statusline.sh` + `.alfred-statusline-chain`)일 수 있다.
+  사용자가 말하지 않으면 그대로 둔다. 배지 스크립트는 그 방식도 읽는다
 
 ### 6. 마무리 안내
 아래 순서로 쓰고, 다시 시작 안내는 **맨 끝에 굵게 한 줄로** 둔다 — 사용자는 마지막에 읽은 것을 한다. 다시 시작하기 전에는 가이드 모드를 포함해 아무것도 제대로 돌지 않는다.
@@ -106,7 +111,7 @@ Alfred 워크스페이스에서 상태줄에 하늘색 `[ALFRED]` 배지를 띄�
   아이디어가 날아가지 않게 해 드립니다. 떠오른 아이디어 중 지금 당장 하지 않으실 것은 말씀만 해 주시면 Incubator open 에 적어 두겠습니다.
   open 을 적극적으로 써 보세요!"
 - 이어서 2단계의 기본값을 한 줄로 알리고, 말만 하면 바꿀 수 있다고 한다 — 예: "나머지는 기본값으로 했습니다: 비서 이름 Alfred,
-  폴더 Work · Research · Life (+ Incubator), 저작 헤더 끔, 상태줄 배지 없음, git 안 함. 바꾸고 싶은 게 있으면 말씀만 해 주세요."
+  폴더 Work · Research · Life (+ Incubator), 저작 헤더 끔, 상태줄 배지 켬 (이 폴더만), git 안 함. 바꾸고 싶은 게 있으면 말씀만 해 주세요."
 - 이어서 처음 쓰는 사람에게 한 줄: **다시 시작한 뒤** `/guide-mode on` 을 치면 Alfred 를 짧게 소개하고 쓰는 동안 가끔 사용법 팁을 준다 (`/guide-mode off` 로 끔)
 - 맨 끝에 굵게: **지금 이 폴더에서 Claude Code 를 다시 시작해야** (나갔다가 `claude`) 훅이 워크스페이스를 알아본다
 - git 은 묻지 않는다. `git init` 은 나중에 사용자가 원할 때만 실행한다

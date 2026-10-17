@@ -12,6 +12,19 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-17
 **`[Workspace]`** (0.4.2 부터) 는 사용자 파일을 바꿔야 하는 항목이다 — 플러그인은 직접 바꾸지 않고, 업데이트 뒤 비서가 항목마다
 질문 창으로 물어 예라고 할 때만 적용한다.
 
+## 0.4.5 — 2026-10-17
+
+**상태줄 배지를 다시, 워크스페이스 안에서만.** 두 플러그인 모두 0.4.5 (Claude 쪽만 바뀜).
+
+- **[Claude] `/alfred-init` 이 `[ALFRED]` 배지를 기본으로 켠다, 이 워크스페이스에서만** — 0.4.4 는 배지를 꺼 둬서 새 워크스페이스에
+  배지가 없었다. 이제 워크스페이스 자체의 `.claude/settings.local.json` 에 두고(`.alfred/statusline.sh` 를 가리킴), 전역
+  `~/.claude/settings.json` 은 건드리지 않아 다른 폴더의 상태줄은 그대로다. 전역 상태줄이 있으면 그 명령을 `.alfred/statusline-chain`
+  에 저장해 배지 옆에 같이 띄운다. 업데이트 뒤 `.alfred/statusline.sh` 는 세션 시작 훅이 최신으로 맞춘다. 예전 전역 방식
+  (`~/.claude/alfred-statusline.sh`)도 그대로 읽는다.
+  *[Workspace] 0.4.5 전에 만들어 배지가 없는 워크스페이스:* 플러그인의 `hooks/statusline.sh` 를 `.alfred/statusline.sh` 로 복사하고,
+  전역 `statusLine.command` 가 있으면 `.alfred/statusline-chain` 에 저장한 뒤, `.claude/settings.local.json` 의 `statusLine` 을
+  `bash "<워크스페이스 루트>/.alfred/statusline.sh"` 로 둔다
+
 ## 0.4.4 — 2026-10-17
 
 **셋업을 짧게.** 두 플러그인 모두 0.4.4.

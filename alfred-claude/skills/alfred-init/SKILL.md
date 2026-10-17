@@ -37,7 +37,7 @@ Put the default in the options and take free input through the "Other" the windo
 - Assistant name: `Alfred`
 - Category folders: `Work` strict · `Research` strict · `Life` relaxed, plus `Incubator` (strict)
 - Author header: off
-- Statusline badge: off (step 5 runs only when the user asks for it later)
+- Statusline badge: on, in this workspace only (step 5 — never touches the global `~/.claude/settings.json`)
 - git: not initialized (step 6 runs `git init` only when the user asks)
 
 The closing message lists these defaults in one line and says any of them can be changed by just asking (step 6).
@@ -49,6 +49,9 @@ No confirmation window — create right after step 2. If the user asks to see th
 CLAUDE.md                              ← templates/<lang>/CLAUDE.md with settings filled in
 .alfred/workspace                      ← marker (version, created date, language)
 .alfred/rules.md                       ← copy of the common rules, written by ../../hooks/sync-rules.sh
+.alfred/statusline.sh                  ← badge script, copy of ../../hooks/statusline.sh (step 5)
+.alfred/statusline-chain               ← only if a global statusLine exists (step 5)
+.claude/settings.local.json            ← statusLine for this workspace only (step 5)
 .gitignore                             ← templates/gitignore
 project-logs/<category>/.gitkeep       ← one per category
 project-workspace/<category>/.gitkeep
@@ -72,7 +75,7 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` contents:
   ```
   alfred-workspace
-  version: 0.4.4
+  version: 0.4.5
   created: YYYY-MM-DD
   language: en
   ```
@@ -81,21 +84,22 @@ Archive/workspace-archive/.gitkeep
 - Copy the common rules: `bash "<this skill dir>/../../hooks/sync-rules.sh" "<workspace root>"`. It prints `created`.
   Check that `CLAUDE.md` has the line `@.alfred/rules.md` on its own line. Don't edit `.alfred/rules.md` — the plugin overwrites it
 
-### 5. Statusline badge (only when the user asks, during or after setup)
-Shows a sky-blue `[ALFRED]` badge in the statusline inside Alfred workspaces. Not part of the default setup.
-**This edits global settings (`~/.claude/settings.json`), so when the user asks for it, confirm through the question window first.**
-Read whether a `statusLine` already exists and pick the options:
-- No existing `statusLine`: turn on / skip
-- One exists: show both (appended next to the existing one) / replace with Alfred / skip
-
-If turning on:
-1. Copy `../../hooks/statusline.sh` (relative to this skill) to `~/.claude/alfred-statusline.sh` and make it executable
-   (the plugin cache path changes with every update, so it can't be written into settings.json directly)
-2. For "show both", save the existing `statusLine.command` string to `~/.claude/.alfred-statusline-chain`
-3. Set `statusLine` in `settings.json` to `{"type": "command", "command": "bash ~/.claude/alfred-statusline.sh"}`.
-   **Touch no other keys.** Show the contents before editing and the diff after
+### 5. Statusline badge (default — this workspace only)
+Shows a sky-blue `[ALFRED]` badge in the statusline. It is set in **the workspace's own `.claude/settings.local.json`**,
+so it shows only in this workspace and **the global `~/.claude/settings.json` is never touched.** No question — it's a default.
+1. Copy `../../hooks/statusline.sh` (relative to this skill) to `<workspace root>/.alfred/statusline.sh`
+   (the session-start hook keeps that copy current after updates, like `.alfred/rules.md`)
+2. A workspace `statusLine` replaces the global one inside this workspace. So if the global `~/.claude/settings.json` (read only)
+   has a `statusLine.command`, save that string as-is to `<workspace root>/.alfred/statusline-chain` — the badge script runs it
+   first and shows both side by side. Skip this if there is none, or if it already points at an Alfred badge script
+3. In `<workspace root>/.claude/settings.local.json` set
+   `"statusLine": {"type": "command", "command": "bash \"<workspace root>/.alfred/statusline.sh\""}` with the absolute path.
+   If the file exists, add only this key; if it already has a `statusLine`, leave it and say so in the closing message.
+   `.claude/` is in the `.gitignore` template, so it isn't committed
 - The color can be changed with the `ALFRED_COLOR` env var (256-color code. Default 117 sky blue, 114 green)
-- To undo: restore `statusLine.command` from `~/.claude/.alfred-statusline-chain`, or delete `statusLine`
+- To turn it off: delete `statusLine` from `.claude/settings.local.json`
+- Workspaces from before 0.4.5 may still use the older global setup (`~/.claude/alfred-statusline.sh` + `.alfred-statusline-chain`).
+  Leave it alone unless the user asks; the badge script still honors it
 
 ### 6. Wrap up
 Write the closing message in this order, and put the restart **last**, in bold, on its own line — the user acts on the last thing they read. Nothing else in Alfred works until the restart, guide mode included.
@@ -108,9 +112,9 @@ Write the closing message in this order, and put the restart **last**, in bold, 
     to the folder you want. Even small questions go into Incubator so no idea slips away. Ideas you won't act on right now — just say so
     and I'll put them in Incubator's open.md. Make good use of open!"
   - Then one line on the defaults taken in step 2, and that any can be changed by just asking — e.g. (en) "I used the defaults for the rest:
-    assistant name Alfred, folders Work · Research · Life (+ Incubator), author header off, no statusline badge, no git. Want any of these
+    assistant name Alfred, folders Work · Research · Life (+ Incubator), author header off, statusline badge on (this folder only), no git. Want any of these
     changed? Just tell me." (ko) "나머지는 기본값으로 했습니다: 비서 이름 Alfred, 폴더 Work · Research · Life (+ Incubator), 저작 헤더 끔,
-    상태줄 배지 없음, git 안 함. 바꾸고 싶은 게 있으면 말씀만 해 주세요."
+    상태줄 배지 켬 (이 폴더만), git 안 함. 바꾸고 싶은 게 있으면 말씀만 해 주세요."
   - Then one line for first-timers: **after the restart**, `/guide-mode on` gives a short tour of Alfred and a usage tip now and then (`/guide-mode off` stops it)
   - Last, in bold: they **must restart Claude Code in this folder now** (quit, then `claude`) for the hook to recognize the workspace
 - Don't ask about git. Run `git init` only if the user asks for it later

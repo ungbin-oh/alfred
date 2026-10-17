@@ -377,7 +377,7 @@ claude plugin uninstall alfred@alfred      # Claude Code
 codex plugin remove alfred-codex@alfred    # Codex
 ```
 
-로그와 일기는 그대로 남습니다 — 모두 주인님의 것입니다. 상태줄 배지를 켜셨다면 `~/.claude/settings.json` 의 `statusLine` 을 지워 주십시오.
+로그와 일기는 그대로 남습니다 — 모두 주인님의 것입니다. 상태줄 배지는 워크스페이스의 `.claude/settings.local.json` 에 있어 폴더와 함께 사라집니다 (예전 방식이라면 `~/.claude/settings.json` 의 `statusLine` 을 지워 주십시오).
 
 ## 한국어 규약
 
@@ -398,7 +398,8 @@ codex plugin remove alfred-codex@alfred    # Codex
 
 | 버전 | 날짜 | 바뀐 것 |
 |---|---|---|
-| **0.4.4** | 2026-10-17 | 셋업이 짧아짐: `/alfred-init` 이 언어, 이름 · 호칭만 묻고 나머지는 기본값 (나중에 말하면 바꿈) |
+| **0.4.5** | 2026-10-17 | `[ALFRED]` 상태줄 배지가 다시 기본으로 켜집니다 — 워크스페이스 자체 설정에만, 전역 설정은 건드리지 않습니다 |
+| 0.4.4 | 2026-10-17 | 셋업이 짧아짐: `/alfred-init` 이 언어, 이름 · 호칭만 묻고 나머지는 기본값 (나중에 말하면 바꿈) |
 | 0.4.3 | 2026-10-10 | Claude Code: 같은 날 연 세션에 `YYYY-MM-DD #1`, `#2` … 로 번호가 붙습니다 (`.alfred/session-count` 로 셉니다) |
 | 0.4.2 | 2026-10-10 | 워크스페이스 변경은 제안만: 업데이트 내역에 `[Workspace]` 가 붙은 항목은 업데이트 뒤 하나씩 여쭙습니다 (적용 / 건너뜀). `~/.claude` 의 상태줄 배지 복사본이 오래되면 새 복사본을 제안합니다 |
 | 0.4.1 | 2026-10-10 | `.alfred/rules.md` 를 고치셔도 더 이상 덮어쓰지 않습니다: 플러그인이 마지막에 쓴 내용의 해시(`.alfred/rules.sha`)를 두고, 달라진 파일을 알아채면 여쭙니다 — 고친 것을 `CLAUDE.md` 로 옮기거나, 파일을 주인님 것으로 두거나(`.alfred/rules.local`) |
