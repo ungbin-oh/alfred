@@ -11,7 +11,7 @@
   <a href="#install">Install</a> &nbsp;&nbsp; <a href="#updating">Updating</a> &nbsp;&nbsp; <a href="#what-i-provide">What I provide</a> &nbsp;&nbsp; <a href="#how-i-work">How I work</a> &nbsp;&nbsp; <a href="#things-you-can-say">Things you can say</a> &nbsp;&nbsp; <a href="#update-history">Update history</a> &nbsp;&nbsp; <a href="README_kr.md">한국어</a>
 </p>
 
-written by Ungbin_Oh · created 2026-09-27 · updated 2026-10-25
+written by Ungbin_Oh · created 2026-09-27 · updated 2026-10-26
 
 Juggling several projects at once? Alfred keeps each one on track: what you did, what you decided, and **why**.
 Switch freely and pick up exactly where you left off.
@@ -395,7 +395,8 @@ Both plugins share one version number. Every change is in [CHANGELOG.md](CHANGEL
 
 | Version | Date | What changed |
 |---|---|---|
-| **0.4.7** | 2026-10-25 | Guide mode introduces weekly notes; the weekly template offer on update explains how to use them |
+| **0.4.8** | 2026-10-26 | Codex: the update notice reads the local changelog again |
+| 0.4.7 | 2026-10-25 | Guide mode introduces weekly notes; the weekly template offer on update explains how to use them |
 | 0.4.6 | 2026-10-25 | Weekly notes (`weekly/`): this week's review and next week's plan, carried into each day's to-dos. Briefing gets an Open column. A fixed shape for `docs/` |
 | 0.4.5 | 2026-10-17 | The `[ALFRED]` statusline badge is on by default again — set in the workspace's own settings, never the global ones |
 | 0.4.4 | 2026-10-17 | Shorter setup: `/alfred-init` asks only language, then your name and how to address you; the rest takes defaults you can change later by asking |

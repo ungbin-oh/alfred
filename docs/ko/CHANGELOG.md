@@ -1,6 +1,6 @@
 # 업데이트 히스토리
 
-written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-25
+written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-26
 
 > **한국어 번역본이다.** 정본은 레포 루트의 `CHANGELOG.md` (영어). 정본이 바뀌면 같은 커밋에서 맞춘다.
 
@@ -11,6 +11,14 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-25
 
 **`[Workspace]`** (0.4.2 부터) 는 사용자 파일을 바꿔야 하는 항목이다 — 플러그인은 직접 바꾸지 않고, 업데이트 뒤 비서가 항목마다
 질문 창으로 물어 예라고 할 때만 적용한다.
+
+## 0.4.8 — 2026-10-26
+
+**Codex 가 changelog 를 다시 찾는다.** 두 플러그인 모두 0.4.8 (Codex 쪽만 바뀜).
+
+- **[Codex] 업데이트 알림이 로컬 changelog 를 읽는다** — 세션 시작 훅이 `<codex home>/plugins/marketplaces/alfred/` 에서 찾았는데,
+  Codex 는 마켓 사본을 `<codex home>/.tmp/marketplaces/alfred/` 에 둔다. 그래서 GitHub 로 넘어갔고, Codex 세션은 거기 닿지 못할 수 있어
+  알림이 바뀐 것을 말하지 못하고 `[Workspace]` 항목도 묻지 못했다. 이제 `.tmp` 경로를 먼저 본다
 
 ## 0.4.7 — 2026-10-25
 

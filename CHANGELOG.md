@@ -1,6 +1,6 @@
 # Changelog
 
-written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-25
+written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-26
 
 Newest first. Hashes are commits in this repository. From 0.1.8 on there is one version for the whole repository: both plugins (`alfred` for Claude Code, `alfred-codex` for Codex) carry the same number, and each item is tagged **[Claude]**, **[Codex]** or **[Both]**. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
 
@@ -9,6 +9,14 @@ the assistant offers each such item through the question window and applies it o
 
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
+
+## 0.4.8 — 2026-10-26
+
+**Codex finds the changelog again.** Both plugins are now 0.4.8 (Codex-only change).
+
+- **[Codex] The update notice reads the local changelog** — the session-start hook looked for it at `<codex home>/plugins/marketplaces/alfred/`,
+  but Codex keeps its marketplace clone at `<codex home>/.tmp/marketplaces/alfred/`. It fell back to GitHub, which a Codex session
+  may not reach, so the notice couldn't say what changed or offer `[Workspace]` items. It now checks the `.tmp` path first
 
 ## 0.4.7 — 2026-10-25
 

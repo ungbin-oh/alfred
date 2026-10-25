@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # written by Ungbin_Oh
 # created : 2026-09-26
-# updated : 2026-10-10
+# updated : 2026-10-26
 #
 # Alfred for Codex — SessionStart hook
 #
@@ -66,9 +66,15 @@ PLUGIN_VERSION=$(sed -n 's/.*"version":[[:space:]]*"\([^"]*\)".*/\1/p' "$PLUGIN_
 MARKER_VERSION=$(sed -n 's/^version:[[:space:]]*\([^[:space:]]*\).*/\1/p' "$ROOT/.alfred/workspace" | head -1)
 REMOTE_VERSION=$(curl -fsS --max-time 3 "$REMOTE_PLUGIN_JSON" 2>/dev/null | sed -n 's/.*"version":[[:space:]]*"\([^"]*\)".*/\1/p' | head -1)
 
-# A marketplace clone next to the cache has the changelog; otherwise point at GitHub
-CHANGELOG="${PLUGIN_ROOT%/cache/*}/marketplaces/alfred/CHANGELOG.md"
-[ -f "$CHANGELOG" ] || CHANGELOG="$CHANGELOG_URL"
+# The marketplace clone has the changelog. Codex keeps it in <codex home>/.tmp/marketplaces/alfred
+# (PLUGIN_ROOT is <codex home>/plugins/cache/alfred/alfred-codex/<version>); the older guess next to the cache is kept second.
+# Neither found → point at GitHub
+CHANGELOG=""
+for c in "${PLUGIN_ROOT%/plugins/cache/*}/.tmp/marketplaces/alfred/CHANGELOG.md" \
+         "${PLUGIN_ROOT%/cache/*}/marketplaces/alfred/CHANGELOG.md"; do
+  [ -f "$c" ] && { CHANGELOG="$c"; break; }
+done
+[ -n "$CHANGELOG" ] || CHANGELOG="$CHANGELOG_URL"
 
 # ver_gt A B — true when A is newer than B (numbers compared part by part: 0.4.0 > 0.3.12)
 ver_gt() {
