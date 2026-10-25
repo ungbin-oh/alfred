@@ -12,6 +12,18 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-25
 **`[Workspace]`** (0.4.2 부터) 는 사용자 파일을 바꿔야 하는 항목이다 — 플러그인은 직접 바꾸지 않고, 업데이트 뒤 비서가 항목마다
 질문 창으로 물어 예라고 할 때만 적용한다.
 
+## 0.4.7 — 2026-10-25
+
+**weekly 를 알려 준다.** 두 플러그인 모두 0.4.7.
+
+- **[공통] guide mode 에 weekly** — 투어의 일기 줄에 "weekly 쓰자" 를 붙이고, 금~일이나 한 주를 돌아볼 때 내는 weekly 팁을 더했다
+- **[공통] guide mode 소개를 한 항목씩** — 열 항목을 항목마다 질문 창 하나로. "알겠어요 — 다음" 으로 넘기고 "건너뛰기" 로 끝낸다.
+  질문 창이 없으면 예전처럼 목록 전체
+- **[Claude] 소개에 트리 미리보기** — 파일을 다루는 항목은 창의 미리보기에 워크스페이스 트리 중 그 부분을 보여 준다
+  (그 부분만 — 미리보기는 15줄 안팎). Codex 는 나중에
+- **[공통] weekly 템플릿 복사 질문에 쓰는 법** — 0.4.6 전에서 올릴 때 `weekly/_template.md` 를 복사할지 묻는 `[Workspace]` 항목(아래 0.4.6)이
+  쓰는 법도 세 줄로 알려 준다
+
 ## 0.4.6 — 2026-10-25
 
 **주간 노트, 그리고 브리핑에 열어둔 것.** 두 플러그인 모두 0.4.6 (규약 · init 템플릿, 양쪽 같음).
@@ -20,7 +32,10 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-25
   (계획했던 To do · 요일별 한 줄 · 사용자의 평가와 자기 반성) 와 `## 다음주 계획하기`. 부팅에서 daily 를 만들 때 계획을 `## To do` 로
   옮기고, 둘째 날부터는 주 중간에 weekly 에 더한 항목도 가져온다. 규약 11절 · 부팅 3단계 · 폴더 트리, `/alfred-init` 이 복사하는
   `templates/<lang>/weekly/_template.md` 새로.
-  *[Workspace] 0.4.6 전에 만든 워크스페이스:* 플러그인의 `skills/alfred-init/templates/<lang>/weekly/_template.md` 를 `weekly/_template.md` 로 복사
+  *[Workspace] 0.4.6 전에 만든 워크스페이스:* 플러그인의 `skills/alfred-init/templates/<lang>/weekly/_template.md` 를 `weekly/_template.md` 로 복사.
+  물을 때 weekly 쓰는 법도 세 줄로 알려 준다: 금~일 중 아무 때나 "weekly 쓰자" 하면 —
+  비서가 이번 주 To do 를 옮기고 요일별 한 줄을 쓰고, 사용자는 평가 · 반성과 다음주 To do 를 쓴다;
+  그 뒤로 부팅이 다음주 To do 를 날마다 daily `## To do` 로 옮기고, 주 중간에 weekly 에 더한 항목도 옮긴다
 - **[공통] 부팅 브리핑에 Open 열** — 부팅 때 open.md 는 항목 제목만 읽고, 표에 Open 열: 항목을 한마디씩 2~3개, 더 많으면 `…`.
   next_action 이 "미정 — [[open]] 참조" 면 그 칸에는 `미정` 만
 - **[공통] `docs/` 모양** — 계속 찾아볼 문서는 `docs/` 바로 아래, 발표 파일과 만드는 스크립트는 `docs/slides/`, 아티팩트 html 원본은

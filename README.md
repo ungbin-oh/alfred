@@ -395,7 +395,8 @@ Both plugins share one version number. Every change is in [CHANGELOG.md](CHANGEL
 
 | Version | Date | What changed |
 |---|---|---|
-| **0.4.6** | 2026-10-25 | Weekly notes (`weekly/`): this week's review and next week's plan, carried into each day's to-dos. Briefing gets an Open column. A fixed shape for `docs/` |
+| **0.4.7** | 2026-10-25 | Guide mode introduces weekly notes; the weekly template offer on update explains how to use them |
+| 0.4.6 | 2026-10-25 | Weekly notes (`weekly/`): this week's review and next week's plan, carried into each day's to-dos. Briefing gets an Open column. A fixed shape for `docs/` |
 | 0.4.5 | 2026-10-17 | The `[ALFRED]` statusline badge is on by default again — set in the workspace's own settings, never the global ones |
 | 0.4.4 | 2026-10-17 | Shorter setup: `/alfred-init` asks only language, then your name and how to address you; the rest takes defaults you can change later by asking |
 | 0.4.3 | 2026-10-10 | Claude Code: sessions opened on the same day are named `YYYY-MM-DD #1`, `#2` … (count in `.alfred/session-count`) |

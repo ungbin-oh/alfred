@@ -10,6 +10,19 @@ the assistant offers each such item through the question window and applies it o
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
 
+## 0.4.7 — 2026-10-25
+
+**Weekly, explained.** Both plugins are now 0.4.7.
+
+- **[Both] Guide mode knows weekly** — the tour's daily-notes line mentions "let's write the weekly", and a weekly tip is added
+  for Friday–Sunday or when the user looks back on the week
+- **[Both] The guide-mode tour goes one item at a time** — each of the ten items comes in its own question window; "Got it — next"
+  moves on, "Skip the rest" ends it. Without a question window it falls back to the full list
+- **[Claude] Tree previews in the tour** — items about files show the relevant part of the workspace tree in the window's preview
+  (only that part — a preview shows about 15 lines). Codex later
+- **[Both] The weekly template offer explains weekly** — when updating from before 0.4.6, the `[Workspace]` offer to copy
+  `weekly/_template.md` (0.4.6 below) now also says in three short lines how to use it
+
 ## 0.4.6 — 2026-10-25
 
 **A weekly note, and open items in the briefing.** Both plugins are now 0.4.6 (rules and init templates, same for both).
@@ -18,7 +31,10 @@ minor number goes up from there. Commit messages from that day keep the old numb
   (planned to-dos · one line per day · your review & reflection) and `## Next week's plan`. When boot creates a daily note it carries
   the plan into `## To do`; from the second day on it also brings in items added to the weekly file during the week. Rules section 11,
   boot step 3, the layout tree, and a new `templates/<lang>/weekly/_template.md` that `/alfred-init` copies.
-  *[Workspace] Workspaces made before 0.4.6:* copy the plugin's `skills/alfred-init/templates/<lang>/weekly/_template.md` to `weekly/_template.md`
+  *[Workspace] Workspaces made before 0.4.6:* copy the plugin's `skills/alfred-init/templates/<lang>/weekly/_template.md` to `weekly/_template.md`.
+  When offering it, also tell the user in three short lines how to use weekly: say "let's write the weekly" any time Friday–Sunday —
+  the assistant carries over this week's to-dos and writes one line per day, the user writes the review and next week's to-dos;
+  from then on boot carries next week's to-dos into each day's `## To do`, including items added to the weekly file during the week
 - **[Both] Open column in the boot briefing** — boot reads only the item titles of each open.md, and the table gets an Open column:
   2–3 items in a word each, `…` if there are more. When next_action is "undecided — see [[open]]", its cell says just `undecided`
 - **[Both] Shape of `docs/`** — documents to keep looking up go directly under `docs/`, presentations and their build scripts in

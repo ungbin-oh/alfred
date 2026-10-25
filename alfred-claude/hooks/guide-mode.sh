@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # written by Ungbin_Oh
 # created : 2026-10-06
-# updated : 2026-10-06
+# updated : 2026-10-25
 #
 # Alfred — guide-mode UserPromptSubmit hook
 #
@@ -66,6 +66,8 @@ Features to draw from:
 - Work or a decision just happened → "save" writes the log after a summary you confirm
 - A judgment that sets a project's direction → decision.md, written by interview
 - End of the day, or the day's work is done → "let's wrap up the day" writes the daily timeline
+- Friday–Sunday, or the user looks back on the week or plans the next → "let's write the weekly": the assistant fills in the
+  planned to-dos and one line per day, the user writes the review and next week's to-dos, which boot carries into each day's `## To do`
 - Talking about an existing project → "continue <name>" enters it with the story so far
 - The user wants to do things by hand → manual mode: /manual-mode lite, medium or full
 - Something finished but worth keeping → Archive, moved only when the user says so
