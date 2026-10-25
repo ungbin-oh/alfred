@@ -1,6 +1,6 @@
 # Changelog
 
-written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-17
+written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-25
 
 Newest first. Hashes are commits in this repository. From 0.1.8 on there is one version for the whole repository: both plugins (`alfred` for Claude Code, `alfred-codex` for Codex) carry the same number, and each item is tagged **[Claude]**, **[Codex]** or **[Both]**. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
 
@@ -9,6 +9,20 @@ the assistant offers each such item through the question window and applies it o
 
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
+
+## 0.4.6 — 2026-10-25
+
+**A weekly note, and open items in the briefing.** Both plugins are now 0.4.6 (rules and init templates, same for both).
+
+- **[Both] Weekly notes** — `weekly/YYYY/YYYY-Www.md` (ISO week, `date '+%G-W%V'`), one file a week: `## This week in review`
+  (planned to-dos · one line per day · your review & reflection) and `## Next week's plan`. When boot creates a daily note it carries
+  the plan into `## To do`; from the second day on it also brings in items added to the weekly file during the week. Rules section 11,
+  boot step 3, the layout tree, and a new `templates/<lang>/weekly/_template.md` that `/alfred-init` copies.
+  *[Workspace] Workspaces made before 0.4.6:* copy the plugin's `skills/alfred-init/templates/<lang>/weekly/_template.md` to `weekly/_template.md`
+- **[Both] Open column in the boot briefing** — boot reads only the item titles of each open.md, and the table gets an Open column:
+  2–3 items in a word each, `…` if there are more. When next_action is "undecided — see [[open]]", its cell says just `undecided`
+- **[Both] Shape of `docs/`** — documents to keep looking up go directly under `docs/`, presentations and their build scripts in
+  `docs/slides/`, artifact HTML sources in `docs/artifact/` (URLs in the trace); sub-folders follow the same shape
 
 ## 0.4.5 — 2026-10-17
 

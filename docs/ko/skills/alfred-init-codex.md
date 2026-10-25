@@ -1,6 +1,6 @@
 # alfred-init — Codex 판에서 다른 점
 
-written by Ungbin_Oh · created 2026-10-05 · updated 2026-10-17
+written by Ungbin_Oh · created 2026-10-05 · updated 2026-10-25
 
 > **한국어 번역본이다.** 정본은 `alfred-codex/skills/alfred-init/SKILL.md` (영어) 이고 Codex 는 이 파일을 읽지 않는다.
 > 대부분은 Claude 판([alfred-init.md](alfred-init.md))과 같다. 여기에는 다른 점만 적는다.
@@ -24,4 +24,4 @@ written by Ungbin_Oh · created 2026-10-05 · updated 2026-10-17
 - **마무리 안내** — 같은 폴더에서 Codex 를 다시 열어야 한다 (그냥 `codex`). 처음 열 때 Codex 가 플러그인 훅을 검토 · 신뢰하라고 묻고, 신뢰 전에는 규약이 들어가지 않는다
 - **Incubator 뼈대** — Claude 판과 같다 (`project-logs/Incubator/` 의 log.md · open.md · trace/, `project-workspace/Incubator/`). 예시 파일 수는 19개
 - **가이드 모드 안내** — Codex 호출 이름으로: `$guide-mode on` · `$guide-mode off`, "다시 연 뒤" 라고. 마무리 안내의 맨 끝은 굵은 "지금 이 폴더에서 Codex 다시 열기" (훅 신뢰 안내 포함)
-- 마커 `.alfred/workspace` 의 version 은 0.4.5
+- 마커 `.alfred/workspace` 의 version 은 0.4.6

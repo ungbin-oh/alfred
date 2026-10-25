@@ -1,6 +1,6 @@
 # alfred-init
 
-written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-17
+written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-25
 
 > **한국어 번역본이다.** 정본은 `alfred-claude/skills/alfred-init/SKILL.md` (영어) 이고 Claude Code 는 이 파일을 읽지 않는다.
 > 정본이 바뀌면 이 파일도 같은 커밋에서 맞춘다.
@@ -63,6 +63,7 @@ project-logs/Incubator/trace/.gitkeep
 project-workspace/Incubator/.gitkeep
 daily/_template.md                     ← templates/<lang>/daily/
 daily/_timeline-example.md             ← templates/<lang>/daily/
+weekly/_template.md                    ← templates/<lang>/weekly/
 daily/YYYY/YYYY-MM/YYYY-MM-DD.md       ← 오늘자, _template 에서 date 만 치환
 Archive/README.md                      ← templates/<lang>/Archive/README.md
 Archive/log-archive/.gitkeep
@@ -77,7 +78,7 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` 내용:
   ```
   alfred-workspace
-  version: 0.4.5
+  version: 0.4.6
   created: YYYY-MM-DD
   language: en
   ```

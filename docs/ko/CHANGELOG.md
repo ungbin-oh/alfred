@@ -1,6 +1,6 @@
 # 업데이트 히스토리
 
-written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-17
+written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-25
 
 > **한국어 번역본이다.** 정본은 레포 루트의 `CHANGELOG.md` (영어). 정본이 바뀌면 같은 커밋에서 맞춘다.
 
@@ -11,6 +11,20 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-17
 
 **`[Workspace]`** (0.4.2 부터) 는 사용자 파일을 바꿔야 하는 항목이다 — 플러그인은 직접 바꾸지 않고, 업데이트 뒤 비서가 항목마다
 질문 창으로 물어 예라고 할 때만 적용한다.
+
+## 0.4.6 — 2026-10-25
+
+**주간 노트, 그리고 브리핑에 열어둔 것.** 두 플러그인 모두 0.4.6 (규약 · init 템플릿, 양쪽 같음).
+
+- **[공통] 주간 노트** — `weekly/YYYY/YYYY-Www.md` (ISO 주, `date '+%G-W%V'`), 한 주에 파일 하나: `## 이번주 돌아보기`
+  (계획했던 To do · 요일별 한 줄 · 사용자의 평가와 자기 반성) 와 `## 다음주 계획하기`. 부팅에서 daily 를 만들 때 계획을 `## To do` 로
+  옮기고, 둘째 날부터는 주 중간에 weekly 에 더한 항목도 가져온다. 규약 11절 · 부팅 3단계 · 폴더 트리, `/alfred-init` 이 복사하는
+  `templates/<lang>/weekly/_template.md` 새로.
+  *[Workspace] 0.4.6 전에 만든 워크스페이스:* 플러그인의 `skills/alfred-init/templates/<lang>/weekly/_template.md` 를 `weekly/_template.md` 로 복사
+- **[공통] 부팅 브리핑에 Open 열** — 부팅 때 open.md 는 항목 제목만 읽고, 표에 Open 열: 항목을 한마디씩 2~3개, 더 많으면 `…`.
+  next_action 이 "미정 — [[open]] 참조" 면 그 칸에는 `미정` 만
+- **[공통] `docs/` 모양** — 계속 찾아볼 문서는 `docs/` 바로 아래, 발표 파일과 만드는 스크립트는 `docs/slides/`, 아티팩트 html 원본은
+  `docs/artifact/` (URL 은 trace), 하위 폴더도 같은 모양
 
 ## 0.4.5 — 2026-10-17
 

@@ -1,6 +1,6 @@
 # Alfred 공통 규약
 
-written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-10
+written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-25
 
 > **한국어 번역본이다.** 정본은 `alfred-claude/rules/core.md` (영어) 이고 Alfred 는 이 파일을 읽지 않는다.
 > 정본이 바뀌면 이 파일도 같은 커밋에서 맞춘다.
@@ -55,6 +55,7 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-10
 │   └── trace/YYYY-MM-DD.md   작업 원장 (비서가 씀)
 ├── project-workspace/<카테고리>/<프로젝트>/   실제 코드·산출물 (project-logs 와 같은 트리)
 ├── daily/YYYY/YYYY-MM/YYYY-MM-DD.md           날짜별 일기
+├── weekly/YYYY/YYYY-Www.md                    이번주 돌아보기 + 다음주 계획 (11절)
 └── Archive/                  안 쓰지만 버리지 않는 것 (13절)
     ├── README.md             보관 목록 표
     ├── workspace-archive/    산출물. project-workspace 와 같은 모양 (git 제외)
@@ -81,16 +82,21 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-10
 1. `project-logs/**/log.md` 를 전부 찾는다
 2. 각 log.md 의 frontmatter 와 **최근 3개 항목만** 읽는다. 전체 통독 금지
    - 왜: 프로젝트가 늘어도 부팅 비용이 늘지 않아야 매일 쓴다
-3. 오늘자 daily 가 없으면 `daily/_template.md` 를 복사해 만든다 (date 만 오늘로)
+   - open.md 가 있으면 항목 제목(`##` 줄, `닫힌 것` / `Closed` 제외)만 읽는다
+3. 오늘자 daily 가 없으면 `daily/_template.md` 를 복사해 만든다 (date 만 오늘로).
+   만들 때 `## To do` 에 이번 주 계획을 옮긴다 (11절 · Weekly)
 4. 직전 daily(어제, 없으면 오늘 이전 가장 최근 것)를 본다
    - `## Done` 을 훑어 한 줄 요약
    - `## Done` / `## Timeline` / `## Thoughts` 중 **빈 절**(내용 없음 또는 `-` 한 줄)을 센다
    - `## Tomorrow` 의 미체크 항목(`- [ ]`)을 모은다
    - `## To do` 를 훑고, 브리핑에서 그것을 다 했는지 사용자에게 한 번 묻는다
 5. 첫 응답은 비서로서 인사 한 줄 + 현황 브리핑
-   - **카테고리마다 소제목 + 표 하나** (project-logs 바로 아래 폴더마다, Incubator 포함). 열: 프로젝트 / 상태 / updated / 방치 일수 / next_action
+   - **카테고리마다 소제목 + 표 하나** (project-logs 바로 아래 폴더마다, Incubator 포함). 열: 프로젝트 / 상태 / updated / 방치 일수 / next_action / Open
    - Incubator 표는 첫 행에 본체, 그 아래에 하위 프로젝트
    - 프로젝트 칸은 `이름 (code)` — 예: `Thesis-Experiment (THS)`. 폴더 이름에는 code 를 넣지 않는다
+   - **Open 열:** open.md 항목을 한마디로 줄여 2~3개, 그보다 많으면 뒤를 `…` 로. next_action 이 미정이 아니어도 쓴다.
+     open.md 가 없거나 항목이 없으면 비운다
+   - next_action 이 "미정 — [[open]] 참조" 이면 next_action 칸에는 `미정` 만 쓴다 (영어는 `undecided`). open 은 Open 열이 보여 준다
    - 촘촘하게 쓴다. 소제목 바로 다음 줄에 표를 두고, 빈 줄은 표와 다음 소제목 사이에 한 줄만 둔다
    - `status: done` 은 표에서 빼고 소제목 옆에 "· 완료: N건"
    - **neglected 표시:** `status: active` 인데 `updated` 가 **14일 넘게** 지났으면 상태 칸을 `🔴 neglected` 로 보여 준다.
@@ -229,6 +235,8 @@ workspace_repo: ~/경로          # 선택. 코드가 미러 경로 밖에 있�
 - **빈 절은 지운다.** 왜: 자리를 남기면 채우려는 압력이 생기고, 그렇게 채운 줄이 로그를 부풀린다
 - 수치 덤프 · 재현 절차 · 에러 로그 · 미검증 추정치는 trace 에 쓴다. log.md 는 `Trace:` 줄로 가리키기만 한다.
   project-workspace 의 `docs/` 에는 **계속 찾아볼 문서**(명세, 재현 절차서)만 둔다. 한 번 잰 측정값은 docs 가 아니라 trace 에 둔다
+  - **`docs/` 모양** — 프로젝트마다 달라지지 않게: 계속 찾아볼 md 문서는 `docs/` 바로 아래, `docs/slides/` 에는 발표 파일과
+    그것을 만드는 스크립트, `docs/artifact/` 에는 아티팩트 html 원본 (URL 은 trace 에). 하위 폴더가 자기 docs/ 를 가지면 그 안도 같은 모양
 - 다음에 할 일도 항목으로 미리 박아 둘 수 있다. 하려는 것 + 왜만 쓰고 결과는 `(미착수)`
 - 성격이 같은 단계는 한 덩어리로 묶는다
 - 소제목은 `###`. `##` 는 항목으로 세어진다
@@ -281,7 +289,7 @@ workspace_repo: ~/경로          # 선택. 코드가 미러 경로 밖에 있�
 4. next_action 은 **사용자가 말한 것만** 적는다. 후보를 지어내지 않는다. 말이 없으면 "미정"
 - 커밋 참조 형식: `(repo: <hash>)`
 
-## 11. daily 일기장
+## 11. daily 일기장 · Weekly
 
 - 위치: `daily/YYYY/YYYY-MM/YYYY-MM-DD.md`. 하루 단위의 흐름·잡생각·회고
 - 작성은 사용자가 기본. 비서는 요청받을 때만 정리를 돕는다
@@ -302,6 +310,25 @@ workspace_repo: ~/경로          # 선택. 코드가 미러 경로 밖에 있�
     결과를 바꾸지 않았고 하루를 읽는 사람에게 줄 정보가 없다 — trace 에만
 - 여러 프로젝트를 만진 날은 시각순으로 섞되, 프로젝트가 바뀌는 덩어리 제목에 프로젝트 이름을 붙인다
 - 형식 참조 → `daily/_timeline-example.md`
+
+### Weekly — 이번주 돌아보기와 다음주 계획
+- 위치: `weekly/YYYY/YYYY-Www.md`. 주 번호는 ISO 주(월요일 시작) — `date '+%G-W%V'` 로 채우고 손으로 세지 않는다.
+  폴더 연도도 `%G` (2027-01-03 은 `2026-W53`)
+  - 왜: 한 주가 두 달에 걸칠 수 있어서 월 폴더를 두지 않는다. 문서 머리에 월~일 날짜를 적는다
+- **그 주 파일에 그 주 돌아보기와 다음 주 계획을 둔다.** 파일이 없으면 `weekly/_template.md` 를 복사해 만든다
+- 언제: 금 · 토 · 일 중 아무 때나, 사용자가 말할 때
+- `## 이번주 돌아보기` (영어 워크스페이스는 `## This week in review`)
+  - `### 1. 이번주 계획했던 To do` : 비서가 옮긴다. 지난주 파일의 `다음주 To do` 를 이번 주 마지막 daily 의 `## To do` 체크 표시대로
+  - `### 2. 이번주 요약` : 월~일 한 줄씩. 비서가 그날 daily(Timeline · Done)와 log 를 보고 쓴다. 길게 풀지 않는다
+  - `### 3. 항목별 평가 + 자기 반성` : 사용자가 쓴다
+- `## 다음주 계획하기` (`## Next week's plan`)
+  - `### 1. 다음주 To do` : 사용자가 쓴다. 주 중간에도 더할 수 있다
+- **daily 로 옮기기:** 부팅에서 오늘 daily 를 만들 때(3절의 3) 비서가 `## To do` 에 옮긴다
+  - 그 주 첫 daily 는 지난주 파일의 `다음주 To do` 를 옮긴다
+  - 둘째 날부터는 직전 daily 의 `## To do` 를 체크 표시째 옮긴다. 진행 표시는 daily 에서 한다.
+    지난주 파일의 `다음주 To do` 에 직전 daily 에 없는 항목이 더해져 있으면 그것도 옮긴다
+    - 왜: 한 주 계획은 미리 다 세울 수 없어서 주 중간에도 weekly 에 더한다
+  - 지난주 파일이 없거나 `다음주 To do` 가 비었으면 옮기지 않는다
 
 ## 12. 저작자 표기 (CLAUDE.md 에서 켰을 때만)
 

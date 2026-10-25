@@ -11,7 +11,7 @@
   <a href="#install">Install</a> &nbsp;&nbsp; <a href="#updating">Updating</a> &nbsp;&nbsp; <a href="#what-i-provide">What I provide</a> &nbsp;&nbsp; <a href="#how-i-work">How I work</a> &nbsp;&nbsp; <a href="#things-you-can-say">Things you can say</a> &nbsp;&nbsp; <a href="#update-history">Update history</a> &nbsp;&nbsp; <a href="README_kr.md">한국어</a>
 </p>
 
-written by Ungbin_Oh · created 2026-09-27 · updated 2026-10-17
+written by Ungbin_Oh · created 2026-09-27 · updated 2026-10-25
 
 Juggling several projects at once? Alfred keeps each one on track: what you did, what you decided, and **why**.
 Switch freely and pick up exactly where you left off.
@@ -320,13 +320,14 @@ Your logs and settings stay as they are. When an update needs a change in your o
 | `open.md` | Things you want to do but won't start yet. Taking one up or dropping it goes into the log |
 | `project-logs/Incubator/` | Questions, study notes and stray thoughts that belong to no project yet. Ideas grow into sub-projects here |
 | `daily/` | The story of each day. Say "let's wrap up the day" and I write its timeline from the trace |
+| `weekly/` | One file a week: this week's review and next week's plan. The plan is carried into each day's to-dos |
 | `Archive/` | Finished work you want to keep, out of the briefing's way. Moved only when you say so |
 
 ### In the session
 
 | | What it does |
 |---|---|
-| **Boot briefing** | One table of projects per folder when you open a session: status, last updated, days idle, next action. Active projects idle for 14 days are flagged 🔴 neglected (display only) |
+| **Boot briefing** | One table of projects per folder when you open a session: status, last updated, days idle, next action, open items. Active projects idle for 14 days are flagged 🔴 neglected (display only) |
 | **Question windows** | Short choices come as a multiple-choice window, so every question gets one answer. Long drafts are confirmed in chat |
 | **Two languages** | English or Korean, chosen at `/alfred-init`. One rulebook either way |
 | `[ALFRED]` badge | Shows in the statusline inside an Alfred workspace only |
@@ -351,6 +352,7 @@ Your logs and settings stay as they are. When an update needs a change in your o
 │   └── Incubator/            questions and half-ideas; sub-projects before they launch
 ├── project-workspace/     actual code and outputs
 ├── daily/                 daily notes
+├── weekly/                this week's review + next week's plan
 └── Archive/               kept but not in use — the briefing doesn't look here
 ```
 
@@ -393,7 +395,8 @@ Both plugins share one version number. Every change is in [CHANGELOG.md](CHANGEL
 
 | Version | Date | What changed |
 |---|---|---|
-| **0.4.5** | 2026-10-17 | The `[ALFRED]` statusline badge is on by default again — set in the workspace's own settings, never the global ones |
+| **0.4.6** | 2026-10-25 | Weekly notes (`weekly/`): this week's review and next week's plan, carried into each day's to-dos. Briefing gets an Open column. A fixed shape for `docs/` |
+| 0.4.5 | 2026-10-17 | The `[ALFRED]` statusline badge is on by default again — set in the workspace's own settings, never the global ones |
 | 0.4.4 | 2026-10-17 | Shorter setup: `/alfred-init` asks only language, then your name and how to address you; the rest takes defaults you can change later by asking |
 | 0.4.3 | 2026-10-10 | Claude Code: sessions opened on the same day are named `YYYY-MM-DD #1`, `#2` … (count in `.alfred/session-count`) |
 | 0.4.2 | 2026-10-10 | Workspace changes are offered, never made: changelog items tagged `[Workspace]` are asked one by one after an update (apply / skip); a stale statusline badge copy in `~/.claude` is offered a fresh copy |

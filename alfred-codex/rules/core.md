@@ -49,6 +49,7 @@ Higher wins. The common rules are the default; wherever the user changed somethi
 │   └── trace/YYYY-MM-DD.md   work ledger (written by the assistant)
 ├── project-workspace/<category>/<project>/   actual code and outputs (same tree as project-logs)
 ├── daily/YYYY/YYYY-MM/YYYY-MM-DD.md           daily notes
+├── weekly/YYYY/YYYY-Www.md                    this week's review + next week's plan (section 11)
 └── Archive/                  kept but not in use (section 13)
     ├── README.md             list of what's archived
     ├── workspace-archive/    outputs, same shape as project-workspace (left out of git)
@@ -78,7 +79,9 @@ Higher wins. The common rules are the default; wherever the user changed somethi
 1. Find every `project-logs/**/log.md`
 2. From each log.md read the frontmatter and **only the last 3 entries.** Never read a whole log at boot
    - Why: boot cost must not grow with the number of projects, or it won't get used every day
-3. If today's daily note doesn't exist, copy `daily/_template.md` to create it (replace only the date)
+   - If there is an open.md, read only its item titles (`##` lines, except `Closed` / `닫힌 것`)
+3. If today's daily note doesn't exist, copy `daily/_template.md` to create it (replace only the date).
+   When creating it, carry this week's plan into `## To do` (section 11 · Weekly)
 4. Look at the previous daily note (yesterday, or the most recent one before today)
    - Skim `## Done` for a one-line summary
    - Count **empty sections** among `## Done` / `## Timeline` / `## Thoughts` (no content, or a single `-`)
@@ -86,9 +89,12 @@ Higher wins. The common rules are the default; wherever the user changed somethi
    - Skim `## To do`, and in the briefing ask the user once whether those were done
 5. First reply: one line of greeting as the assistant, then the status briefing
    - **One subheading + one table per category** (every top-level folder of project-logs, Incubator included).
-     Columns: project / status / updated / days idle / next_action
+     Columns: project / status / updated / days idle / next_action / Open
    - Incubator's table: the Incubator body in the first row, its sub-projects below
    - The project cell is `name (code)` — e.g. `Thesis-Experiment (THS)`. Folder names don't carry the code
+   - **Open column:** the open.md items in a word each, 2–3 of them; if there are more, end with `…`. Write it even when
+     next_action isn't undecided. Leave it empty if there is no open.md or it has no items
+   - If next_action is "undecided — see [[open]]", write just `undecided` in the next_action cell (`미정` in Korean). The Open column shows the items
    - Keep it tight. Table directly on the line after the subheading; one blank line only between a table and the next subheading
    - Leave `status: done` out of the table; put "· done: N" next to the subheading
    - **Neglected flag:** if a project is `status: active` but `updated` is more than **14 days** old, show its status cell as `🔴 neglected`.
@@ -229,6 +235,9 @@ workspace_repo: ~/path         # optional. Only when code lives outside the mirr
 - Number dumps, reproduction steps, error logs and unverified estimates go to the trace. log.md only points to it via the `Trace:` line.
   `docs/` under project-workspace holds only **documents that will keep being looked up** (specs, reproduction guides).
   A measurement taken once goes to the trace, not docs
+  - **Shape of `docs/`**, so it doesn't differ from project to project: documents to keep looking up go directly under `docs/`;
+    `docs/slides/` holds presentation files and the scripts that build them; `docs/artifact/` holds artifact HTML sources
+    (their URLs go in the trace). A sub-folder with its own `docs/` follows the same shape
 - A next step can be recorded ahead of time as an entry. Only what and why; the result is `(not started)`
 - Group steps of the same nature into one chunk
 - Use `###` for subheadings. `##` gets counted as an entry
@@ -282,7 +291,7 @@ workspace_repo: ~/path         # optional. Only when code lives outside the mirr
 4. next_action holds **only what the user said.** Don't invent candidates. If nothing was said, "undecided"
 - Commit reference format: `(repo: <hash>)`
 
-## 11. Daily notes
+## 11. Daily notes · Weekly
 
 - Location: `daily/YYYY/YYYY-MM/YYYY-MM-DD.md`. The flow of the day, stray thoughts, reflections
 - Written by the user by default. The assistant helps organize only when asked
@@ -303,6 +312,26 @@ workspace_repo: ~/path         # optional. Only when code lives outside the mirr
     They changed nothing and give the reader of the day nothing — trace only
 - On days touching several projects, interleave by time, and put the project name on chunk titles where the project changes
 - Format reference → `daily/_timeline-example.md`
+
+### Weekly — this week's review and next week's plan
+- Location: `weekly/YYYY/YYYY-Www.md`. ISO weeks (starting Monday): fill it with `date '+%G-W%V'`, never count by hand.
+  The folder year is `%G` too (2027-01-03 is `2026-W53`)
+  - Why: a week can span two months, so there is no month folder. The file head carries the Monday–Sunday dates
+- **One file per week holds that week's review and next week's plan.** If it doesn't exist, copy `weekly/_template.md`
+- When: any time Friday · Saturday · Sunday, when the user says so
+- `## This week in review` (`## 이번주 돌아보기` in Korean workspaces)
+  - `### 1. Planned to-dos` : carried over by the assistant — last week's file's `Next week's to-dos`, with the check marks
+    of this week's last daily `## To do`
+  - `### 2. Summary` : one line per day, Monday–Sunday. The assistant writes it from that day's daily (Timeline · Done) and logs. Keep it short
+  - `### 3. Review & reflection` : written by the user
+- `## Next week's plan` (`## 다음주 계획하기`)
+  - `### 1. Next week's to-dos` : written by the user. Items can be added during the week too
+- **Carrying into the daily:** when boot creates today's daily (section 3, step 3), the assistant fills `## To do`
+  - The first daily of the week gets last week's file's `Next week's to-dos`
+  - From the second day on, carry the previous daily's `## To do` with its check marks — progress is marked in the daily.
+    Also carry any item in last week's file's `Next week's to-dos` that isn't in the previous daily
+    - Why: a week's plan can't all be made up front, so items get added to the weekly file during the week
+  - If last week's file doesn't exist or its `Next week's to-dos` is empty, carry nothing
 
 ## 12. Author header (only when enabled in CLAUDE.md)
 
