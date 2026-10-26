@@ -10,6 +10,14 @@ the assistant offers each such item through the question window and applies it o
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
 
+## 0.4.9 — 2026-10-26
+
+**Codex question windows turn themselves on.** Both plugins are now 0.4.9 (Codex-only change).
+
+- **[Codex] The session-start hook turns on question windows if they are off** — it reads `codex features list`, and when
+  `default_mode_request_user_input` is `false` it runs `codex features enable default_mode_request_user_input` (saved in
+  `~/.codex/config.toml`, stays on). The windows work from the next session; in that first session the assistant says so and asks in chat
+
 ## 0.4.8 — 2026-10-26
 
 **Codex finds the changelog again.** Both plugins are now 0.4.8 (Codex-only change).

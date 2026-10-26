@@ -106,7 +106,7 @@ codex plugin add alfred-codex@alfred
 codex features enable default_mode_request_user_input
 ```
 
-The `features enable` line is needed only once — it turns on question windows for good.
+The `features enable` line is needed only once — it turns on question windows for good. If it was skipped, Alfred turns it on at the start of a session (0.4.9 on); reopen Codex once and the windows appear.
 
 **Step 2 · Make a workspace folder and open Codex there**
 
@@ -233,7 +233,7 @@ codex plugin add alfred-codex@alfred
 codex features enable default_mode_request_user_input
 ```
 
-The `features enable` line is needed only once — it turns on question windows for good.
+The `features enable` line is needed only once — it turns on question windows for good. If it was skipped, Alfred turns it on at the start of a session (0.4.9 on); reopen Codex once and the windows appear.
 
 **Step 2 · Make a workspace folder and open Codex there**
 
@@ -395,7 +395,8 @@ Both plugins share one version number. Every change is in [CHANGELOG.md](CHANGEL
 
 | Version | Date | What changed |
 |---|---|---|
-| **0.4.8** | 2026-10-26 | Codex: the update notice reads the local changelog again |
+| **0.4.9** | 2026-10-26 | Codex: question windows are turned on at session start if they were off |
+| 0.4.8 | 2026-10-26 | Codex: the update notice reads the local changelog again |
 | 0.4.7 | 2026-10-25 | Guide mode introduces weekly notes; the weekly template offer on update explains how to use them |
 | 0.4.6 | 2026-10-25 | Weekly notes (`weekly/`): this week's review and next week's plan, carried into each day's to-dos. Briefing gets an Open column. A fixed shape for `docs/` |
 | 0.4.5 | 2026-10-17 | The `[ALFRED]` statusline badge is on by default again — set in the workspace's own settings, never the global ones |

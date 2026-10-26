@@ -123,6 +123,22 @@ if [ -n "$REMOTE_VERSION" ] && [ -n "$PLUGIN_VERSION" ] && ver_gt "$REMOTE_VERSI
   echo "Don't run them yourself. What changed: $CHANGELOG_URL"
 fi
 
+# Question windows: in Codex's Default mode, request_user_input sits behind the feature flag default_mode_request_user_input.
+# If it is off, turn it on once (Codex writes it to ~/.codex/config.toml and it stays on). It takes effect from the next session.
+QW_TURNED_ON=""
+if command -v codex >/dev/null 2>&1; then
+  QW_STATE=$(codex features list 2>/dev/null | awk '$1 == "default_mode_request_user_input" { print $NF }')
+  if [ "$QW_STATE" = "false" ] && codex features enable default_mode_request_user_input >/dev/null 2>&1; then
+    QW_TURNED_ON=1
+  fi
+fi
+if [ -n "$QW_TURNED_ON" ]; then
+  echo
+  echo "NOTICE — Alfred just turned on Codex question windows (codex features enable default_mode_request_user_input, saved in"
+  echo "~/.codex/config.toml). They work from the next Codex session. In this session request_user_input won't show — ask in chat."
+  echo "In the boot briefing, tell the user in one line (workspace language) and that reopening Codex brings the windows."
+fi
+
 RULES="$PLUGIN_ROOT/rules/core.md"
 if [ ! -f "$RULES" ]; then
   echo

@@ -106,7 +106,7 @@ codex plugin add alfred-codex@alfred
 codex features enable default_mode_request_user_input
 ```
 
-`features enable` 줄은 한 번만 치시면 됩니다 — 질문 창을 계속 켜 둡니다.
+`features enable` 줄은 한 번만 치시면 됩니다 — 질문 창을 계속 켜 둡니다. 빠뜨렸으면 Alfred 가 세션을 시작할 때 켜 드립니다 (0.4.9 부터). Codex 를 한 번 다시 여시면 창이 뜹니다.
 
 **Step 2 · 워크스페이스 폴더를 만들고 거기서 Codex 열기**
 
@@ -233,7 +233,7 @@ codex plugin add alfred-codex@alfred
 codex features enable default_mode_request_user_input
 ```
 
-`features enable` 줄은 한 번만 치시면 됩니다 — 질문 창을 계속 켜 둡니다.
+`features enable` 줄은 한 번만 치시면 됩니다 — 질문 창을 계속 켜 둡니다. 빠뜨렸으면 Alfred 가 세션을 시작할 때 켜 드립니다 (0.4.9 부터). Codex 를 한 번 다시 여시면 창이 뜹니다.
 
 **Step 2 · 워크스페이스 폴더를 만들고 거기서 Codex 열기**
 
@@ -395,7 +395,8 @@ codex plugin remove alfred-codex@alfred    # Codex
 
 | 버전 | 날짜 | 바뀐 것 |
 |---|---|---|
-| **0.4.8** | 2026-10-26 | Codex: 업데이트 알림이 다시 로컬 changelog 를 읽습니다 |
+| **0.4.9** | 2026-10-26 | Codex: 질문 창이 꺼져 있으면 세션 시작 때 켭니다 |
+| 0.4.8 | 2026-10-26 | Codex: 업데이트 알림이 다시 로컬 changelog 를 읽습니다 |
 | 0.4.7 | 2026-10-25 | guide mode 가 주간 노트를 소개하고, 업데이트 때 weekly 템플릿을 물으면서 쓰는 법도 알려 줍니다 |
 | 0.4.6 | 2026-10-25 | 주간 노트(`weekly/`): 이번주 돌아보기와 다음주 계획, 계획은 날마다 To do 로. 브리핑에 Open 열. `docs/` 모양을 정함 |
 | 0.4.5 | 2026-10-17 | `[ALFRED]` 상태줄 배지가 다시 기본으로 켜집니다 — 워크스페이스 자체 설정에만, 전역 설정은 건드리지 않습니다 |

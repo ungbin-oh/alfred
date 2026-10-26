@@ -12,6 +12,14 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-26
 **`[Workspace]`** (0.4.2 부터) 는 사용자 파일을 바꿔야 하는 항목이다 — 플러그인은 직접 바꾸지 않고, 업데이트 뒤 비서가 항목마다
 질문 창으로 물어 예라고 할 때만 적용한다.
 
+## 0.4.9 — 2026-10-26
+
+**Codex 질문 창이 스스로 켜진다.** 두 플러그인 모두 0.4.9 (Codex 쪽만 바뀜).
+
+- **[Codex] 세션 시작 훅이 꺼진 질문 창을 켠다** — `codex features list` 를 읽고 `default_mode_request_user_input` 이 `false` 면
+  `codex features enable default_mode_request_user_input` 을 실행한다 (`~/.codex/config.toml` 에 남고 계속 켜짐). 창은 다음 세션부터 뜨고,
+  그 첫 세션에서는 비서가 그렇게 알리고 채팅으로 묻는다
+
 ## 0.4.8 — 2026-10-26
 
 **Codex 가 changelog 를 다시 찾는다.** 두 플러그인 모두 0.4.8 (Codex 쪽만 바뀜).
