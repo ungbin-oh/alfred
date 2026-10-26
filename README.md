@@ -395,7 +395,8 @@ Both plugins share one version number. Every change is in [CHANGELOG.md](CHANGEL
 
 | Version | Date | What changed |
 |---|---|---|
-| **0.4.9** | 2026-10-26 | Codex: question windows are turned on at session start if they were off |
+| **0.4.10** | 2026-10-26 | Codex: update questions come at the end of the briefing, so the window stays open to answer |
+| 0.4.9 | 2026-10-26 | Codex: question windows are turned on at session start if they were off |
 | 0.4.8 | 2026-10-26 | Codex: the update notice reads the local changelog again |
 | 0.4.7 | 2026-10-25 | Guide mode introduces weekly notes; the weekly template offer on update explains how to use them |
 | 0.4.6 | 2026-10-25 | Weekly notes (`weekly/`): this week's review and next week's plan, carried into each day's to-dos. Briefing gets an Open column. A fixed shape for `docs/` |

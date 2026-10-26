@@ -78,7 +78,7 @@ Archive/workspace-archive/.gitkeep
 - `.alfred/workspace` 내용:
   ```
   alfred-workspace
-  version: 0.4.9
+  version: 0.4.10
   created: YYYY-MM-DD
   language: en
   ```

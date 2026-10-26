@@ -112,6 +112,9 @@ if [ -n "$UPDATED_FROM" ]; then
   echo "Items tagged [Workspace] in those sections describe a change to the user's files (workspace or ~/.codex) that the plugin"
   echo "does not make by itself. For each one, say what it would change and ask through the question window (apply / skip)."
   echo "Apply only on yes, show what you changed, and never touch the user's existing content. Untagged items need nothing."
+  echo "Ask them **last**: write the whole boot briefing first (including what changed and any how-to lines), then make the"
+  echo "request_user_input call as the final action of the reply — no chat text after it, no other tools in between. Wait for the"
+  echo "answer before writing anything else. (Called mid-reply, Codex queues the question and it closes on its own.)"
 fi
 
 if [ -n "$REMOTE_VERSION" ] && [ -n "$PLUGIN_VERSION" ] && ver_gt "$REMOTE_VERSION" "$PLUGIN_VERSION"; then

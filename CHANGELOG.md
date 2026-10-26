@@ -10,6 +10,14 @@ the assistant offers each such item through the question window and applies it o
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
 
+## 0.4.10 — 2026-10-26
+
+**Codex asks update questions last.** Both plugins are now 0.4.10 (Codex-only change).
+
+- **[Codex] `[Workspace]` questions come at the end of the boot briefing** — the update notice now tells the assistant to finish the
+  briefing first and make the question window the reply's final action, then wait. Asked mid-reply, Codex queued the question and it
+  closed on its own before it could be answered
+
 ## 0.4.9 — 2026-10-26
 
 **Codex question windows turn themselves on.** Both plugins are now 0.4.9 (Codex-only change).
