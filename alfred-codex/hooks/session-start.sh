@@ -13,8 +13,8 @@
 #   2. Workspace root path
 #   3. Workspace language (the `language:` line in the marker; en if missing)
 #   4. Version notices: when the plugin version differs from the `version:` line in the marker, the
-#      workspace just moved to a new Alfred (first session on it) — the hook says so, points at the
-#      changelog and rewrites the marker line. And when GitHub has a newer version than the one installed,
+#      workspace just moved to a new Alfred (first session on it) — the hook says so, puts the changelog sections
+#      since the old version into the notice (the model shows them in a question window) and rewrites the marker line. And when GitHub has a newer version than the one installed,
 #      the hook says an update is available and gives the update commands. The remote check is one
 #      curl with a 3-second cap (Codex itself needs the network; a slow or failed fetch just prints nothing).
 #      Changelog items tagged [Workspace] are changes to the user's files that the plugin never makes by
@@ -113,23 +113,50 @@ if [ -n "$PLUGIN_VERSION" ] && [ -n "$MARKER_VERSION" ] && [ "$MARKER_VERSION" !
   }
 fi
 
+# Changelog text for the update notice: the sections newer than the marker version, up to the installed one (the file is
+# newest first). A Korean workspace reads docs/ko/CHANGELOG.md when the clone has it. Capped at 6,000 characters. Empty when
+# the local changelog is missing or doesn't have the installed version yet — the notice then points at the file instead
+UPDATE_TEXT=""
+if [ -n "$UPDATED_FROM" ]; then
+  CL_LOCAL="$CHANGELOG"
+  CL_KO="$(dirname "$CHANGELOG")/docs/ko/CHANGELOG.md"
+  [ "$LANG_CODE" = "ko" ] && [ -f "$CL_KO" ] && CL_LOCAL="$CL_KO"
+  if [ -f "$CL_LOCAL" ]; then
+    UPDATE_TEXT=$(awk -v from="$UPDATED_FROM" -v to="$PLUGIN_VERSION" '
+      /^## [0-9]/ { if ($2 == from) exit; if ($2 == to) on = 1 }
+      on { print }' "$CL_LOCAL" | head -c 6000)
+  fi
+fi
+
 echo "ALFRED ACTIVE"
 echo "Current time: $(date '+%Y-%m-%d %H:%M (%a)')"
 echo "Workspace root: $ROOT"
 echo "Language: $LANG_LINE"
 
-if [ -n "$UPDATED_FROM" ]; then
-  echo
-  echo "NOTICE — Alfred was updated: $UPDATED_FROM → $PLUGIN_VERSION. This is the first session on the new version."
-  echo "In the boot briefing, tell the user in one line (workspace language) that Alfred is now $PLUGIN_VERSION and what changed."
-  echo "Read the changelog sections newer than $UPDATED_FROM, up to $PLUGIN_VERSION: $CHANGELOG"
-  echo "Items tagged [Workspace] in those sections describe a change to the user's files (workspace or ~/.codex) that the plugin"
-  echo "does not make by itself. For each one, say what it would change and ask through the question window (apply / skip)."
-  echo "Apply only on yes, show what you changed, and never touch the user's existing content. Untagged items need nothing."
-  echo "Ask them **last**: write the whole boot briefing first (including what changed and any how-to lines), then make the"
-  echo "request_user_input call as the final action of the reply — no chat text after it, no other tools in between. Wait for the"
-  echo "answer before writing anything else. (Called mid-reply, Codex queues the question and it closes on its own.)"
-fi
+# Update notice — printed at the very END of the hook output, after the rules (AWP-trace423: placed before the rules,
+# in the middle of the context, Codex wrote the boot briefing and skipped it). Called once, last.
+update_notice() {
+  if [ -n "$UPDATED_FROM" ]; then
+    echo
+    echo "=== REQUIRED IN THIS REPLY — ALFRED UPDATE NOTICE ==="
+    echo "Alfred was updated: $UPDATED_FROM → $PLUGIN_VERSION. This is the first session on the new version. Do not skip this."
+    echo "Show the user what was added and what changed through the question window (request_user_input), as the LAST action of the"
+    echo "boot briefing: write the whole briefing first, then call it — no chat text after it, no other tools in between — and wait."
+    echo "  - First question, header \"Alfred $PLUGIN_VERSION\": the question text lists the changes since $UPDATED_FROM in 2–5 short"
+    echo "    lines, one item per line, each starting with Added / Changed / Fixed (in the workspace language, e.g. 추가 · 변경 · 수정)."
+    echo "    Options: \"Got it\" / \"Explain more\" (in the workspace language). On \"Explain more\", explain each item briefly in chat."
+    echo "  - Then one question per item tagged [Workspace] — a change to the user's files (workspace or ~/.codex) that the plugin does"
+    echo "    not make by itself: say what it would change; options apply / skip. At most 4 questions in one window; ask the rest in a"
+    echo "    second window. Apply only on yes, show what you changed, and never touch the user's existing content. Untagged items need nothing."
+    echo "  (Called mid-reply, Codex queues the question and it closes on its own before it can be answered.)"
+    if [ -n "$UPDATE_TEXT" ]; then
+      echo "  Changelog sections after $UPDATED_FROM, up to $PLUGIN_VERSION:"
+      printf '%s\n' "$UPDATE_TEXT" | sed 's/^/    | /'
+    else
+      echo "  Read the changelog sections newer than $UPDATED_FROM, up to $PLUGIN_VERSION: $CHANGELOG"
+    fi
+  fi
+}
 
 if [ -n "$REMOTE_VERSION" ] && [ -n "$PLUGIN_VERSION" ] && ver_gt "$REMOTE_VERSION" "$PLUGIN_VERSION"; then
   echo
@@ -206,6 +233,7 @@ RULES="$PLUGIN_ROOT/rules/core.md"
 if [ ! -f "$RULES" ]; then
   echo
   echo "ALFRED — could not find rules/core.md in the plugin ($PLUGIN_ROOT). Check the plugin installation."
+  update_notice
   exit 0
 fi
 
@@ -216,3 +244,4 @@ echo "request_user_input when it is available; otherwise ask in chat, one questi
 echo "(the @.alfred/rules.md line and .alfred/rules.md, the statusline badge) don't apply."
 echo
 cat "$RULES"
+update_notice

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # written by Ungbin_Oh
 # created : 2026-09-26
-# updated : 2026-10-17
+# updated : 2026-11-02
 #
 # Alfred — SessionStart hook
 #
@@ -16,8 +16,8 @@
 #      the user edited .alfred/rules.md — the plugin did not overwrite it, and the model asks the user whether to
 #      move the edits into CLAUDE.md or keep the file as their own (.alfred/rules.local)
 #   5. Version notices: when the plugin version differs from the `version:` line in the marker, the
-#      workspace just moved to a new Alfred (first session on it) — the hook says so, points at the
-#      changelog and rewrites the marker line. And when GitHub has a newer version than the one installed,
+#      workspace just moved to a new Alfred (first session on it) — the hook says so, puts the changelog sections
+#      since the old version into the notice (the model shows them in a question window) and rewrites the marker line. And when GitHub has a newer version than the one installed,
 #      the hook says an update is available and gives the update commands. The remote check is one
 #      curl with a 3-second cap (Claude Code itself needs the network, so there is no offline case to
 #      handle; a slow or failed fetch just prints nothing). Changelog items tagged [Workspace] are changes
@@ -113,6 +113,21 @@ if [ -n "$PLUGIN_VERSION" ] && [ -n "$MARKER_VERSION" ] && [ "$MARKER_VERSION" !
   }
 fi
 
+# Changelog text for the update notice: the sections newer than the marker version, up to the installed one (the file is
+# newest first). A Korean workspace reads docs/ko/CHANGELOG.md when the clone has it. Capped at 6,000 characters. Empty when
+# the local changelog is missing or doesn't have the installed version yet — the notice then points at the file instead
+UPDATE_TEXT=""
+if [ -n "$UPDATED_FROM" ]; then
+  CL_LOCAL="$CHANGELOG"
+  CL_KO="$(dirname "$CHANGELOG")/docs/ko/CHANGELOG.md"
+  [ "$LANG_CODE" = "ko" ] && [ -f "$CL_KO" ] && CL_LOCAL="$CL_KO"
+  if [ -f "$CL_LOCAL" ]; then
+    UPDATE_TEXT=$(awk -v from="$UPDATED_FROM" -v to="$PLUGIN_VERSION" '
+      /^## [0-9]/ { if ($2 == from) exit; if ($2 == to) on = 1 }
+      on { print }' "$CL_LOCAL" | head -c 6000)
+  fi
+fi
+
 context() {
 echo "ALFRED ACTIVE"
 echo "Current time: $(date '+%Y-%m-%d %H:%M (%a)')"
@@ -154,11 +169,20 @@ fi
 if [ -n "$UPDATED_FROM" ]; then
   echo
   echo "NOTICE — Alfred was updated: $UPDATED_FROM → $PLUGIN_VERSION. This is the first session on the new version."
-  echo "In the boot briefing, tell the user in one line (workspace language) that Alfred is now $PLUGIN_VERSION and what changed."
-  echo "Read the changelog sections newer than $UPDATED_FROM, up to $PLUGIN_VERSION: $CHANGELOG"
-  echo "Items tagged [Workspace] in those sections describe a change to the user's files (workspace or ~/.claude) that the plugin"
-  echo "does not make by itself. For each one, say what it would change and ask through the question window (apply / skip)."
-  echo "Apply only on yes, show what you changed, and never touch the user's existing content. Untagged items need nothing."
+  echo "Show the user what was added and what changed through the question window (AskUserQuestion), as the LAST action of the"
+  echo "boot briefing: write the whole briefing first, then call it — no chat text after it, no other tools in between — and wait."
+  echo "  - First question, header \"Alfred $PLUGIN_VERSION\": the question text lists the changes since $UPDATED_FROM in 2–5 short"
+  echo "    lines, one item per line, each starting with Added / Changed / Fixed (in the workspace language, e.g. 추가 · 변경 · 수정)."
+  echo "    Options: \"Got it\" / \"Explain more\" (in the workspace language). On \"Explain more\", explain each item briefly in chat."
+  echo "  - Then one question per item tagged [Workspace] — a change to the user's files (workspace or ~/.claude) that the plugin does"
+  echo "    not make by itself: say what it would change; options apply / skip. At most 4 questions in one window; ask the rest in a"
+  echo "    second window. Apply only on yes, show what you changed, and never touch the user's existing content. Untagged items need nothing."
+  if [ -n "$UPDATE_TEXT" ]; then
+    echo "  Changelog sections after $UPDATED_FROM, up to $PLUGIN_VERSION:"
+    printf '%s\n' "$UPDATE_TEXT" | sed 's/^/    | /'
+  else
+    echo "  Read the changelog sections newer than $UPDATED_FROM, up to $PLUGIN_VERSION: $CHANGELOG"
+  fi
 fi
 
 # The statusline badge is a copy in ~/.claude (the plugin cache path changes with every update). Offer a fresh copy when it is stale

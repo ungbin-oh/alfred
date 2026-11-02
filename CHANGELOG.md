@@ -10,6 +10,18 @@ the assistant offers each such item through the question window and applies it o
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
 
+## 0.4.12 — 2026-11-02
+
+**What's new comes in a question window.** Both plugins are now 0.4.12.
+
+- **[Both] The first session after an update shows what was added and changed in a question window** — at the end of the boot
+  briefing, a window headed "Alfred <version>" lists the changes since the version the workspace was on (2–5 short lines, Added /
+  Changed / Fixed), with "Got it" / "Explain more". `[Workspace]` items follow, one question each (apply / skip). The session-start
+  hook cuts the changelog sections between the two versions itself and puts them in the notice (a Korean workspace gets
+  `docs/ko/CHANGELOG.md`), so the assistant doesn't have to find the file
+- **[Codex] The update notice comes last in the hook output** — after the common rules, under a "REQUIRED IN THIS REPLY" heading.
+  Placed before the rules, it sat in the middle of a long context and Codex wrote the briefing without it
+
 ## 0.4.11 — 2026-11-02
 
 **Codex sessions get an Alfred name.** Both plugins are now 0.4.11 (Codex-only change).
