@@ -113,6 +113,17 @@ if [ -n "$PLUGIN_VERSION" ] && [ -n "$MARKER_VERSION" ] && [ "$MARKER_VERSION" !
   }
 fi
 
+# What the newer version brings: the sections of the published changelog between the installed version and the latest one
+# (one more curl, 3-second cap, only when there is a newer version). Korean workspaces read docs/ko/CHANGELOG.md
+NEWER_TEXT=""
+if [ -n "$REMOTE_VERSION" ] && [ -n "$PLUGIN_VERSION" ] && ver_gt "$REMOTE_VERSION" "$PLUGIN_VERSION"; then
+  REMOTE_CL="https://raw.githubusercontent.com/ungbin-oh/alfred/main/CHANGELOG.md"
+  [ "$LANG_CODE" = "ko" ] && REMOTE_CL="https://raw.githubusercontent.com/ungbin-oh/alfred/main/docs/ko/CHANGELOG.md"
+  NEWER_TEXT=$(curl -fsS --max-time 3 "$REMOTE_CL" 2>/dev/null | awk -v from="$PLUGIN_VERSION" -v to="$REMOTE_VERSION" '
+    /^## [0-9]/ { if ($2 == from) exit; if ($2 == to) on = 1 }
+    on { print }' | head -c 6000)
+fi
+
 # Changelog text for the update notice: the sections newer than the marker version, up to the installed one (the file is
 # newest first). A Korean workspace reads docs/ko/CHANGELOG.md when the clone has it. Capped at 6,000 characters. Empty when
 # the local changelog is missing or doesn't have the installed version yet — the notice then points at the file instead
@@ -204,10 +215,21 @@ fi
 if [ -n "$REMOTE_VERSION" ] && [ -n "$PLUGIN_VERSION" ] && ver_gt "$REMOTE_VERSION" "$PLUGIN_VERSION"; then
   echo
   echo "NOTICE — a newer Alfred is available: $REMOTE_VERSION (installed: $PLUGIN_VERSION)."
-  echo "In the boot briefing, tell the user in one line (workspace language) and give the two update commands as they are:"
-  echo "  claude plugin marketplace update alfred"
-  echo "  claude plugin update alfred@alfred"
-  echo "Don't run them yourself. What changed: $CHANGELOG_URL"
+  echo "Tell the user through the question window (AskUserQuestion), as the LAST action of the boot briefing — after the update-notice"
+  echo "question if there is one (same window, up to 4 questions) — no chat text after it, and wait:"
+  echo "  - header \"Alfred $REMOTE_VERSION\": the question text says a new version is out, then what it adds or changes in 2–5 short lines"
+  echo "    (Added / Changed / Fixed, in the workspace language), from the changelog below. Options: \"Show update commands\" / \"Later\""
+  echo "    (in the workspace language)."
+  echo "  - On \"Show update commands\": give these two commands as they are, to run in a terminal outside this session, then start a"
+  echo "    new session (the update loads only then). Don't run them yourself:"
+  echo "      claude plugin marketplace update alfred"
+  echo "      claude plugin update alfred@alfred"
+  if [ -n "$NEWER_TEXT" ]; then
+    echo "  Published changelog after $PLUGIN_VERSION, up to $REMOTE_VERSION:"
+    printf '%s\n' "$NEWER_TEXT" | sed 's/^/    | /'
+  else
+    echo "  What changed: $CHANGELOG_URL"
+  fi
 fi
 }
 

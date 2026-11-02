@@ -10,6 +10,18 @@ the assistant offers each such item through the question window and applies it o
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
 
+## 0.4.13 — 2026-11-02
+
+**"A newer version is out" comes in a question window too.** Both plugins are now 0.4.13.
+
+- **[Both] New-version notice as a question window** — when GitHub has a newer Alfred than the one installed, the boot briefing
+  ends with a window headed "Alfred <new version>": it says a new version is out and what it adds or changes (2–5 lines), with
+  "Show update commands" / "Later". The commands are run by the user in a terminal outside the session, then a new session loads
+  the update; the assistant never runs them. The hook fetches the published changelog (one more 3-second curl, only when there
+  is a newer version) and cuts the sections between the installed version and the latest one (Korean workspaces get the Korean
+  changelog). When the "what changed" window of 0.4.12 also shows, both questions go in one window
+- **[Codex]** The new-version notice is printed at the very end of the hook output too, under a "REQUIRED" heading
+
 ## 0.4.12 — 2026-11-02
 
 **What's new comes in a question window.** Both plugins are now 0.4.12.

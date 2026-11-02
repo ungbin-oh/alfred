@@ -113,6 +113,17 @@ if [ -n "$PLUGIN_VERSION" ] && [ -n "$MARKER_VERSION" ] && [ "$MARKER_VERSION" !
   }
 fi
 
+# What the newer version brings: the sections of the published changelog between the installed version and the latest one
+# (one more curl, 3-second cap, only when there is a newer version). Korean workspaces read docs/ko/CHANGELOG.md
+NEWER_TEXT=""
+if [ -n "$REMOTE_VERSION" ] && [ -n "$PLUGIN_VERSION" ] && ver_gt "$REMOTE_VERSION" "$PLUGIN_VERSION"; then
+  REMOTE_CL="https://raw.githubusercontent.com/ungbin-oh/alfred/main/CHANGELOG.md"
+  [ "$LANG_CODE" = "ko" ] && REMOTE_CL="https://raw.githubusercontent.com/ungbin-oh/alfred/main/docs/ko/CHANGELOG.md"
+  NEWER_TEXT=$(curl -fsS --max-time 3 "$REMOTE_CL" 2>/dev/null | awk -v from="$PLUGIN_VERSION" -v to="$REMOTE_VERSION" '
+    /^## [0-9]/ { if ($2 == from) exit; if ($2 == to) on = 1 }
+    on { print }' | head -c 6000)
+fi
+
 # Changelog text for the update notice: the sections newer than the marker version, up to the installed one (the file is
 # newest first). A Korean workspace reads docs/ko/CHANGELOG.md when the clone has it. Capped at 6,000 characters. Empty when
 # the local changelog is missing or doesn't have the installed version yet — the notice then points at the file instead
@@ -132,6 +143,30 @@ echo "ALFRED ACTIVE"
 echo "Current time: $(date '+%Y-%m-%d %H:%M (%a)')"
 echo "Workspace root: $ROOT"
 echo "Language: $LANG_LINE"
+
+# Newer-version notice — also at the very end (after the update notice), for the same reason
+newer_notice() {
+  if [ -n "$REMOTE_VERSION" ] && [ -n "$PLUGIN_VERSION" ] && ver_gt "$REMOTE_VERSION" "$PLUGIN_VERSION"; then
+    echo
+    echo "=== REQUIRED IN THIS REPLY — ALFRED NEW VERSION NOTICE ==="
+    echo "A newer Alfred is available: $REMOTE_VERSION (installed: $PLUGIN_VERSION). Do not skip this."
+    echo "Tell the user through the question window (request_user_input), as the LAST action of the boot briefing — after the update-notice"
+    echo "question if there is one (same window, up to 4 questions) — no chat text after it, and wait:"
+    echo "  - header \"Alfred $REMOTE_VERSION\": the question text says a new version is out, then what it adds or changes in 2–5 short lines"
+    echo "    (Added / Changed / Fixed, in the workspace language), from the changelog below. Options: \"Show update commands\" / \"Later\""
+    echo "    (in the workspace language)."
+    echo "  - On \"Show update commands\": give these two commands as they are, to run in a terminal outside this session, then start a"
+    echo "    new session (the update loads only then). Don't run them yourself:"
+    echo "      codex plugin marketplace upgrade alfred"
+    echo "      codex plugin add alfred-codex@alfred"
+    if [ -n "$NEWER_TEXT" ]; then
+      echo "  Published changelog after $PLUGIN_VERSION, up to $REMOTE_VERSION:"
+      printf '%s\n' "$NEWER_TEXT" | sed 's/^/    | /'
+    else
+      echo "  What changed: $CHANGELOG_URL"
+    fi
+  fi
+}
 
 # Update notice — printed at the very END of the hook output, after the rules (AWP-trace423: placed before the rules,
 # in the middle of the context, Codex wrote the boot briefing and skipped it). Called once, last.
@@ -158,14 +193,6 @@ update_notice() {
   fi
 }
 
-if [ -n "$REMOTE_VERSION" ] && [ -n "$PLUGIN_VERSION" ] && ver_gt "$REMOTE_VERSION" "$PLUGIN_VERSION"; then
-  echo
-  echo "NOTICE — a newer Alfred is available: $REMOTE_VERSION (installed: $PLUGIN_VERSION)."
-  echo "In the boot briefing, tell the user in one line (workspace language) and give the two update commands as they are:"
-  echo "  codex plugin marketplace upgrade alfred"
-  echo "  codex plugin add alfred-codex@alfred"
-  echo "Don't run them yourself. What changed: $CHANGELOG_URL"
-fi
 
 # Question windows: in Codex's Default mode, request_user_input sits behind the feature flag default_mode_request_user_input.
 # If it is off, turn it on once (Codex writes it to ~/.codex/config.toml and it stays on). It takes effect from the next session.
@@ -234,6 +261,7 @@ if [ ! -f "$RULES" ]; then
   echo
   echo "ALFRED — could not find rules/core.md in the plugin ($PLUGIN_ROOT). Check the plugin installation."
   update_notice
+  newer_notice
   exit 0
 fi
 
@@ -245,3 +273,4 @@ echo "(the @.alfred/rules.md line and .alfred/rules.md, the statusline badge) do
 echo
 cat "$RULES"
 update_notice
+newer_notice
