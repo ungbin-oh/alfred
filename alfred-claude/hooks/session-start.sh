@@ -180,8 +180,10 @@ fi
 if [ -n "$UPDATED_FROM" ]; then
   echo
   echo "NOTICE — Alfred was updated: $UPDATED_FROM → $PLUGIN_VERSION. This is the first session on the new version."
-  echo "Show the user what was added and what changed through the question window (AskUserQuestion), as the LAST action of the"
-  echo "boot briefing: write the whole briefing first, then call it — no chat text after it, no other tools in between — and wait."
+  echo "Show the user what was added and what changed through the question window (AskUserQuestion) BEFORE the boot briefing:"
+  echo "read what the briefing needs, then call the window first. After the answer, write the WHOLE boot briefing as the reply —"
+  echo "the window never replaces the briefing; don't end the turn with only an acknowledgement. Text written before the window is"
+  echo "hidden once it closes, so put nothing but the window before it."
   echo "  - First question, header \"Alfred $PLUGIN_VERSION\": the question text lists the changes since $UPDATED_FROM in 2–5 short"
   echo "    lines, one item per line, each starting with its version and Added / Changed / Fixed — e.g. \"0.4.12 Added: …\" (the word in the workspace language: 0.4.12 추가 · 변경 · 수정)."
   echo "    Options: \"Got it\" / \"Explain more\" (in the workspace language). On \"Explain more\", explain each item briefly in chat."
@@ -215,8 +217,9 @@ fi
 if [ -n "$REMOTE_VERSION" ] && [ -n "$PLUGIN_VERSION" ] && ver_gt "$REMOTE_VERSION" "$PLUGIN_VERSION"; then
   echo
   echo "NOTICE — a newer Alfred is available: $REMOTE_VERSION (installed: $PLUGIN_VERSION)."
-  echo "Tell the user through the question window (AskUserQuestion), as the LAST action of the boot briefing — after the update-notice"
-  echo "question if there is one (same window, up to 4 questions) — no chat text after it, and wait:"
+  echo "Tell the user through the question window (AskUserQuestion) BEFORE the boot briefing — in the same window as the update-notice"
+  echo "question if there is one (up to 4 questions). After the answer, write the WHOLE boot briefing as the reply (the window never"
+  echo "replaces the briefing; if they chose the update commands, give them right above the briefing):"
   echo "  - header \"Alfred $REMOTE_VERSION\": the question text says a new version is out, then what it adds or changes in 2–5 short lines"
   echo "    (each line starts with its version and Added / Changed / Fixed — e.g. \"0.4.13 Added: …\", the word in the workspace language), from the changelog below. Options: \"Show update commands\" / \"Later\""
   echo "    (in the workspace language)."

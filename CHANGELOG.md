@@ -10,6 +10,15 @@ the assistant offers each such item through the question window and applies it o
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
 
+## 0.4.15 — 2026-11-02
+
+**The boot briefing comes back after the update window.** Both plugins are now 0.4.15 (Claude-only change).
+
+- **[Claude] Update windows come first, then the whole boot briefing** — the "what changed" and "new version" windows now open before
+  the briefing, and after the answer the assistant writes the full briefing. Before, the window was meant to be the briefing's last
+  step: the assistant often called it without writing the briefing and ended with a one-line acknowledgement, and text written before
+  a window is folded away once it closes. If the update commands were asked for, they go right above the briefing
+
 ## 0.4.14 — 2026-11-02
 
 **Each change shows its version.** Both plugins are now 0.4.14.
