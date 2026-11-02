@@ -395,7 +395,8 @@ Both plugins share one version number. Every change is in [CHANGELOG.md](CHANGEL
 
 | Version | Date | What changed |
 |---|---|---|
-| **0.4.13** | 2026-11-02 | Both: "a newer version is out" is a question window too — what it brings, then the update commands on request |
+| **0.4.14** | 2026-11-02 | Both: each line of the update windows starts with its version |
+| 0.4.13 | 2026-11-02 | Both: "a newer version is out" is a question window too — what it brings, then the update commands on request |
 | 0.4.12 | 2026-11-02 | Both: the first session after an update shows what was added and changed in a question window |
 | 0.4.11 | 2026-11-02 | Codex: sessions are named `[ALFRED] YYYY-MM-DD #N` (today's Nth); shows at once with `codex --remote unix://` |
 | 0.4.10 | 2026-10-26 | Codex: update questions come at the end of the briefing, so the window stays open to answer |

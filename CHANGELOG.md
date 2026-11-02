@@ -10,6 +10,13 @@ the assistant offers each such item through the question window and applies it o
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
 
+## 0.4.14 — 2026-11-02
+
+**Each change shows its version.** Both plugins are now 0.4.14.
+
+- **[Both] Update windows say which version each change came in** — every line in the "what changed" and "new version" windows
+  starts with its version, e.g. "0.4.12 Added: …". When several updates pile up, it is clear which one brought what
+
 ## 0.4.13 — 2026-11-02
 
 **"A newer version is out" comes in a question window too.** Both plugins are now 0.4.13.
