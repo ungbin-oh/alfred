@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # written by Ungbin_Oh
 # created : 2026-09-26
-# updated : 2026-10-26
+# updated : 2026-11-02
 #
 # Alfred for Codex — SessionStart hook
 #
@@ -20,6 +20,10 @@
 #      Changelog items tagged [Workspace] are changes to the user's files that the plugin never makes by
 #      itself — the model offers each one (question window)
 #   5. The full common rules (rules/core.md)
+#   6. Session name (new sessions only, source = startup): "[ALFRED] YYYY-MM-DD #N" (N = today's Alfred session number) — the [ALFRED] badge for the Codex
+#      footer's thread-name item. Codex hook output has no name field, so a background job asks an app-server for
+#      thread/name/set: the shared daemon first (shows at once when the TUI runs on it, `codex --remote unix://`),
+#      else a separate stdio server after 6 s (shows after /resume). See the section near the end (AWP-trace394 · 395 · 408).
 #
 # Codex has no import in AGENTS.md, so the rules are printed here. Codex caps hook output at about
 # 2,500 tokens by default; hooks/hooks.json raises this hook's additionalContextLimit (in tokens)
@@ -50,6 +54,16 @@ find_root() {
 }
 
 ROOT=$(find_root "$START_DIR") || exit 0
+
+# Hook input (JSON on stdin): session_id · source (startup / resume / clear / compact / fork) · cwd …
+# Read it only when stdin is not a terminal, so running the script by hand doesn't wait for input
+HOOK_INPUT=""
+[ -t 0 ] || HOOK_INPUT=$(cat)
+json_field() {
+  printf '%s' "$HOOK_INPUT" | sed -n "s/.*\"$1\"[[:space:]]*:[[:space:]]*\"\([^\"]*\)\".*/\1/p" | head -1
+}
+SESSION_ID=$(json_field session_id)
+SESSION_SOURCE=$(json_field source)
 
 LANG_CODE=$(sed -n 's/^language:[[:space:]]*\([a-z][a-z]\).*/\1/p' "$ROOT/.alfred/workspace" | head -1)
 case "$LANG_CODE" in
@@ -140,6 +154,52 @@ if [ -n "$QW_TURNED_ON" ]; then
   echo "NOTICE — Alfred just turned on Codex question windows (codex features enable default_mode_request_user_input, saved in"
   echo "~/.codex/config.toml). They work from the next Codex session. In this session request_user_input won't show — ask in chat."
   echo "In the boot briefing, tell the user in one line (workspace language) and that reopening Codex brings the windows."
+fi
+
+# ---- Session name "[ALFRED] YYYY-MM-DD #N" (new sessions only) --------------------------------------------------------
+# A background job so the hook returns at once (hooks.json timeout 5 s). All output goes to a log, so the job never
+# holds the hook's stdout open. Log: ${TMPDIR:-/tmp}/alfred-thread-name.log (last run only)
+#   1st try — the shared app-server daemon, right away, through hooks/set-thread-name.py (the daemon's control socket
+#     speaks WebSocket; `codex app-server proxy` relays raw bytes only, AWP-trace410). When the TUI was started with
+#     `codex --remote unix://` it runs on that daemon, so the daemon tells the open screen the new name at once.
+#     Setting it now (before Codex's automatic title, ~2 s later) also keeps the automatic title from replacing it:
+#     the TUI writes its generated title only when the thread has no name yet (tui/src/app/event_dispatch.rs).
+#   Fallback — no python3, no daemon socket, or the call failed: a separate stdio app-server after 6 s (after the
+#     automatic title). The saved name and the /resume list change; the open screen shows it only after /resume.
+send_thread_name_stdio() {
+  {
+    printf '%s\n' '{"method":"initialize","id":1,"params":{"clientInfo":{"name":"alfred","version":"'"${PLUGIN_VERSION:-0}"'"}}}'
+    sleep 1
+    printf '%s\n' '{"method":"initialized"}'
+    printf '%s\n' '{"method":"thread/name/set","id":2,"params":{"threadId":"'"$SESSION_ID"'","name":"'"$THREAD_NAME"'"}}'
+    sleep 3
+  } | codex app-server --listen stdio:// 2>&1
+}
+if [ "$SESSION_SOURCE" = "startup" ] && [ -n "$SESSION_ID" ] && command -v codex >/dev/null 2>&1; then
+  # #N = today's Alfred session number: sessions already named "[ALFRED] <today>" in Codex's session index, + 1
+  #   (session_index.jsonl keeps one line per rename; ids are counted once, this session left out). Read only
+  TODAY=$(date '+%Y-%m-%d')
+  SESSION_INDEX="${CODEX_HOME:-$HOME/.codex}/session_index.jsonl"
+  TODAY_COUNT=0
+  if [ -f "$SESSION_INDEX" ]; then
+    TODAY_COUNT=$(grep -F "\"thread_name\":\"[ALFRED] $TODAY" "$SESSION_INDEX" \
+      | sed -n 's/.*"id":"\([^"]*\)".*/\1/p' | grep -v -F "$SESSION_ID" | sort -u | wc -l | tr -d ' ')
+  fi
+  THREAD_NAME="[ALFRED] $TODAY #$((TODAY_COUNT + 1))"
+  NAME_LOG="${TMPDIR:-/tmp}/alfred-thread-name.log"
+  DAEMON_SOCK="${CODEX_HOME:-$HOME/.codex}/app-server-control/app-server-control.sock"
+  (
+    echo "$(date '+%H:%M:%S') set $SESSION_ID → $THREAD_NAME"
+    if command -v python3 >/dev/null 2>&1 && [ -S "$DAEMON_SOCK" ] &&
+       ALFRED_VERSION="${PLUGIN_VERSION:-0}" python3 -I "$PLUGIN_ROOT/hooks/set-thread-name.py" "$DAEMON_SOCK" "$SESSION_ID" "$THREAD_NAME"; then
+      echo "$(date '+%H:%M:%S') done (daemon)"
+    else
+      echo "$(date '+%H:%M:%S') daemon path not used or failed → stdio app-server after 6 s"
+      sleep 6
+      send_thread_name_stdio
+      echo "$(date '+%H:%M:%S') done (stdio)"
+    fi
+  ) > "$NAME_LOG" 2>&1 < /dev/null &
 fi
 
 RULES="$PLUGIN_ROOT/rules/core.md"

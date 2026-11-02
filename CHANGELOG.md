@@ -1,6 +1,6 @@
 # Changelog
 
-written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-26
+written by Ungbin_Oh · created 2026-10-03 · updated 2026-11-02
 
 Newest first. Hashes are commits in this repository. From 0.1.8 on there is one version for the whole repository: both plugins (`alfred` for Claude Code, `alfred-codex` for Codex) carry the same number, and each item is tagged **[Claude]**, **[Codex]** or **[Both]**. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
 
@@ -9,6 +9,20 @@ the assistant offers each such item through the question window and applies it o
 
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
+
+## 0.4.11 — 2026-11-02
+
+**Codex sessions get an Alfred name.** Both plugins are now 0.4.11 (Codex-only change).
+
+- **[Codex] New sessions are named `[ALFRED] YYYY-MM-DD #N`** — N is today's Alfred session number. It works as the [ALFRED] badge in
+  the footer's thread-name item and the window title (Codex has no free slot for a badge). Codex hook output has no name field, so the
+  session-start hook sets it through the app-server (`thread/name/set`), in the background, at the first message (when the hook runs)
+  - **Start Codex with `codex --remote unix://` to see it at once.** The TUI then runs on the shared app-server daemon, and the hook
+    sets the name on that daemon (`hooks/set-thread-name.py`, python3 standard library — the daemon's socket speaks WebSocket). The
+    open screen changes right away, and Codex's automatic title is skipped because the thread already has a name
+  - Plain `codex` (or no python3, e.g. some Windows setups): a separate app-server sets the name 6 s later, after the automatic title.
+    The saved name and the `/resume` list change at once; the open screen shows it after `/resume`
+  - Log of the last run: `${TMPDIR:-/tmp}/alfred-thread-name.log`
 
 ## 0.4.10 — 2026-10-26
 

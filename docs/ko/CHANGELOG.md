@@ -1,6 +1,6 @@
 # 업데이트 히스토리
 
-written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-26
+written by Ungbin_Oh · created 2026-10-03 · updated 2026-11-02
 
 > **한국어 번역본이다.** 정본은 레포 루트의 `CHANGELOG.md` (영어). 정본이 바뀌면 같은 커밋에서 맞춘다.
 
@@ -11,6 +11,20 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-10-26
 
 **`[Workspace]`** (0.4.2 부터) 는 사용자 파일을 바꿔야 하는 항목이다 — 플러그인은 직접 바꾸지 않고, 업데이트 뒤 비서가 항목마다
 질문 창으로 물어 예라고 할 때만 적용한다.
+
+## 0.4.11 — 2026-11-02
+
+**Codex 세션에 Alfred 이름이 붙는다.** 두 플러그인 모두 0.4.11 (Codex 쪽만 바뀜).
+
+- **[Codex] 새 세션 이름을 `[ALFRED] YYYY-MM-DD #N` 으로** — N 은 오늘 몇 번째 Alfred 세션인지. 하단 줄의 thread-name 항목과 창 제목에서
+  [ALFRED] 배지 역할을 한다 (Codex 에는 배지를 넣을 빈자리가 없다). 훅 출력에는 이름 칸이 없어서, 세션 시작 훅이 첫 메시지 때 (훅이 도는 때)
+  뒤에서 app-server 로 (`thread/name/set`) 넣는다
+  - **`codex --remote unix://` 로 띄우면 바로 보인다.** TUI 가 공유 app-server daemon 위에서 돌고, 훅이 같은 daemon 에 이름을 넣는다
+    (`hooks/set-thread-name.py`, python3 표준 라이브러리 — daemon 소켓이 WebSocket 이라). 열린 화면이 바로 바뀌고, 이름이 이미 있어
+    Codex 자동 제목은 건너뛴다
+  - 그냥 `codex` 로 띄우면 (또는 python3 가 없으면, 일부 Windows): 따로 띄운 app-server 가 6 초 뒤, 자동 제목 다음에 넣는다.
+    저장된 이름과 `/resume` 목록은 바로 바뀌고, 열린 화면은 `/resume` 뒤에 보인다
+  - 마지막 실행 로그: `${TMPDIR:-/tmp}/alfred-thread-name.log`
 
 ## 0.4.10 — 2026-10-26
 
