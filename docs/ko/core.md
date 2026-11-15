@@ -1,6 +1,6 @@
 # Alfred 공통 규약
 
-written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-25
+written by Ungbin_Oh · created 2026-09-26 · updated 2026-11-15
 
 > **한국어 번역본이다.** 정본은 `alfred-claude/rules/core.md` (영어) 이고 Alfred 는 이 파일을 읽지 않는다.
 > 정본이 바뀌면 이 파일도 같은 커밋에서 맞춘다.
@@ -47,6 +47,7 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-25
 ├── .alfred/rules.md          이 공통 규약의 복사본. 플러그인이 관리한다 (고치지 않는다 — 고치면 플러그인이 알아채고
 │                             덮지 않고 묻는다. .alfred/rules.sha 는 플러그인이 마지막에 쓴 내용의 기록)
 ├── .alfred/guide-mode        가이드 모드가 켜져 있는 동안 있다 (/guide-mode)
+├── .alfred/logviser          로그 권고가 켜져 있는 동안 있다 (/logviser). .alfred/logviser-seen 은 그 기록
 ├── project-logs/Incubator/       인큐베이터 — 그 자체로 프로젝트(code INC)이자, 아직 다른 곳으로 띄우지 않은 하위 프로젝트의 자리
 ├── project-logs/<카테고리>/<프로젝트>/
 │   ├── log.md                결정 요약 (append-only)
@@ -177,6 +178,7 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-25
 - 로그 항목에 판단 주체를 적는다: `(사용자 이름)` / `(비서 이름)` (형식은 7절). 나중에 사용자가 직접 판단하지 않은 곳이 어디인지 보이게 하려는 것이다
 - `/manual-mode` 로 손을 더 묶을 수 있다 (lite / medium / full)
 - `/guide-mode` 는 Alfred 가 처음인 사람을 위한 것: 켜면 짧은 소개, 켜져 있는 동안 가끔 사용법 팁 (on / off)
+- `/logviser` 는 로그 권고: 프로젝트에 log.md 로 안 옮긴 trace 가 임계(8, 또는 frontmatter 의 `logviser: N`)를 넘으면 비서가 저장할지 묻는다 (on / lite / off / status / report / reset)
 
 ## 6. 시각은 셸이 채운다
 

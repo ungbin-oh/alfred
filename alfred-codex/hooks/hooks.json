@@ -37,6 +37,13 @@
             "commandWindows": "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}\\hooks\\run-windows.ps1\" guide-mode",
             "timeout": 5,
             "statusMessage": "Checking guide mode..."
+          },
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/logviser.sh\"",
+            "commandWindows": "powershell -NoProfile -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}\\hooks\\run-windows.ps1\" logviser",
+            "timeout": 5,
+            "statusMessage": "Checking logviser..."
           }
         ]
       }

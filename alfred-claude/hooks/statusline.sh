@@ -1,7 +1,7 @@
 #!/bin/bash
 # written by Ungbin_Oh
 # created : 2026-09-26
-# updated : 2026-10-17
+# updated : 2026-11-15
 #
 # Alfred — statusline badge. Prints a sky-blue [ALFRED] only inside an Alfred
 # workspace (.alfred/workspace marker in the session's directory).
@@ -17,6 +17,9 @@
 #
 # Color: 256-color code, default 117 (sky blue). Override with ALFRED_COLOR
 # (e.g. 114 = green).
+#
+# While logviser is on (.alfred/logviser), an orange [LOGVISER] badge follows, with the projects over their threshold:
+# [LOGVISER INC 9 · THS 12]. Counted the same way as hooks/logviser.sh. Color: LOGVISER_COLOR, default 215.
 
 INPUT=$(cat)
 CONF="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
@@ -47,6 +50,36 @@ fi
 BADGE=""
 if [ -n "$DIR" ] && [ -f "$DIR/.alfred/workspace" ]; then
   BADGE=$(printf '\033[38;5;%sm[ALFRED]\033[0m' "$COLOR")
+fi
+
+# logviser badge: projects whose traces not carried into log.md reach the threshold (same count as hooks/logviser.sh)
+if [ -n "$BADGE" ] && [ -f "$DIR/.alfred/logviser" ]; then
+  LV_COLOR="${LOGVISER_COLOR:-215}"
+  case "$LV_COLOR" in ''|*[!0-9]*) LV_COLOR=215 ;; esac
+  LV_TAG="LOGVISER"
+  [ "$(tr -d '[:space:]' < "$DIR/.alfred/logviser")" = "lite" ] && LV_TAG="LOGVISER-lite"
+  OVER=""
+  if [ -d "$DIR/project-logs" ]; then
+    OVER=$(find "$DIR/project-logs" -name log.md -not -path '*/Archive/*' 2>/dev/null | sort | while IFS= read -r LOGMD; do
+      PDIR=$(dirname "$LOGMD")
+      CODE=$(awk 'NR>1&&/^---/{exit} /^code:/{sub(/^code:[[:space:]]*/,""); sub(/[[:space:]]+$/,""); print; exit}' "$LOGMD")
+      [ -n "$CODE" ] || continue
+      THR=$(awk 'NR>1&&/^---/{exit} /^logviser:/{sub(/^logviser:[[:space:]]*/,""); sub(/[[:space:]]+$/,""); print; exit}' "$LOGMD")
+      case "$THR" in (''|*[!0-9]*|0) THR=8 ;; esac
+      TFILE=$(ls "$PDIR"/trace/*.md 2>/dev/null | sort | tail -1)
+      [ -n "$TFILE" ] || continue
+      MAXTR=$(grep -o "^## ${CODE}-trace[0-9]*" "$TFILE" | grep -o '[0-9]*$' | sort -n | tail -1)
+      [ -n "$MAXTR" ] || continue
+      LOGGED=$(grep '^\*\*Trace:\*\*' "$LOGMD" | grep -o "${CODE}-trace[0-9]*\(~[0-9]*\)\{0,1\}" | sed 's/.*trace//; s/.*~//' | sort -n | tail -1)
+      N=$(( MAXTR - ${LOGGED:-0} ))
+      [ "$N" -ge "$THR" ] && printf '%s %s\n' "$CODE" "$N"
+    done | awk 'BEGIN{ORS=""} {print (NR>1 ? " · " : "") $0}')
+  fi
+  if [ -n "$OVER" ]; then
+    BADGE="$BADGE $(printf '\033[38;5;%sm[%s %s]\033[0m' "$LV_COLOR" "$LV_TAG" "$OVER")"
+  else
+    BADGE="$BADGE $(printf '\033[38;5;%sm[%s]\033[0m' "$LV_COLOR" "$LV_TAG")"
+  fi
 fi
 
 if [ -n "$PREV" ] && [ -n "$BADGE" ]; then

@@ -1,6 +1,6 @@
 # 업데이트 히스토리
 
-written by Ungbin_Oh · created 2026-10-03 · updated 2026-11-02
+written by Ungbin_Oh · created 2026-10-03 · updated 2026-11-15
 
 > **한국어 번역본이다.** 정본은 레포 루트의 `CHANGELOG.md` (영어). 정본이 바뀌면 같은 커밋에서 맞춘다.
 
@@ -11,6 +11,24 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-11-02
 
 **`[Workspace]`** (0.4.2 부터) 는 사용자 파일을 바꿔야 하는 항목이다 — 플러그인은 직접 바꾸지 않고, 업데이트 뒤 비서가 항목마다
 질문 창으로 물어 예라고 할 때만 적용한다.
+
+## 0.4.16 — 2026-11-15
+
+**로그 권고.** 두 플러그인 모두 0.4.16.
+
+- **[공통] `/logviser` — log 저장을 묻는다** (Codex 는 `$logviser`). 일하는 동안 trace 는 쌓이고 log.md 는 "저장해" 할 때만 쓰여서,
+  며칠씩 저장 없이 지나가기 쉽다. 켜 두면 새 UserPromptSubmit 훅(`hooks/logviser.sh`)이 프로젝트마다 log 의 `**Trace:**` 줄에 아직 안 걸린
+  trace 수를 센다 (그 프로젝트 code 의 것만). 임계(8, 또는 log.md frontmatter 의 `logviser: N`)를 넘으면 비서가 요청을 먼저 처리하고 질문 창을
+  띄운다: 무엇을 했는지 (trace 헤더에서) 와 "어떤 판단 · 의도로 진행하셨나요?", 선택지 "지금 log 로 저장" / "스킵". 직접 입력 칸에 적은
+  판단은 항목의 Decision & Reason 이 되고, 쓰기 전에 초안을 보여 준다. 스킵하면 임계만큼 더 쌓인 뒤에 다시 묻는다. `lite` 는 창 대신 답 끝에
+  한 줄. 하루가 끝났다고 하면 ("퇴근" · "오늘 끝" · "wrap up the day" …) log 안 된 trace 가 남은 프로젝트 표를 보여 준다. `status` · `report`
+  는 언제든 그 표, `reset` 은 물어본 기록을 지운다. 기본은 꺼짐. 상태는 `.alfred/logviser` · `.alfred/logviser-seen`
+- **[Claude]** 켜져 있는 동안 상태줄의 `[ALFRED]` 옆에 주황 `[LOGVISER]` 배지가 뜨고, 임계를 넘은 프로젝트를 함께 보여 준다:
+  `[LOGVISER INC 9 · THS 12]`. 워크스페이스 배지 사본 `.alfred/statusline.sh` 는 저절로 바뀌고, 예전 방식의 `~/.claude` 사본은 전처럼 묻는다
+- **[Codex]** Codex 하단 줄에는 배지 자리가 없어 상태를 thread 이름에 넣는다: `[ALFRED] [LOGVISER INC 9] 2026-11-15 #2`
+  (lite 는 `[LOGVISER-lite …]`, 끄면 `[ALFRED] 2026-11-15 #2` 로 돌아감). 훅은 이름과 상태가 다를 때만, `[ALFRED]` 로 시작하는 이름만 바꾼다.
+  Codex 를 공유 daemon 에 붙여 띄우면 (`codex --remote unix://`) 열린 화면에 바로, 아니면 `/resume` 뒤에 보인다. daemon 길에는 세션 이름처럼
+  python3 가 필요하다. Windows 에서는 다른 훅처럼 `hooks/run-windows.ps1` 로 돈다
 
 ## 0.4.15 — 2026-11-02
 

@@ -11,7 +11,7 @@
   <a href="#설치">설치</a> &nbsp;&nbsp; <a href="#새-버전을-받으시려면">새 버전 받기</a> &nbsp;&nbsp; <a href="#제가-드리는-것">제가 드리는 것</a> &nbsp;&nbsp; <a href="#일하는-방식">일하는 방식</a> &nbsp;&nbsp; <a href="#자주-쓰시는-말씀">자주 쓰시는 말씀</a> &nbsp;&nbsp; <a href="#업데이트-히스토리">업데이트 히스토리</a> &nbsp;&nbsp; <a href="README.md">English</a>
 </p>
 
-written by Ungbin_Oh · created 2026-09-26 · updated 2026-10-26
+written by Ungbin_Oh · created 2026-09-26 · updated 2026-11-15
 
 프로젝트 여럿을 동시에 굴리고 계신가요? Alfred 가 하나하나 붙잡아 둡니다. 무엇을 했고, 무엇을 정했고, **왜** 그렇게 정했는지.
 언제 돌아오셔도 멈춘 그 자리에서 이어 가실 수 있습니다.
@@ -334,6 +334,7 @@ codex plugin add alfred-codex@alfred
 | `/alfred-init` | 워크스페이스를 차립니다. 만들어지는 파일은 전부 주인님 것입니다 |
 | `/manual-mode lite\|medium\|full` | 제 손을 묶습니다: 명령과 코드를 주인님께서 직접 치십니다 |
 | `/guide-mode on\|off` | 처음 며칠은 짧은 소개, 그 뒤로 가끔 사용법 팁 하나 (Codex 는 `$guide-mode`) |
+| `/logviser on\|lite\|off` | 로그 권고: 프로젝트에 log 로 안 옮긴 trace 가 임계(8)를 넘으면, 무엇을 했고 어떤 판단이었는지 여쭙고 저장할지 묻습니다 (Codex 는 `$logviser`). Claude Code 에서는 `[ALFRED]` 옆에 주황 `[LOGVISER]` 배지, Codex 에서는 thread 이름에 |
 
 ## 일하는 방식
 
@@ -395,7 +396,8 @@ codex plugin remove alfred-codex@alfred    # Codex
 
 | 버전 | 날짜 | 바뀐 것 |
 |---|---|---|
-| **0.4.15** | 2026-11-02 | Claude: 업데이트 창을 먼저 띄우고, 그 뒤에 부팅 브리핑 전체를 줍니다 |
+| **0.4.16** | 2026-11-15 | 공통: 로그 권고 `/logviser` — log 로 안 옮긴 trace 가 임계를 넘으면 저장할지 묻습니다 |
+| 0.4.15 | 2026-11-02 | Claude: 업데이트 창을 먼저 띄우고, 그 뒤에 부팅 브리핑 전체를 줍니다 |
 | 0.4.14 | 2026-11-02 | 공통: 업데이트 창의 줄마다 어느 버전의 변경인지 버전 숫자를 붙입니다 |
 | 0.4.13 | 2026-11-02 | 공통: "새 버전 있음" 도 질문 창으로 — 무엇이 바뀌는지 보여 주고, 원하면 업데이트 명령 |
 | 0.4.12 | 2026-11-02 | 공통: 업데이트 뒤 첫 세션에서 추가 · 변경된 것을 질문 창으로 알려 줍니다 |

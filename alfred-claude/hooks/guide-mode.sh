@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # written by Ungbin_Oh
 # created : 2026-10-06
-# updated : 2026-10-25
+# updated : 2026-11-15
 #
 # Alfred — guide-mode UserPromptSubmit hook
 #
@@ -64,6 +64,7 @@ Features to draw from:
 - An idea, a passing question, "I'm thinking about …" → Incubator (tracked there, launched to a category when real)
 - "later", "someday", "not now" → it can go into open.md (Incubator's if no project fits)
 - Work or a decision just happened → "save" writes the log after a summary you confirm
+- Traces pile up and the log is rarely saved → the log advisor: /logviser on asks about saving once a project passes a threshold
 - A judgment that sets a project's direction → decision.md, written by interview
 - End of the day, or the day's work is done → "let's wrap up the day" writes the daily timeline
 - Friday–Sunday, or the user looks back on the week or plans the next → "let's write the weekly": the assistant fills in the

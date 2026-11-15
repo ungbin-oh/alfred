@@ -11,7 +11,7 @@
   <a href="#install">Install</a> &nbsp;&nbsp; <a href="#updating">Updating</a> &nbsp;&nbsp; <a href="#what-i-provide">What I provide</a> &nbsp;&nbsp; <a href="#how-i-work">How I work</a> &nbsp;&nbsp; <a href="#things-you-can-say">Things you can say</a> &nbsp;&nbsp; <a href="#update-history">Update history</a> &nbsp;&nbsp; <a href="README_kr.md">한국어</a>
 </p>
 
-written by Ungbin_Oh · created 2026-09-27 · updated 2026-10-26
+written by Ungbin_Oh · created 2026-09-27 · updated 2026-11-15
 
 Juggling several projects at once? Alfred keeps each one on track: what you did, what you decided, and **why**.
 Switch freely and pick up exactly where you left off.
@@ -334,6 +334,7 @@ Your logs and settings stay as they are. When an update needs a change in your o
 | `/alfred-init` | Sets up the workspace. Every file it creates is yours |
 | `/manual-mode lite\|medium\|full` | Ties my hands: you type the commands and code yourself |
 | `/guide-mode on\|off` | A short tour for your first days, then a usage tip now and then (`$guide-mode` in Codex) |
+| `/logviser on\|lite\|off` | Log advisor: once a project's traces not carried into the log pass a threshold (8), I ask whether to save — what was done, and what judgment was behind it (`$logviser` in Codex). In Claude Code an orange `[LOGVISER]` badge follows `[ALFRED]`; in Codex it goes into the thread name |
 
 ## How I work
 
@@ -395,7 +396,8 @@ Both plugins share one version number. Every change is in [CHANGELOG.md](CHANGEL
 
 | Version | Date | What changed |
 |---|---|---|
-| **0.4.15** | 2026-11-02 | Claude: the update window comes first, then the full boot briefing |
+| **0.4.16** | 2026-11-15 | Both: log advisor `/logviser` — asks about saving once a project's traces not in the log pass a threshold |
+| 0.4.15 | 2026-11-02 | Claude: the update window comes first, then the full boot briefing |
 | 0.4.14 | 2026-11-02 | Both: each line of the update windows starts with its version |
 | 0.4.13 | 2026-11-02 | Both: "a newer version is out" is a question window too — what it brings, then the update commands on request |
 | 0.4.12 | 2026-11-02 | Both: the first session after an update shows what was added and changed in a question window |

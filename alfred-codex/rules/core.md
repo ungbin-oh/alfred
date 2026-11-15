@@ -41,6 +41,7 @@ Higher wins. The common rules are the default; wherever the user changed somethi
 ├── .alfred/workspace         workspace marker (delete it and Alfred turns off). Holds the language setting
 ├── .alfred/rules.md          copy of these common rules, kept by the plugin (don't edit)
 ├── .alfred/guide-mode        exists while guide mode is on (/guide-mode)
+├── .alfred/logviser          exists while the log advisor is on (/logviser); .alfred/logviser-seen is its record
 ├── project-logs/Incubator/       the incubator — a project of its own (code INC) and the home of sub-projects not yet launched elsewhere
 ├── project-logs/<category>/<project>/
 │   ├── log.md                decision summary (append-only)
@@ -176,6 +177,7 @@ Higher wins. The common rules are the default; wherever the user changed somethi
 - Mark who decided in log entries: `(user name)` / `(assistant name)` (format in section 7). So that later it shows where the user didn't decide directly
 - `/manual-mode` ties the assistant's hands further (lite / medium / full)
 - `/guide-mode` is for people new to Alfred: a short tour when turned on, then a usage tip now and then (on / off)
+- `/logviser` is the log advisor: once a project has more traces not carried into log.md than its threshold (8, or `logviser: N` in its frontmatter), the assistant asks about saving (on / lite / off / status / report / reset)
 
 ## 6. The shell fills in the time
 

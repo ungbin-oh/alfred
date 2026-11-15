@@ -1,6 +1,6 @@
 # Changelog
 
-written by Ungbin_Oh · created 2026-10-03 · updated 2026-11-02
+written by Ungbin_Oh · created 2026-10-03 · updated 2026-11-15
 
 Newest first. Hashes are commits in this repository. From 0.1.8 on there is one version for the whole repository: both plugins (`alfred` for Claude Code, `alfred-codex` for Codex) carry the same number, and each item is tagged **[Claude]**, **[Codex]** or **[Both]**. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
 
@@ -9,6 +9,29 @@ the assistant offers each such item through the question window and applies it o
 
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
+
+## 0.4.16 — 2026-11-15
+
+**Log advisor.** Both plugins are now 0.4.16.
+
+- **[Both] `/logviser` — asks about saving the log** (`$logviser` in Codex). Traces pile up during work while log.md is written
+  only on "save", so days can go by unsaved. While it's on, a new UserPromptSubmit hook (`hooks/logviser.sh`) counts per project
+  the traces not yet cited on the log's `**Trace:**` lines (only the project's own code). When a project passes its threshold
+  (8, or `logviser: N` in its log.md frontmatter), the assistant does the request first, then opens a question window: what was
+  done (from the trace headers) and "what judgment or intent was behind it?", with "Save to the log now" / "Skip". A judgment
+  typed into the free-text field becomes the entry's Decision & Reason, and the draft is shown before anything is written.
+  After a skip it asks again only after another threshold's worth. `lite` gives one line at the end of the reply instead of a
+  window. When the user says the day is over ("wrap up the day", "done for the day", "퇴근" …), the table of every project with
+  traces not logged is shown. `status` / `report` show that table any time, `reset` clears the record of what was asked. Off by
+  default; state in `.alfred/logviser` and `.alfred/logviser-seen`
+- **[Claude]** While it's on, an orange `[LOGVISER]` badge follows `[ALFRED]` in the statusline, with the projects over their
+  threshold: `[LOGVISER INC 9 · THS 12]`. The workspace badge copy `.alfred/statusline.sh` is refreshed by itself; the older
+  global copy in `~/.claude` is offered as before
+- **[Codex]** The Codex footer has no slot for a badge, so the state goes into the thread name instead:
+  `[ALFRED] [LOGVISER INC 9] 2026-11-15 #2` (`[LOGVISER-lite …]` in lite, back to `[ALFRED] 2026-11-15 #2` when off). The hook
+  renames the thread only when the name and the state differ, and only names that start with `[ALFRED]`. It shows in the open
+  screen at once when Codex runs on the shared daemon (`codex --remote unix://`), otherwise after `/resume`. Needs python3 for
+  the daemon path, like the session name. On Windows the hook runs through `hooks/run-windows.ps1` like the others
 
 ## 0.4.15 — 2026-11-02
 
