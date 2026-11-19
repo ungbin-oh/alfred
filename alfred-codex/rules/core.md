@@ -259,10 +259,21 @@ workspace_repo: ~/path         # optional. Only when code lives outside the mirr
 ## 8. trace — work ledger (written by the assistant)
 
 - Location: `project-logs/<category>/<project>/trace/YYYY-MM-DD.md`. One file per project × day. Created on entering a project
-- **Everything exchanged in the project goes in the trace:** the user's questions and requests, the assistant's answers, attempts, decisions.
-  Append during the work, each time one ends. Never batch it at the end of the session
+- **Keep in the trace only what gets used later — for saving the log, writing the Timeline and finding the grounds again.**
+  Append during the work, each time one of the user's questions or requests, an attempt or a decision ends. Never batch it at the end of the session
   - Why: batching relies on memory, and details vanish as context gets summarized
-- Content: everything, unrefined. Commands run, raw error text, hypotheses tried and why they were ruled out, file:line, commit hashes, the assistant's reasoning, who decided
+- What goes in:
+  - the header line: the user's words as said → the assistant's answer in one line
+  - judgments that were settled, who made them, and the reason the user gave
+  - where the grounds are: file:line, the log · trace numbers consulted
+  - commands run, raw error text, numbers actually measured, commit hashes
+  - what was tried and dropped, with the reason in one line
+- What stays out:
+  - the assistant's reasoning
+  - the body of the assistant's answer written out again — the one-line summary in the header is enough
+  - the working of an estimate — only its conclusion in one line, marked "estimate"
+  - Why: writing everything sent the same content out twice in one reply (the answer and the trace), and when a reply was cut off
+    the trace write was lost with it
 - Frontmatter at top: project / date / summary (one line) / keywords
 - Entry header: `## <code>-trace<N> HH:MM — one-line title` (time from `date`)
 - When creating an output outside the repo (a web page, a shared doc), write its URL right there. Otherwise there's no way to find it

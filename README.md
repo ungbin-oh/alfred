@@ -396,7 +396,8 @@ Both plugins share one version number. Every change is in [CHANGELOG.md](CHANGEL
 
 | Version | Date | What changed |
 |---|---|---|
-| **0.4.16** | 2026-11-15 | Both: log advisor `/logviser` — asks about saving once a project's traces not in the log pass a threshold |
+| **0.4.17** | 2026-11-19 | Both: the trace keeps only what gets used later — the assistant's reasoning and a second copy of its answer stay out |
+| 0.4.16 | 2026-11-15 | Both: log advisor `/logviser` — asks about saving once a project's traces not in the log pass a threshold |
 | 0.4.15 | 2026-11-02 | Claude: the update window comes first, then the full boot briefing |
 | 0.4.14 | 2026-11-02 | Both: each line of the update windows starts with its version |
 | 0.4.13 | 2026-11-02 | Both: "a newer version is out" is a question window too — what it brings, then the update commands on request |

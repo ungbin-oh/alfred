@@ -1,6 +1,6 @@
 # Changelog
 
-written by Ungbin_Oh · created 2026-10-03 · updated 2026-11-15
+written by Ungbin_Oh · created 2026-10-03 · updated 2026-11-19
 
 Newest first. Hashes are commits in this repository. From 0.1.8 on there is one version for the whole repository: both plugins (`alfred` for Claude Code, `alfred-codex` for Codex) carry the same number, and each item is tagged **[Claude]**, **[Codex]** or **[Both]**. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
 
@@ -9,6 +9,18 @@ the assistant offers each such item through the question window and applies it o
 
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
+
+## 0.4.17 — 2026-11-19
+
+**A leaner trace.** Both plugins are now 0.4.17.
+
+- **[Both] The trace keeps only what gets used later** (rules §8) — for saving the log, writing the Timeline and finding the grounds
+  again. Before, the rule was "everything exchanged, unrefined", the assistant's reasoning included. Now an entry holds the header
+  (the user's words → the answer in one line), settled judgments with who made them and the user's reason, where the grounds are
+  (file:line, log · trace numbers), commands, raw errors, measured numbers, commit hashes, and what was tried and dropped. Left
+  out: the assistant's reasoning, the answer's body written out a second time, and the working of an estimate (only the
+  conclusion, marked "estimate"). Writing everything sent the same content out twice in one reply, and a reply cut off midway
+  lost its trace write too. Traces already written stay as they are
 
 ## 0.4.16 — 2026-11-15
 
