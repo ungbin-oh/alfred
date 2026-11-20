@@ -1,6 +1,6 @@
 # Changelog
 
-written by Ungbin_Oh · created 2026-10-03 · updated 2026-11-19
+written by Ungbin_Oh · created 2026-10-03 · updated 2026-11-20
 
 Newest first. Hashes are commits in this repository. From 0.1.8 on there is one version for the whole repository: both plugins (`alfred` for Claude Code, `alfred-codex` for Codex) carry the same number, and each item is tagged **[Claude]**, **[Codex]** or **[Both]**. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
 
@@ -10,11 +10,29 @@ the assistant offers each such item through the question window and applies it o
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
 
+## 0.4.18 — 2026-11-20
+
+**Bug fix: replies blocked as "reasoning extraction" — the answer comes back into the trace.** Both plugins are now 0.4.18.
+
+- **[Both] Fixed: the full answer is attached to the trace by a hook, not written by the assistant** (rules §8). The bug: with
+  the assistant writing its reasoning and its answer into the trace, a reply could be blocked as "reasoning extraction", and the
+  trace write was lost with it. 0.4.17 took those out of the trace — which left the answer itself nowhere in the workspace. Now a
+  Stop hook (`hooks/trace-answer.sh` → `trace-answer.py`) copies the final answer of each turn from the session transcript and
+  puts it right below the trace entry written in that turn, as a folded quote box (`> [!quote]- Full answer · HH:MM`, `답 전문`
+  in Korean workspaces). Only the final answer is copied — no reasoning, no text between tool calls — and every line carries
+  `> `, so a `##` inside the answer is not counted as an entry. The entry is found from the `## <code>-trace<N>` header the
+  session wrote in that turn, so another session's trace is never touched. A turn that wrote no entry goes to the end of the
+  newest trace file of the project last attached to; a session that has not written a trace yet (the boot briefing) attaches
+  nothing. When reading a trace to save the log or write the Timeline, the assistant reads the entries and opens a box only
+  when an entry is not enough. Needs python 3 on PATH — without it nothing is attached and the session goes on. Off switch: a
+  file `.alfred/trace-answer` containing `off`
+- **[Codex]** The same hook reads the Codex rollout file. On Windows it runs through `hooks/run-windows.ps1` like the others
+
 ## 0.4.17 — 2026-11-19
 
-**A leaner trace.** Both plugins are now 0.4.17.
+**Bug fix: replies blocked as "reasoning extraction" — a leaner trace.** Both plugins are now 0.4.17.
 
-- **[Both] The trace keeps only what gets used later** (rules §8) — for saving the log, writing the Timeline and finding the grounds
+- **[Both] Fixed: the trace keeps only what gets used later** (rules §8) — for saving the log, writing the Timeline and finding the grounds
   again. Before, the rule was "everything exchanged, unrefined", the assistant's reasoning included. Now an entry holds the header
   (the user's words → the answer in one line), settled judgments with who made them and the user's reason, where the grounds are
   (file:line, log · trace numbers), commands, raw errors, measured numbers, commit hashes, and what was tried and dropped. Left

@@ -1,6 +1,6 @@
 # Alfred 공통 규약
 
-written by Ungbin_Oh · created 2026-09-26 · updated 2026-11-19
+written by Ungbin_Oh · created 2026-09-26 · updated 2026-11-20
 
 > **한국어 번역본이다.** 정본은 `alfred-claude/rules/core.md` (영어) 이고 Alfred 는 이 파일을 읽지 않는다.
 > 정본이 바뀌면 이 파일도 같은 커밋에서 맞춘다.
@@ -272,6 +272,11 @@ workspace_repo: ~/경로          # 선택. 코드가 미러 경로 밖에 있�
   - 비서 답 본문을 다시 풀어 쓴 것 — 헤더의 한 줄 요약이면 된다
   - 추정 셈의 전개 — 결론 한 줄과 "추정" 표시만 남긴다
   - 왜: 전부 적게 하니 같은 내용이 답과 trace 로 한 응답에 두 번 나갔고, 응답이 중간에 끊기면 trace 쓰기도 같이 끊겼다
+- **답 전문은 훅이 붙인다.** 답이 끝나면 Stop 훅(`hooks/trace-answer.sh`)이 그 턴의 마지막 답을 세션 기록에서 떼어,
+  그 턴에 쓴 trace 항목 바로 아래에 접힌 인용 상자(`> [!quote]- 답 전문 · HH:MM`)로 붙인다
+  - 비서는 답을 trace 에 직접 옮겨 적지 않는다. 항목은 위에 적힌 대로 쓴다
+  - trace 를 읽을 때 (log 저장 · Timeline) 는 항목을 읽고, 인용 상자는 처음엔 건너뛴다. 항목만으로 모자랄 때 상자를 연다
+  - 왜: 가벼워진 trace 에는 답이 남지 않는데, 작업한 것을 잃어버리면 안 된다
 - 상단 frontmatter: project / date / summary(한 줄) / keywords
 - 항목 헤더: `## <code>-trace<N> HH:MM — 한 줄 제목` (시각은 `date`)
 - 레포 밖에 산출물(웹 페이지, 공유 문서 등)을 만들면 그 자리에서 URL 을 적는다. 안 적으면 찾을 길이 없다

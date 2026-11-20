@@ -274,6 +274,13 @@ workspace_repo: ~/path         # optional. Only when code lives outside the mirr
   - the working of an estimate — only its conclusion in one line, marked "estimate"
   - Why: writing everything sent the same content out twice in one reply (the answer and the trace), and when a reply was cut off
     the trace write was lost with it
+- **The answer in full is attached by a hook.** When a reply ends, the Stop hook (`hooks/trace-answer.sh`) copies the final answer of
+  that turn from the session transcript and puts it right below the trace entry written in that turn, as a folded quote box
+  (`> [!quote]- Full answer · HH:MM`)
+  - The assistant never copies its answer into the trace itself. The entry is still written as described above
+  - When reading a trace (to save the log, to write the Timeline), read the entries and skip the quote boxes at first.
+    Open a box only when the entry is not enough
+  - Why: the lean trace no longer holds the answer, and work done must not get lost
 - Frontmatter at top: project / date / summary (one line) / keywords
 - Entry header: `## <code>-trace<N> HH:MM — one-line title` (time from `date`)
 - When creating an output outside the repo (a web page, a shared doc), write its URL right there. Otherwise there's no way to find it

@@ -314,7 +314,7 @@ Your logs and settings stay as they are. When an update needs a change in your o
 
 | File | What it holds |
 |---|---|
-| `trace/` | Everything as it happens: commands, raw errors, hypotheses and why they were ruled out. I write it while we work |
+| `trace/` | Everything as it happens: commands, raw errors, hypotheses and why they were ruled out. I write it while we work, and a hook attaches my full answer under each entry |
 | `log.md` | What was decided and **why**, distilled from the trace when you say save. Each entry notes who decided (you or me) |
 | `decision.md` | Only the judgments that set a project's direction, in your words, measured against the goal you started with. I interview you to write it |
 | `open.md` | Things you want to do but won't start yet. Taking one up or dropping it goes into the log |
@@ -396,7 +396,8 @@ Both plugins share one version number. Every change is in [CHANGELOG.md](CHANGEL
 
 | Version | Date | What changed |
 |---|---|---|
-| **0.4.17** | 2026-11-19 | Both: the trace keeps only what gets used later — the assistant's reasoning and a second copy of its answer stay out |
+| **0.4.18** | 2026-11-20 | Both: bug fix (replies blocked as "reasoning extraction") — a hook now attaches the full answer under its trace entry, so the assistant never writes it twice |
+| 0.4.17 | 2026-11-19 | Both: bug fix (replies blocked as "reasoning extraction") — the trace keeps only what gets used later; the assistant's reasoning and a second copy of its answer stay out |
 | 0.4.16 | 2026-11-15 | Both: log advisor `/logviser` — asks about saving once a project's traces not in the log pass a threshold |
 | 0.4.15 | 2026-11-02 | Claude: the update window comes first, then the full boot briefing |
 | 0.4.14 | 2026-11-02 | Both: each line of the update windows starts with its version |
