@@ -1,6 +1,6 @@
 # 업데이트 히스토리
 
-written by Ungbin_Oh · created 2026-10-03 · updated 2026-11-20
+written by Ungbin_Oh · created 2026-10-03 · updated 2026-11-26
 
 > **한국어 번역본이다.** 정본은 레포 루트의 `CHANGELOG.md` (영어). 정본이 바뀌면 같은 커밋에서 맞춘다.
 
@@ -11,6 +11,22 @@ written by Ungbin_Oh · created 2026-10-03 · updated 2026-11-20
 
 **`[Workspace]`** (0.4.2 부터) 는 사용자 파일을 바꿔야 하는 항목이다 — 플러그인은 직접 바꾸지 않고, 업데이트 뒤 비서가 항목마다
 질문 창으로 물어 예라고 할 때만 적용한다.
+
+## 0.4.19 — 2026-11-26
+
+**`/logviser auto` — log 를 묻지 않고 저장한다.** 두 플러그인 모두 0.4.19.
+
+- **[공통] 새 단계: `/logviser auto`** (Codex 는 `$logviser auto`. 규약 10절). 확인 절차가 번거로운 사람을 위한 단계다.
+  프로젝트에 log.md 로 안 옮긴 trace 가 임계를 넘으면, 비서가 요청을 먼저 처리한 뒤 trace 를 읽어 log 항목을 직접 쓰고
+  (질문 창도 초안도 없다) 답 끝에 무엇을 저장했는지 알린다. auto 를 켠 것이 미리 준 확정이다. log 를 믿을 수 있게 두는 장치:
+  이런 항목은 `**Trace:**` 아래에 `**Auto:** written by logviser auto — not confirmed by the user` 줄을 단다. 결정은 trace 에
+  그 결정과 판단 주체가 적혀 있을 때만 쓰고 이유를 지어내지 않는다 (질의응답만 한 구간은 Problem 과 Result 만). 진행 중인 주제는
+  다음으로 미루되 수가 임계의 두 배에 이르면 쓴다. `next_action` · `objective` · `status` 는 건드리지 않고 open.md · decision.md 는
+  쓰지 않는다. 틀린 auto 항목은 고치지 않고 정정 항목을 덧붙인다. 하루 끝에는 미저장 trace 가 있는 모든 프로젝트의 항목을 쓴다.
+  사용자가 요청한 저장은 지금처럼 초안을 보이고 기다린다. `on` · `lite` 는 그대로다
+- **[Claude]** 상태줄에 `[LOGVISER-auto …]`
+- **[Codex]** thread 이름에 `[LOGVISER-auto …]`. logviser 스킬 수정: 상태 파일 경로가 `.alfred$logviser` 로 적혀 있었다
+  (이름 바꾸기에 같이 걸림) — `.alfred/logviser` 가 맞다
 
 ## 0.4.18 — 2026-11-20
 

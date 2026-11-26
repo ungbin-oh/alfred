@@ -1,6 +1,6 @@
 # Changelog
 
-written by Ungbin_Oh · created 2026-10-03 · updated 2026-11-20
+written by Ungbin_Oh · created 2026-10-03 · updated 2026-11-26
 
 Newest first. Hashes are commits in this repository. From 0.1.8 on there is one version for the whole repository: both plugins (`alfred` for Claude Code, `alfred-codex` for Codex) carry the same number, and each item is tagged **[Claude]**, **[Codex]** or **[Both]**. Korean translation: [`docs/ko/CHANGELOG.md`](docs/ko/CHANGELOG.md).
 
@@ -9,6 +9,24 @@ the assistant offers each such item through the question window and applies it o
 
 **Renumbered (2026-10-06):** 0.2.0–0.2.3 were first published as 0.1.12–0.1.15. Windows support for Codex is a new feature, so the
 minor number goes up from there. Commit messages from that day keep the old numbers.
+
+## 0.4.19 — 2026-11-26
+
+**`/logviser auto` — the log is saved without asking.** Both plugins are now 0.4.19.
+
+- **[Both] New level: `/logviser auto`** (`$logviser auto` in Codex; rules §10). For people who find the confirmation step a
+  chore. Once a project has more traces not carried into log.md than its threshold, the assistant does the request first,
+  then writes the log entries itself from the traces — no question window, no draft — and says what it saved in the last
+  lines of the reply. Turning auto on is the confirmation, given ahead. What keeps the log trustworthy:
+  every such entry carries `**Auto:** written by logviser auto — not confirmed by the user` under `**Trace:**`; a decision is
+  written only when the trace records it and who made it, and no reason is made up (a stretch of plain questions and answers
+  gets Problem and Result only); a topic still in progress waits for the next time, unless the count has reached twice the
+  threshold; `next_action`, `objective` and `status` are not touched, and open.md and decision.md are not written; a wrong
+  auto entry is corrected by appending, not by editing. At the end of the day auto writes the entries for every project
+  with traces not logged. A save the user asks for still shows a draft and waits. `on` and `lite` are unchanged
+- **[Claude]** The status line shows `[LOGVISER-auto …]`
+- **[Codex]** The thread name shows `[LOGVISER-auto …]`. Fixed in the logviser skill: the state-file path read
+  `.alfred$logviser` (a rename had caught it) — it is `.alfred/logviser`
 
 ## 0.4.18 — 2026-11-20
 

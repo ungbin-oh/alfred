@@ -177,7 +177,7 @@ Higher wins. The common rules are the default; wherever the user changed somethi
 - Mark who decided in log entries: `(user name)` / `(assistant name)` (format in section 7). So that later it shows where the user didn't decide directly
 - `/manual-mode` ties the assistant's hands further (lite / medium / full)
 - `/guide-mode` is for people new to Alfred: a short tour when turned on, then a usage tip now and then (on / off)
-- `/logviser` is the log advisor: once a project has more traces not carried into log.md than its threshold (8, or `logviser: N` in its frontmatter), the assistant asks about saving (on / lite / off / status / report / reset)
+- `/logviser` is the log advisor: once a project has more traces not carried into log.md than its threshold (8, or `logviser: N` in its frontmatter), the assistant asks about saving (on / lite / auto / off / status / report / reset). In `auto` it doesn't ask — it writes the entries itself (section 10)
 
 ## 6. The shell fills in the time
 
@@ -309,6 +309,10 @@ workspace_repo: ~/path         # optional. Only when code lives outside the mirr
 2. **Wait for the user to confirm.** No log writes before confirmation
 3. After confirmation, append to the end of log.md + update `updated`, `next_action` in the frontmatter
 4. next_action holds **only what the user said.** Don't invent candidates. If nothing was said, "undecided"
+- **Exception — `/logviser auto`.** While it is on, the log entries its hook asks for are written without steps 1–2: turning auto on
+  is the user's confirmation, given ahead. Such an entry carries the line `**Auto:** written by logviser auto — not confirmed by the user`
+  right under `**Trace:**`, holds only the decisions the trace records (never a made-up reason or intent), and leaves
+  `next_action` as it is. A save the user asks for ("save") still goes through steps 1–4, also while auto is on
 - Commit reference format: `(repo: <hash>)`
 
 ## 11. Daily notes · Weekly

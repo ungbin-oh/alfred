@@ -1,6 +1,6 @@
 # Alfred 공통 규약
 
-written by Ungbin_Oh · created 2026-09-26 · updated 2026-11-20
+written by Ungbin_Oh · created 2026-09-26 · updated 2026-11-26
 
 > **한국어 번역본이다.** 정본은 `alfred-claude/rules/core.md` (영어) 이고 Alfred 는 이 파일을 읽지 않는다.
 > 정본이 바뀌면 이 파일도 같은 커밋에서 맞춘다.
@@ -178,7 +178,7 @@ written by Ungbin_Oh · created 2026-09-26 · updated 2026-11-20
 - 로그 항목에 판단 주체를 적는다: `(사용자 이름)` / `(비서 이름)` (형식은 7절). 나중에 사용자가 직접 판단하지 않은 곳이 어디인지 보이게 하려는 것이다
 - `/manual-mode` 로 손을 더 묶을 수 있다 (lite / medium / full)
 - `/guide-mode` 는 Alfred 가 처음인 사람을 위한 것: 켜면 짧은 소개, 켜져 있는 동안 가끔 사용법 팁 (on / off)
-- `/logviser` 는 로그 권고: 프로젝트에 log.md 로 안 옮긴 trace 가 임계(8, 또는 frontmatter 의 `logviser: N`)를 넘으면 비서가 저장할지 묻는다 (on / lite / off / status / report / reset)
+- `/logviser` 는 로그 권고: 프로젝트에 log.md 로 안 옮긴 trace 가 임계(8, 또는 frontmatter 의 `logviser: N`)를 넘으면 비서가 저장할지 묻는다 (on / lite / auto / off / status / report / reset). `auto` 에서는 묻지 않고 비서가 항목을 직접 쓴다 (10절)
 
 ## 6. 시각은 셸이 채운다
 
@@ -304,6 +304,10 @@ workspace_repo: ~/경로          # 선택. 코드가 미러 경로 밖에 있�
 2. **사용자 확정을 기다린다.** 확정 전 로그 기록 금지
 3. 확정 후 log.md 끝에 append + frontmatter 의 updated, next_action 갱신
 4. next_action 은 **사용자가 말한 것만** 적는다. 후보를 지어내지 않는다. 말이 없으면 "미정"
+- **예외 — `/logviser auto`.** 켜져 있는 동안 그 훅이 쓰라고 한 log 항목은 1~2 단계 없이 쓴다: auto 를 켠 것이 사용자가 미리 준 확정이다.
+  이런 항목은 `**Trace:**` 바로 아래에 `**Auto:** written by logviser auto — not confirmed by the user` 줄을 달고,
+  trace 에 적힌 결정만 담으며 (이유 · 의도를 지어내지 않는다), `next_action` 은 그대로 둔다.
+  사용자가 요청한 저장("저장해")은 auto 가 켜져 있어도 1~4 단계를 그대로 거친다
 - 커밋 참조 형식: `(repo: <hash>)`
 
 ## 11. daily 일기장 · Weekly

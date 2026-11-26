@@ -1,7 +1,7 @@
 #!/bin/bash
 # written by Ungbin_Oh
 # created : 2026-09-26
-# updated : 2026-11-15
+# updated : 2026-11-26
 #
 # Alfred — statusline badge. Prints a sky-blue [ALFRED] only inside an Alfred
 # workspace (.alfred/workspace marker in the session's directory).
@@ -19,7 +19,7 @@
 # (e.g. 114 = green).
 #
 # While logviser is on (.alfred/logviser), an orange [LOGVISER] badge follows, with the projects over their threshold:
-# [LOGVISER INC 9 · THS 12]. Counted the same way as hooks/logviser.sh. Color: LOGVISER_COLOR, default 215.
+# [LOGVISER INC 9 · THS 12] ([LOGVISER-lite …] / [LOGVISER-auto …] for those levels). Counted the same way as hooks/logviser.sh. Color: LOGVISER_COLOR, default 215.
 
 INPUT=$(cat)
 CONF="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
@@ -58,6 +58,7 @@ if [ -n "$BADGE" ] && [ -f "$DIR/.alfred/logviser" ]; then
   case "$LV_COLOR" in ''|*[!0-9]*) LV_COLOR=215 ;; esac
   LV_TAG="LOGVISER"
   [ "$(tr -d '[:space:]' < "$DIR/.alfred/logviser")" = "lite" ] && LV_TAG="LOGVISER-lite"
+  [ "$(tr -d '[:space:]' < "$DIR/.alfred/logviser")" = "auto" ] && LV_TAG="LOGVISER-auto"
   OVER=""
   if [ -d "$DIR/project-logs" ]; then
     OVER=$(find "$DIR/project-logs" -name log.md -not -path '*/Archive/*' 2>/dev/null | sort | while IFS= read -r LOGMD; do

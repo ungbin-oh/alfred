@@ -1,17 +1,47 @@
 # 한국어 번역본 — 정본은 hooks/logviser.sh 의 주입 문구 (영어). 훅은 이 파일을 읽지 않는다.
-# 정본이 바뀌면 이 파일도 같은 커밋에서 맞춘다. updated 2026-11-15
+# 정본이 바뀌면 이 파일도 같은 커밋에서 맞춘다. updated 2026-11-26
 #
 # 사용자에게 보이는 줄(📝 한 줄 · 표 머리)은 워크스페이스 언어를 따른다.
 
 ## logviser 를 부른 턴 (스킬용)
 LOGVISER — 이번 턴 logviser 스킬용 표 (프로젝트마다 log.md 로 아직 안 옮긴 trace).
-이번 턴 전 .alfred/logviser 상태: <on | lite | off>
+이번 턴 전 .alfred/logviser 상태: <on | lite | auto | off>
 <표>
 
 ## 하루 끝 (켜져 있을 때, 프롬프트에 "퇴근" · "오늘 끝" · "하루 마무리" · "wrap up the day" · "done for the day" · "call it a day" 등)
 LOGVISER — 하루 끝. 아래는 trace 를 log.md 로 다 옮기지 않은 프로젝트다.
 **이 답 끝에 표를 그대로 보여 주고, 저장할지 사용자에게 묻는다** (워크스페이스 언어로). 표만 — 무엇을 저장할지 제안하지 않는다.
 <표>
+
+## 하루 끝 — auto
+LOGVISER (auto) — 하루 끝. 아래는 trace 를 log.md 로 다 옮기지 않은 프로젝트다.
+**이 턴에 사용자 요청을 먼저 처리하고, 아래 모든 프로젝트의 log 항목을 직접 쓴다 — 묻지 않고, 진행 중인 주제도 포함해서.**
+- <code>: 미저장 N건 — <code>-trace<a>~<b> (임계 T). log: project-logs/<dir>/log.md · trace 파일: project-logs/<dir>/trace/
+<auto 규칙 (아래 auto 절과 같음)>
+
+## auto
+LOGVISER (auto) — log.md 로 옮기지 않은 trace 가 임계를 넘은 프로젝트가 있다.
+**이 턴에 사용자 요청을 먼저 처리하고, 아래 프로젝트의 log 항목을 직접 쓴다 — 묻지 않고.**
+- <code>: 미저장 N건 — <code>-trace<a>~<b> (임계 T). log: project-logs/<dir>/log.md · trace 파일: project-logs/<dir>/trace/
+
+사용자가 logviser auto 를 켰다 — 이 항목들에 대해 미리 준 확정이다. 그래서 질문 창도, 채팅 초안도, "저장할까요?" 도 없다. 쓰는 법:
+1. 그 범위의 trace 항목을 읽는다 — 헤더와 그 아래 메모. 답 전문 인용 상자(`> [!quote]-`)는 메모로 모자랄 때만 연다.
+2. 주제별로 묶어, 주제마다 log 항목 하나를 log.md 끝에 덧붙인다. 그 log.md 위쪽의 `## 형식` 절을 먼저 읽고, 규약의 항목 형식을 따른다.
+   헤더 시각은 셸(`date`)이 채운다.
+3. `**Trace:**` 줄 바로 아래에 이 줄을 그대로 넣는다. 아무도 확정하지 않은 항목을 사용자가 확정한 항목과 구분하기 위해서다:
+   `**Auto:** written by logviser auto — not confirmed by the user`
+4. 사용자의 의도는 trace 에 적힌 만큼만 넣는다:
+   - 결정은 trace 에 그 결정과 판단 주체가 적혀 있을 때만 Decision & Reason 에 쓴다. 사용자의 이유는 trace 에 적힌 사용자 말 그대로 쓴다
+   - 항목을 채우려고 이유 · 의도 · 결정을 지어내지 않는다. 질의응답만 한 구간에는 Decision & Reason 절이 없다 —
+     Problem (사용자가 묻거나 원한 것, trace 에서) 과 Result 만
+   - 비서가 혼자 고른 것은 사용자가 아니라 비서의 판단으로 표기한다
+5. 아직 진행 중인 주제 — 가장 최근 trace 가 이번 턴 요청이 이어 가는 일에 속할 때 — 는 뺀다: 마지막으로 끝난 주제까지만 쓰고,
+   `**Trace:**` 줄에는 들어간 trace 만 건다. 나머지는 다음에 쓴다. 위에 적힌 수가 임계의 두 배 이상이거나 하루 끝이면 미루지 않고 전부 쓴다.
+6. frontmatter 는 `updated` 만 고친다. `next_action` · `objective` · `status` 는 그대로 둔다 — 사용자의 칸이다.
+   open.md 항목을 닫지 않고, decision.md 항목도 여기서 쓰지 않는다.
+7. 사용자 요청을 먼저 처리한다. 마지막 답은 요청에 대한 답 전체이고, 그 끝에 무엇을 저장했는지 항목마다 한 줄씩 워크스페이스 언어로 쓴다:
+   `📝 <code>: <code>-log<N> 저장 — <제목> (trace a~b, auto)`. 아무것도 쓰지 않았으면 (5번) 그렇다고 한 줄로 쓴다.
+8. 나중에 사용자가 auto 항목이 틀렸다고 하면 그 항목을 고치지 않는다 (log 는 덧붙이기만) — 어느 항목을 정정하는지 밝힌 정정 항목을 덧붙인다.
 
 ## lite
 LOGVISER (lite) — log.md 로 옮기지 않은 trace 가 임계를 넘은 프로젝트가 있다.
